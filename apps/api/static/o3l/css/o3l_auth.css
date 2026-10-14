@@ -1,0 +1,534 @@
+/* ==========================================================================
+   O3L Admin — Authentication screens (login / logged out)
+   Corporate split-screen shell. Self-contained so the auth templates can be
+   rendered without pulling in the full Django admin chrome.
+   ========================================================================== */
+
+:root {
+  --o3l-navy: #0B1D3A;
+  --o3l-navy-2: #12294d;
+  --o3l-blue: #1565C0;
+  --o3l-blue-lt: #1E88E5;
+  --o3l-cyan: #00ACC1;
+  --o3l-teal: #00897B;
+  --o3l-surface: #F6F9FC;
+  --o3l-card: #FFFFFF;
+  --o3l-line: #E3E9F0;
+  --o3l-text: #101828;
+  --o3l-muted: #667085;
+  --o3l-danger: #D92D20;
+  --o3l-danger-bg: #FEF3F2;
+  --o3l-ok: #067647;
+  --o3l-ok-bg: #ECFDF3;
+  --o3l-ring: rgba(21, 101, 192, 0.16);
+  --o3l-shadow-card: 0 24px 60px -18px rgba(11, 29, 58, 0.28);
+  --o3l-shadow-soft: 0 1px 2px rgba(16, 24, 40, 0.05);
+  --o3l-radius: 16px;
+  --o3l-radius-sm: 10px;
+  --o3l-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body.o3l-auth {
+  font-family: var(--o3l-font);
+  color: var(--o3l-text);
+  background: var(--o3l-surface);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.o3l-auth *:focus-visible {
+  outline: 3px solid var(--o3l-ring);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ---------- shell ------------------------------------------------------- */
+
+.o3l-auth__shell {
+  display: grid;
+  grid-template-columns: minmax(380px, 44%) 1fr;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* ---------- brand panel ------------------------------------------------- */
+
+.o3l-auth__brand {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 48px 56px;
+  color: #fff;
+  background:
+    radial-gradient(120% 90% at 12% 8%, rgba(0, 172, 193, 0.34) 0%, transparent 55%),
+    radial-gradient(110% 80% at 88% 92%, rgba(30, 136, 229, 0.30) 0%, transparent 58%),
+    linear-gradient(155deg, var(--o3l-navy) 0%, #123159 48%, #0d4a86 100%);
+}
+
+.o3l-auth__brand::before {
+  content: '';
+  position: absolute;
+  inset: auto 0 -1px 0;
+  height: 46%;
+  background-repeat: repeat-x;
+  background-size: 900px 100%;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 900 200' preserveAspectRatio='none'><path d='M0 120c75-34 150-34 225 0s150 34 225 0 150-34 225 0 150 34 225 0v80H0z' fill='rgba(255,255,255,0.045)'/><path d='M0 150c75-30 150-30 225 0s150 30 225 0 150-30 225 0 150 30 225 0v50H0z' fill='rgba(255,255,255,0.06)'/></svg>");
+  animation: o3lDrift 34s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes o3lDrift {
+  from { background-position: 0 0; }
+  to   { background-position: 900px 0; }
+}
+
+.o3l-auth__brand > * { position: relative; z-index: 1; }
+
+.o3l-auth__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.o3l-auth__logo img {
+  width: 46px;
+  height: 46px;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
+}
+
+/* Landscape lockup logo ships on an opaque white plate, so it only reads
+   correctly on a light surface. Frame it deliberately rather than letting a
+   white rectangle float on the panel. */
+.o3l-auth__plate {
+  display: block;
+  margin: 0 0 26px;
+  padding: 14px 18px;
+  background: #fff;
+  border: 1px solid var(--o3l-line);
+  border-radius: 14px;
+  box-shadow: var(--o3l-shadow-soft);
+  text-align: center;
+}
+
+.o3l-auth__plate img {
+  display: inline-block;
+  width: auto;
+  max-width: 100%;
+  height: 64px;
+}
+
+.o3l-auth__wordmark {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.o3l-auth__wordmark b {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+.o3l-auth__wordmark span {
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.o3l-auth__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.o3l-auth__eyebrow i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #34D399;
+  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.28);
+}
+
+.o3l-auth__headline {
+  margin: 22px 0 14px;
+  max-width: 15ch;
+  font-size: clamp(28px, 3.1vw, 40px);
+  font-weight: 700;
+  line-height: 1.14;
+  letter-spacing: -0.9px;
+}
+
+.o3l-auth__lede {
+  margin: 0;
+  max-width: 46ch;
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.o3l-auth__points {
+  list-style: none;
+  margin: 30px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.o3l-auth__points li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.o3l-auth__points svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  color: #5EEAD4;
+}
+
+.o3l-auth__points b {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.o3l-auth__points span { color: rgba(255, 255, 255, 0.64); }
+
+.o3l-auth__foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.o3l-auth__foot span { display: inline-flex; align-items: center; gap: 7px; }
+
+/* ---------- form panel -------------------------------------------------- */
+
+.o3l-auth__panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 40px;
+  background:
+    radial-gradient(70% 50% at 100% 0%, rgba(21, 101, 192, 0.06) 0%, transparent 60%),
+    var(--o3l-surface);
+}
+
+.o3l-auth__card {
+  width: 100%;
+  max-width: 430px;
+}
+
+.o3l-auth__title {
+  margin: 0 0 8px;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.6px;
+  color: var(--o3l-navy);
+}
+
+.o3l-auth__sub {
+  margin: 0 0 30px;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--o3l-muted);
+}
+
+/* ---------- alerts ------------------------------------------------------ */
+
+.o3l-auth__alert {
+  display: flex;
+  gap: 11px;
+  margin-bottom: 22px;
+  padding: 13px 15px;
+  border-radius: var(--o3l-radius-sm);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.o3l-auth__alert svg { flex: none; width: 18px; height: 18px; margin-top: 1px; }
+
+.o3l-auth__alert--error {
+  background: var(--o3l-danger-bg);
+  border: 1px solid #FECDCA;
+  color: #912018;
+}
+
+.o3l-auth__alert--ok {
+  background: var(--o3l-ok-bg);
+  border: 1px solid #A6F4C5;
+  color: var(--o3l-ok);
+}
+
+.o3l-auth__alert ul { margin: 0; padding-left: 16px; }
+.o3l-auth__alert li { margin: 0 0 2px; }
+
+/* ---------- fields ------------------------------------------------------ */
+
+.o3l-auth__field { margin-bottom: 18px; }
+
+.o3l-auth__label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #344054;
+}
+
+.o3l-auth__control { position: relative; }
+
+.o3l-auth__control > svg {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: #98A2B3;
+  pointer-events: none;
+  transition: color 0.15s ease;
+}
+
+/* Django renders these inputs class-less, so target them structurally. */
+.o3l-auth__control input {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px 0 44px;
+  border: 1px solid var(--o3l-line);
+  border-radius: var(--o3l-radius-sm);
+  background: #fff;
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--o3l-text);
+  box-shadow: var(--o3l-shadow-soft);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.o3l-auth__control input::placeholder { color: #98A2B3; }
+
+.o3l-auth__control input:focus {
+  outline: none;
+  border-color: var(--o3l-blue);
+  box-shadow: 0 0 0 4px var(--o3l-ring);
+}
+
+.o3l-auth__control:focus-within > svg { color: var(--o3l-blue); }
+
+.o3l-auth__control input[type="password"],
+.o3l-auth__control input[type="text"]:has(+ .o3l-auth__toggle) {
+  padding-right: 48px;
+}
+
+.o3l-auth__toggle {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #667085;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.o3l-auth__toggle:hover { background: #F2F4F7; color: #344054; }
+.o3l-auth__toggle svg { width: 18px; height: 18px; }
+
+.o3l-auth__errors {
+  margin: 7px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12.5px;
+  color: var(--o3l-danger);
+}
+
+.o3l-auth__errors li { margin-bottom: 2px; }
+
+/* ---------- button ------------------------------------------------------ */
+
+.o3l-auth__submit {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 50px;
+  border: 0;
+  border-radius: var(--o3l-radius-sm);
+  background: linear-gradient(135deg, var(--o3l-blue) 0%, #0d47a1 55%, #093a86 100%);
+  background-size: 160% 160%;
+  color: #fff;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.1px;
+  cursor: pointer;
+  box-shadow: 0 10px 22px -10px rgba(21, 101, 192, 0.75);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-position 0.3s ease;
+}
+
+.o3l-auth__submit:hover {
+  transform: translateY(-1px);
+  background-position: 100% 50%;
+  box-shadow: 0 14px 28px -10px rgba(21, 101, 192, 0.85);
+}
+
+.o3l-auth__submit:active { transform: translateY(0); }
+
+.o3l-auth__submit svg { width: 18px; height: 18px; }
+
+.o3l-auth__submit[disabled] {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ---------- divider + note --------------------------------------------- */
+
+.o3l-auth__divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 26px 0 18px;
+  color: #98A2B3;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.o3l-auth__divider::before,
+.o3l-auth__divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--o3l-line);
+}
+
+.o3l-auth__note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 13px 15px;
+  border-radius: var(--o3l-radius-sm);
+  background: #EEF4FB;
+  border: 1px solid #D6E4F5;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: #33507A;
+}
+
+.o3l-auth__note svg { flex: none; width: 16px; height: 16px; margin-top: 1px; }
+
+.o3l-auth__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 24px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--o3l-muted);
+  text-decoration: none;
+}
+
+.o3l-auth__back:hover { color: var(--o3l-blue); text-decoration: none; }
+.o3l-auth__back svg { width: 15px; height: 15px; }
+
+/* ---------- logged-out card -------------------------------------------- */
+
+.o3l-auth__done {
+  text-align: center;
+  padding: 8px 0 0;
+}
+
+.o3l-auth__mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 74px;
+  height: 74px;
+  margin-bottom: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ECFDF3, #D1FADF);
+  border: 1px solid #A6F4C5;
+  color: var(--o3l-ok);
+  box-shadow: 0 12px 26px -14px rgba(6, 118, 71, 0.6);
+}
+
+.o3l-auth__mark svg { width: 34px; height: 34px; }
+
+.o3l-auth__done .o3l-auth__title { margin-bottom: 10px; }
+.o3l-auth__done .o3l-auth__sub { margin-bottom: 28px; }
+
+.o3l-auth__meta {
+  margin-top: 26px;
+  font-size: 12.5px;
+  color: var(--o3l-muted);
+}
+
+/* ---------- responsive -------------------------------------------------- */
+
+@media (max-width: 980px) {
+  .o3l-auth__shell { grid-template-columns: 1fr; }
+  .o3l-auth__brand { padding: 34px 28px 30px; gap: 26px; }
+  .o3l-auth__headline { max-width: none; font-size: 27px; margin-top: 18px; }
+  .o3l-auth__points { margin-top: 22px; }
+  .o3l-auth__panel { padding: 36px 22px 48px; align-items: flex-start; }
+  .o3l-auth__card { max-width: 480px; margin: 0 auto; }
+}
+
+@media (max-width: 560px) {
+  .o3l-auth__brand { padding: 26px 20px 24px; }
+  .o3l-auth__lede { font-size: 14px; }
+  .o3l-auth__points li { font-size: 13px; }
+  .o3l-auth__panel { padding: 28px 16px 40px; }
+  .o3l-auth__title { font-size: 24px; }
+  .o3l-auth__row { flex-direction: column; align-items: flex-start; gap: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .o3l-auth__brand::before { animation: none; }
+  .o3l-auth__submit { transition: none; }
+}

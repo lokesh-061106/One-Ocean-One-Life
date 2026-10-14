@@ -1,0 +1,30 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('business-ideas/', views.BusinessIdeaListView.as_view(), name='business_idea_list'),
+    path('business-ideas/create/', views.BusinessIdeaCreateView.as_view(), name='business_idea_create'),
+    path('business-ideas/<uuid:pk>/', views.BusinessIdeaDetailView.as_view(), name='business_idea_detail'),
+    path('business-ideas/<uuid:pk>/update/', views.BusinessIdeaUpdateView.as_view(), name='business_idea_update'),
+    path('business-ideas/<uuid:pk>/delete/', views.BusinessIdeaDeleteView.as_view(), name='business_idea_delete'),
+    path('schemes/', views.GovernmentSchemeListView.as_view(), name='government_scheme_list'),
+    path('schemes/create/', views.GovernmentSchemeCreateView.as_view(), name='government_scheme_create'),
+    path('schemes/<uuid:pk>/', views.GovernmentSchemeDetailView.as_view(), name='government_scheme_detail'),
+    path('schemes/<uuid:pk>/update/', views.GovernmentSchemeUpdateView.as_view(), name='government_scheme_update'),
+    path('schemes/<uuid:pk>/delete/', views.GovernmentSchemeDeleteView.as_view(), name='government_scheme_delete'),
+    path('workshops/', views.WorkshopListView.as_view(), name='workshop_list'),
+    path('workshops/create/', views.WorkshopCreateView.as_view(), name='workshop_create'),
+    path('workshops/<uuid:pk>/', views.WorkshopDetailView.as_view(), name='workshop_detail'),
+    path('workshops/<uuid:pk>/update/', views.WorkshopUpdateView.as_view(), name='workshop_update'),
+    path('workshops/<uuid:pk>/delete/', views.WorkshopDeleteView.as_view(), name='workshop_delete'),
+    path('shg/sections/', views.ShgSectionListView.as_view(), name='shg_section_list'),
+    path('shg/sections/<slug:key>/', views.ShgSectionDetailView.as_view(), name='shg_section_detail'),
+    path('shg/revenue-items/', views.RevenueItemListView.as_view(), name='shg_revenue_item_list'),
+    path('shg/revenue-items/<uuid:pk>/', views.RevenueItemDetailView.as_view(), name='shg_revenue_item_detail'),
+    path('shg/schemes/', views.LoanSchemeListView.as_view(), name='shg_loan_scheme_list'),
+    path('shg/schemes/<uuid:pk>/', views.LoanSchemeDetailView.as_view(), name='shg_loan_scheme_detail'),
+    path('shg/fish-products/', views.FishProductListView.as_view(), name='shg_fish_product_list'),
+    path('shg/fish-products/<uuid:pk>/', views.FishProductDetailView.as_view(), name='shg_fish_product_detail'),
+    path('shg/recipes/', views.RecipeListView.as_view(), name='shg_recipe_list'),
+    path('shg/recipes/<uuid:pk>/', views.RecipeDetailView.as_view(), name='shg_recipe_detail'),
+]

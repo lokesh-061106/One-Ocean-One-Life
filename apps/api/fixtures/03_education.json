@@ -1,0 +1,320 @@
+[
+  {
+    "model": "education.educationcategory",
+    "pk": "66666666-6666-6666-6666-666666666601",
+    "fields": {
+      "name": "Local Knowledge",
+      "name_tamil": "உள்ளூர் அறிவு",
+      "slug": "local-knowledge",
+      "icon": "📖",
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "education.educationcategory",
+    "pk": "66666666-6666-6666-6666-666666666602",
+    "fields": {
+      "name": "Conservation",
+      "name_tamil": "பாதுகாப்பு",
+      "slug": "conservation",
+      "icon": "🛡",
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "education.educationcategory",
+    "pk": "66666666-6666-6666-6666-666666666603",
+    "fields": {
+      "name": "Tutorial",
+      "name_tamil": "பயிற்சி",
+      "slug": "tutorial",
+      "icon": "🔧",
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "education.educationcategory",
+    "pk": "66666666-6666-6666-6666-666666666604",
+    "fields": {
+      "name": "Education",
+      "name_tamil": "கல்வி",
+      "slug": "education",
+      "icon": "🎓",
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "education.educationcategory",
+    "pk": "66666666-6666-6666-6666-666666666605",
+    "fields": {
+      "name": "Experience",
+      "name_tamil": "அனுபவம்",
+      "slug": "experience",
+      "icon": "🌟",
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "education.educationpost",
+    "pk": "77777777-7777-7777-7777-777777777701",
+    "fields": {
+      "author": "11111111-1111-1111-1111-111111111101",
+      "category": "66666666-6666-6666-6666-666666666601",
+      "title": "Traditional Fishing Nets of Nagapattinam",
+      "slug": "traditional-fishing-nets-of-nagapattinam",
+      "content": "<p>For generations, the fishermen of <strong>Nagapattinam</strong> have used specific net designs suited to our coastal waters. The knowledge of which net to cast — and when — is never written down; it travels from father to son along the harbour road.</p><img src=\"/media/education/traditional-fishing-nets.jpg\" alt=\"Traditional fishing nets of Nagapattinam\"><h2>The two nets of our shore</h2><ul><li><strong>Kattumaram valai</strong> — a fine-mesh net for the shallow water close to shore, worked by two men wading out at dawn.</li><li><strong>Guhai valai</strong> — a wider, heavier net taken into deeper water by boat when the current runs strong.</li></ul><h2>Reading the sea before casting</h2><p>Each net demands a different skill set. The elder fishermen read the tide, the colour of the water and the direction of the breeze before deciding what to carry down to the beach. During the monsoon months the guhai valai is preferred, because the stronger current keeps the mouth of the net open.</p><blockquote>When the water turns green and the waves break white, the small net will not hold. Take the guhai out past the second sand bar instead.</blockquote><p>These choices, refined over centuries, are as much a part of our heritage as the boats themselves. Recording them here is our way of making sure the younger generation never has to guess.</p>",
+      "post_type": "story",
+      "village": "33333333-3333-3333-3333-333333333301",
+      "is_verified": true,
+      "reactions_count": 89,
+      "views_count": 1245,
+      "created_at": "2025-08-20T00:00:00Z",
+      "updated_at": "2025-08-20T00:00:00Z",
+      "image": "education/traditional-fishing-nets.jpg"
+    }
+  },
+  {
+    "model": "education.educationpost",
+    "pk": "77777777-7777-7777-7777-777777777702",
+    "fields": {
+      "author": "11111111-1111-1111-1111-111111111102",
+      "category": "66666666-6666-6666-6666-666666666602",
+      "title": "How We Protect Sea Turtles",
+      "slug": "how-we-protect-sea-turtles",
+      "content": "<p>Our community in <strong>Poompuhar</strong> has been protecting nesting sea turtles for over a decade. Every year between November and March, Olive Ridley turtles come ashore to lay their eggs on our beach — and every year our volunteer patrol walks the sand after dark to keep them safe.</p><img src=\"/media/education/sea-turtle-protection.jpg\" alt=\"Community sea turtle protection at Poompuhar\"><h2>What the patrol does</h2><ol><li>Walks the 4 km beach stretch from 8 pm to 3 am during nesting season.</li><li>Locates each nest by the mother's flipper tracks and marks it with bamboo poles and a soft rope circle.</li><li>Stops dogs, stray lights and foot traffic from reaching the nest.</li><li>Stays with the nest until the hatchlings emerge, usually 45–60 days later, and guides them to the water line.</li></ol><h2>Why it matters</h2><p>Before we began, most nests were dug up by dogs or poachers within a week. Today more than <strong>80% of the nests we mark hatch successfully</strong> — up from roughly 30% a decade ago. Villagers now report new nests to us instead of disturbing them, which tells me the whole village has become part of this work.</p><p>If you visit between December and February, come walk with us. Bring a red-light torch only — white light disorients both the mothers and the hatchlings.</p>",
+      "post_type": "story",
+      "village": "33333333-3333-3333-3333-333333333302",
+      "is_verified": true,
+      "reactions_count": 156,
+      "views_count": 2340,
+      "created_at": "2025-08-18T00:00:00Z",
+      "updated_at": "2025-08-18T00:00:00Z",
+      "image": "education/sea-turtle-protection.jpg"
+    }
+  },
+  {
+    "model": "education.educationpost",
+    "pk": "77777777-7777-7777-7777-777777777703",
+    "fields": {
+      "author": "11111111-1111-1111-1111-111111111103",
+      "category": "66666666-6666-6666-6666-666666666603",
+      "title": "Building a Sustainable Fishing Boat",
+      "slug": "building-a-sustainable-fishing-boat",
+      "content": "<p>Traditional boat-building techniques use locally sourced materials and are naturally sustainable. In this tutorial I share the process of building a <strong>vallam</strong> (traditional fishing boat) using the method my grandfather taught me in <strong>Ramanathapuram</strong>.</p><img src=\"/media/education/sustainable-fishing-boat.jpg\" alt=\"Traditional vallam boat under construction\"><h2>Step 1 — Choose the timber</h2><p>Selecting the right wood is the whole battle. <em>Portia tree</em> (Thattampoochi) is ideal for hull planking because it resists water naturally and does not need chemical treatment. Teak is used for the frames where strength matters most.</p><h2>Step 2 — Shape the hull</h2><ul><li>Mark the keel and cut the frames to the curve of the pattern board.</li><li>Steam-bend the planks so they take the hull curve without cracking.</li><li>Fasten plank to frame with brass or stainless fastenings — never plain iron, which rusts and stains the wood.</li></ul><h2>Step 3 — Seal and launch</h2><p>Pay the seams with cotton and pine tar, then give the hull two coats of fish-oil based preservative. A well-built vallam lasts <strong>15–20 years</strong> with ordinary care, and every part of it can be repaired on the beach with hand tools.</p><blockquote>A boat you can repair yourself is a boat you will never abandon.</blockquote>",
+      "post_type": "tutorial",
+      "village": "33333333-3333-3333-3333-333333333303",
+      "is_verified": true,
+      "reactions_count": 67,
+      "views_count": 890,
+      "created_at": "2025-08-15T00:00:00Z",
+      "updated_at": "2025-08-15T00:00:00Z",
+      "image": "education/sustainable-fishing-boat.jpg"
+    }
+  },
+  {
+    "model": "education.educationpost",
+    "pk": "77777777-7777-7777-7777-777777777704",
+    "fields": {
+      "author": "11111111-1111-1111-1111-111111111104",
+      "category": "66666666-6666-6666-6666-666666666604",
+      "title": "Ocean Conservation for Students",
+      "slug": "ocean-conservation-for-students",
+      "content": "<p>This guide introduces marine conservation concepts for school students along the Tamil Nadu coast. It covers marine biodiversity, the threats facing ocean health, and how young people can make a real difference — starting in their own neighbourhood.</p><img src=\"/media/education/ocean-conservation-students.jpg\" alt=\"Ocean conservation lessons for students\"><h2>Module 1 — Why the ocean matters</h2><p>Every second breath we take comes from oxygen produced by marine plankton. Students map the journey of a single drop of water from the Cauvery delta out to the Bay of Bengal, and trace how plastic thrown on one street can reach a turtle in the open sea.</p><h2>Module 2 — Know the species</h2><ul><li>Identify ten common shore birds and five intertidal creatures using only a field notebook.</li><li>Learn the difference between a living coral fragment and a dead one.</li><li>Record one species sighting each week and add it to the class log.</li></ul><h2>Module 3 — Act locally</h2><ol><li><strong>Beach cleanup planning</strong> — count and categorise waste, then present the data to the local council.</li><li><strong>Species identification exercises</strong> — teams compete to log the most verified sightings.</li><li><strong>Community awareness projects</strong> — students design posters in Tamil and English for the harbour market.</li></ol><p>All three modules fit inside a single school term and need nothing more than a notebook, a camera and a stretch of beach.</p>",
+      "post_type": "blog",
+      "village": "33333333-3333-3333-3333-333333333306",
+      "is_verified": true,
+      "reactions_count": 112,
+      "views_count": 1567,
+      "created_at": "2025-08-12T00:00:00Z",
+      "updated_at": "2025-08-12T00:00:00Z",
+      "image": "education/ocean-conservation-students.jpg"
+    }
+  },
+  {
+    "model": "education.educationpost",
+    "pk": "77777777-7777-7777-7777-777777777705",
+    "fields": {
+      "author": "11111111-1111-1111-1111-111111111106",
+      "category": "66666666-6666-6666-6666-666666666605",
+      "title": "Seaweed Farming in Tamil Nadu",
+      "slug": "seaweed-farming-in-tamil-nadu",
+      "content": "<p>Seaweed farming has become an important livelihood for women in our coastal villages. In <strong>Kanyakumari</strong> and Ramanathapuram districts, over 5,000 women are now involved in seaweed cultivation — a trade that needs no boat, no fuel and very little capital.</p><img src=\"/media/education/seaweed-farming.jpg\" alt=\"Seaweed farming lines in Tamil Nadu\"><h2>How a farm works</h2><ul><li><strong>Seed lines</strong> — small seaweed fragments are tied onto rope at 20 cm intervals.</li><li><strong>Floats and anchors</strong> — the rope is stretched between two floating rafts and anchored in 2–4 m of water.</li><li><strong>Harvest</strong> — the cycle takes <strong>45–60 days</strong>; a single farming line produces <strong>25–30 kg</strong> of fresh seaweed per cycle.</li></ul><h2>What I have learned</h2><p>Water temperature decides everything. When the sea warms past 30°C the seedlings grow pale and rot, so we shift the rafts into deeper, cooler water. Women's self-help groups share this knowledge openly, which is why the technique has spread so quickly along our coast.</p><blockquote>My first harvest paid for my daughter's school fees. Now our group of twelve sells together and never has to negotiate alone.</blockquote><p>The dried product goes to food, cosmetics and biofuel buyers in Chennai and Coimbatore. Demand keeps rising, and the sea keeps giving back.</p>",
+      "post_type": "experience",
+      "village": "33333333-3333-3333-3333-333333333305",
+      "is_verified": true,
+      "reactions_count": 84,
+      "views_count": 1120,
+      "created_at": "2025-08-10T00:00:00Z",
+      "updated_at": "2025-08-10T00:00:00Z",
+      "image": "education/seaweed-farming.jpg"
+    }
+  },
+  {
+    "model": "education.educationpost",
+    "pk": "77777777-7777-7777-7777-777777777706",
+    "fields": {
+      "author": "11111111-1111-1111-1111-111111111105",
+      "category": "66666666-6666-6666-6666-666666666601",
+      "title": "Monsoon Fishing Techniques",
+      "slug": "monsoon-fishing-techniques",
+      "content": "<p>The northeast monsoon (October to December) brings unique fishing opportunities to the <strong>Thoothukudi</strong> coast. During this season certain species move closer to shore, and the techniques that work in summer are useless — you must fish the way the monsoon fishes.</p><img src=\"/media/education/monsoon-fishing.jpg\" alt=\"Monsoon fishing off the Tamil Nadu coast\"><h2>Species to target</h2><ul><li><strong>Oil sardine</strong> — follows the plankton bloom close inshore after the first heavy rain.</li><li><strong>Indian mackerel</strong> — schools in the turbid water just beyond the surf line.</li><li><strong>Penaeid shrimps</strong> — best worked with bottom set nets in the river mouths.</li></ul><h2>Reading weather and sea</h2><p>We never launch on a wind that has shifted to the north-east overnight. The old rule still holds: <em>if the gulls come in low and the swell loses its clean edge, the weather has already turned</em>. Radar and the state fisheries bulletin confirm what the birds and the swell are telling us.</p><h2>Working the shorter days</h2><ol><li>Set out before first light and be off the water by early afternoon while the sea is still manageable.</li><li>Use the heavier anchor weight — the monsoon current drags a summer anchor within an hour.</li><li>Dry and repair nets every evening; damp monsoon nets rot fast if they are stacked.</li></ol><p>Monsoon fishing is harder work than summer fishing, but it is also the season that fills the drying yards and pays for the lean months.</p>",
+      "post_type": "knowledge",
+      "village": "33333333-3333-3333-3333-333333333304",
+      "is_verified": true,
+      "reactions_count": 72,
+      "views_count": 980,
+      "created_at": "2025-08-08T00:00:00Z",
+      "updated_at": "2025-08-08T00:00:00Z",
+      "image": "education/monsoon-fishing.jpg"
+    }
+  },
+  {
+    "model": "education.educationpostimage",
+    "pk": "77777777-7777-7777-7777-45792bed4927",
+    "fields": {
+      "post": "77777777-7777-7777-7777-777777777701",
+      "image": "education/gallery/net-mending-dawn.jpg",
+      "caption": "Mending the shore net at dawn",
+      "sort_order": 0,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "education.educationpostimage",
+    "pk": "77777777-7777-7777-7777-f127d50f5734",
+    "fields": {
+      "post": "77777777-7777-7777-7777-777777777701",
+      "image": "education/gallery/cast-net-haul.jpg",
+      "caption": "Hauling the cast net in shallow water",
+      "sort_order": 1,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "education.educationpostimage",
+    "pk": "77777777-7777-7777-7777-3d0cdf9c68cb",
+    "fields": {
+      "post": "77777777-7777-7777-7777-777777777702",
+      "image": "education/gallery/marked-nest-beach.jpg",
+      "caption": "Nest marked with bamboo poles",
+      "sort_order": 0,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "education.educationpostimage",
+    "pk": "77777777-7777-7777-7777-34d638c35e7d",
+    "fields": {
+      "post": "77777777-7777-7777-7777-777777777702",
+      "image": "education/gallery/hatchlings-to-sea.jpg",
+      "caption": "Hatchlings making for the sea",
+      "sort_order": 1,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "education.educationpostimage",
+    "pk": "77777777-7777-7777-7777-8888cc837428",
+    "fields": {
+      "post": "77777777-7777-7777-7777-777777777703",
+      "image": "education/gallery/hull-frames-shaping.jpg",
+      "caption": "Shaping the hull frames",
+      "sort_order": 0,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "education.educationpostimage",
+    "pk": "77777777-7777-7777-7777-4a6ecd02b417",
+    "fields": {
+      "post": "77777777-7777-7777-7777-777777777703",
+      "image": "education/gallery/vallam-launch-day.jpg",
+      "caption": "Launch day for the finished vallam",
+      "sort_order": 1,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "education.educationpostimage",
+    "pk": "77777777-7777-7777-7777-d1ef45cfdedf",
+    "fields": {
+      "post": "77777777-7777-7777-7777-777777777704",
+      "image": "education/gallery/classroom-session.jpg",
+      "caption": "Ocean conservation class in session",
+      "sort_order": 0,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "education.educationpostimage",
+    "pk": "77777777-7777-7777-7777-0662d40b5ed5",
+    "fields": {
+      "post": "77777777-7777-7777-7777-777777777704",
+      "image": "education/gallery/students-beach-cleanup.jpg",
+      "caption": "Students clearing the beach",
+      "sort_order": 1,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "education.educationpostimage",
+    "pk": "77777777-7777-7777-7777-d8e190890359",
+    "fields": {
+      "post": "77777777-7777-7777-7777-777777777705",
+      "image": "education/gallery/seedlings-on-rope.jpg",
+      "caption": "Seedlings tied along the rope lines",
+      "sort_order": 0,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "education.educationpostimage",
+    "pk": "77777777-7777-7777-7777-f0fd25f6b605",
+    "fields": {
+      "post": "77777777-7777-7777-7777-777777777705",
+      "image": "education/gallery/seaweed-drying-yard.jpg",
+      "caption": "Fresh seaweed drying in the yard",
+      "sort_order": 1,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "education.educationpostimage",
+    "pk": "77777777-7777-7777-7777-f8a8376eac9f",
+    "fields": {
+      "post": "77777777-7777-7777-7777-777777777706",
+      "image": "education/gallery/swell-before-storm.jpg",
+      "caption": "Swell building before the storm",
+      "sort_order": 0,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "education.educationpostimage",
+    "pk": "77777777-7777-7777-7777-297c5897ae68",
+    "fields": {
+      "post": "77777777-7777-7777-7777-777777777706",
+      "image": "education/gallery/boats-moored-monsoon.jpg",
+      "caption": "Fleet moored for the monsoon",
+      "sort_order": 1,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  }
+]

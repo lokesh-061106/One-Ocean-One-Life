@@ -1,0 +1,28 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block breadcrumbs %}<div class="breadcrumbs"><a href="{% url 'admin:index' %}">{% trans "Home" %}</a> &rsaquo; <a href="{% url 'admin:app_list' app_label='contributions' %}">Contributions</a> &rsaquo; <a href="{% url 'admin:contributions_pendingcontribution_changelist' %}">Pending Reviews</a> &rsaquo; Reject</div>{% endblock %}
+
+{% block content %}
+<div id="content-main">
+  <h1>Reject contribution</h1>
+
+  <div style="background:#f8f9fa;border:1px solid #ddd;border-radius:6px;padding:16px;margin:16px 0;">
+    <p><strong>Title:</strong> {{ object.title|default:object.get_type_display }}</p>
+    <p><strong>Type:</strong> {{ object.get_type_display }} &nbsp;|&nbsp; <strong>Contributor:</strong> {{ object.author|default:object.user }}</p>
+    {% if object.notes %}<p><strong>Notes:</strong> {{ object.notes|truncatechars:300 }}</p>{% endif %}
+    <p style="color:#DC3545;"><strong>The item will be removed from the public modules and marked as rejected.</strong></p>
+  </div>
+
+  <form method="post">{% csrf_token %}
+    <div style="margin:16px 0;">
+      <label for="id_rejection_reason"><strong>Rejection reason</strong> (optional, shown to the contributor):</label><br>
+      <textarea name="rejection_reason" id="id_rejection_reason" rows="4" cols="80" style="width:100%;margin-top:6px;" placeholder="e.g. Photo unclear, species not identifiable, duplicate entry…"></textarea>
+    </div>
+    <div class="submit-row">
+      <input type="submit" value="Yes, reject this contribution" class="default" style="background:#DC3545;border-color:#DC3545">
+      <a href="{% url 'admin:contributions_pendingcontribution_changelist' %}" class="button cancel-link">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,2486 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O3L - One Ocean One Life | Customer Demo Document</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+:root{--deep-ocean:#063B66;--ocean-blue:#087EA4;--cyan:#14B8C4;--teal:#0F766E;--sea-green:#22C55E;--ocean-light:#E6F7FA;--white:#FFFFFF;--dark-navy:#0B1F33;--gray-50:#F8FAFC;--gray-100:#F1F5F9;--gray-200:#E2E8F0;--gray-300:#CBD5E1;--gray-400:#94A3B8;--gray-500:#64748B;--gray-600:#475569;--gray-700:#334155;--gray-800:#1E293B;--gray-900:#0F172A;--radius:12px;--radius-lg:16px;--radius-xl:24px;--shadow-sm:0 1px 2px rgba(0,0,0,0.05);--shadow:0 1px 3px rgba(0,0,0,0.1),0 1px 2px rgba(0,0,0,0.06);--shadow-md:0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -1px rgba(0,0,0,0.06);--shadow-lg:0 10px 15px -3px rgba(0,0,0,0.1),0 4px 6px -2px rgba(0,0,0,0.05);--shadow-xl:0 20px 25px -5px rgba(0,0,0,0.1),0 10px 10px -5px rgba(0,0,0,0.04);--transition:all 0.3s cubic-bezier(0.4,0,0.2,1)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;scroll-padding-top:190px}body{font-family:"Inter",-apple-system,BlinkMacSystemFont,sans-serif;color:var(--gray-800);line-height:1.6;background:var(--white);overflow-x:hidden}h1,h2,h3,h4,h5,h6{font-family:"Space Grotesk",sans-serif;line-height:1.2;color:var(--dark-navy)}a{color:var(--ocean-blue);text-decoration:none;transition:var(--transition)}a:hover{color:var(--cyan)}img{max-width:100%;height:auto}.container{max-width:1200px;margin:0 auto;padding:0 24px}.section{padding:80px 0}.section-light{background:var(--gray-50)}.section-ocean{background:linear-gradient(135deg,var(--deep-ocean) 0%,var(--ocean-blue) 100%);color:var(--white)}.section-ocean h2,.section-ocean h3,.section-ocean h4{color:var(--white)}.section-title{text-align:center;margin-bottom:60px}.section-title h2{font-size:2.5rem;font-weight:700;margin-bottom:16px}.section-title p{font-size:1.125rem;color:var(--gray-500);max-width:700px;margin:0 auto}.section-title .section-icon{width:56px;height:56px;border-radius:var(--radius);background:var(--ocean-light);display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--ocean-blue)}.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}.reveal.visible{opacity:1;transform:translateY(0)}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}.demo-badge{display:inline-block;padding:2px 8px;border-radius:999px;background:linear-gradient(135deg,#F59E0B,#F97316);color:white;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;vertical-align:middle;margin-left:4px}
+:root{--hdr-h:166px}
+.header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);border-bottom:1px solid transparent;transition:transform 0.35s cubic-bezier(0.4,0,0.2,1),box-shadow 0.3s,border-color 0.3s}.header.hide{transform:translateY(-100%)}.header.scrolled{border-bottom-color:var(--gray-200);box-shadow:var(--shadow)}.header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,var(--ocean-blue),var(--cyan),var(--sea-green))}.header-inner{display:flex;align-items:stretch;height:var(--hdr-h);max-width:100%;margin:0 auto;padding:0;gap:0}
+.brand-zone{display:flex;align-items:center;gap:16px;flex-shrink:0;padding:8px 26px 8px 20px;background:linear-gradient(135deg,var(--deep-ocean) 0%,var(--ocean-blue) 130%);color:#fff;border-right:1px solid rgba(255,255,255,.14);text-decoration:none;min-width:0;transition:var(--transition)}.brand-zone:hover{color:#fff}.logo-card{height:150px;width:auto;object-fit:contain;background:#fff;border-radius:16px;padding:6px;box-shadow:0 8px 24px rgba(3,20,35,.4);transition:transform .25s ease}.brand-zone:hover .logo-card{transform:scale(1.03)}.brand-text{display:flex;flex-direction:column;gap:4px;min-width:0}.brand-name{font-family:"Space Grotesk",sans-serif;font-size:2.1rem;font-weight:700;line-height:1;color:#fff}.brand-sub{font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#a5dcf3}.doc-chip{display:inline-block;width:fit-content;margin-top:6px;font-size:.6rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--deep-ocean);background:rgba(255,255,255,.94);padding:5px 13px;border-radius:999px}
+.header-main{flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;padding:10px 24px;min-width:0}.top-row{display:flex;align-items:center;gap:10px}.demo-pill{display:inline-flex;align-items:center;gap:8px;margin-right:auto;font-size:.7rem;font-weight:800;color:var(--ocean-blue);background:var(--ocean-light);border:1px solid rgba(8,126,164,.25);padding:6px 14px;border-radius:999px;text-transform:uppercase;letter-spacing:.09em;white-space:nowrap}.demo-pill::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--sea-green);box-shadow:0 0 0 3px rgba(34,197,94,.22);animation:pulseDot 1.6s infinite}@keyframes pulseDot{0%,100%{opacity:1}50%{opacity:.4}}.btn-nav{display:inline-flex;align-items:center;gap:7px;padding:8px 17px;border-radius:999px;font-size:.8rem;font-weight:600;color:var(--deep-ocean);background:#fff;border:1.5px solid var(--gray-300);transition:var(--transition);text-decoration:none;white-space:nowrap}.btn-nav:hover{border-color:var(--ocean-blue);color:var(--ocean-blue);background:var(--ocean-light)}
+.header-nav{display:flex;align-items:center;gap:3px 8px;flex-wrap:wrap;justify-content:flex-start;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:2px}.header-nav::-webkit-scrollbar{display:none}.header-nav a{padding:6px 10px;border-radius:8px;font-size:.77rem;font-weight:600;color:var(--gray-600);transition:var(--transition);white-space:nowrap;flex-shrink:0;text-decoration:none}.header-nav a:hover{background:var(--ocean-light);color:var(--ocean-blue)}.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;border-radius:999px;background:linear-gradient(135deg,var(--ocean-blue),var(--cyan));color:white;font-weight:600;font-size:0.9rem;border:none;cursor:pointer;transition:var(--transition);box-shadow:0 4px 14px rgba(8,126,164,0.35)}.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(8,126,164,0.45);color:white}.btn-secondary{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;border-radius:999px;background:var(--white);color:var(--ocean-blue);font-weight:600;font-size:0.9rem;border:2px solid var(--ocean-blue);cursor:pointer;transition:var(--transition)}.btn-secondary:hover{background:var(--ocean-blue);color:white;transform:translateY(-2px)}.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px 8px;margin-left:4px;border-radius:8px;transition:var(--transition)}.hamburger:hover{background:var(--gray-100)}.hamburger span{width:24px;height:2px;background:var(--gray-700);border-radius:2px;transition:var(--transition)}.mobile-nav{display:none;position:fixed;top:var(--hdr-h);left:0;right:0;background:var(--white);border-bottom:1px solid var(--gray-200);box-shadow:var(--shadow-lg);padding:16px 24px;z-index:999;max-height:calc(100vh - var(--hdr-h));overflow-y:auto}.mobile-nav.open{display:block}.mobile-nav a{display:block;padding:12px 16px;border-radius:8px;font-weight:500;color:var(--gray-700);transition:var(--transition)}.mobile-nav a:hover{background:var(--ocean-light);color:var(--ocean-blue)}
+.hero{padding:210px 0 80px;background:linear-gradient(180deg,var(--ocean-light) 0%,var(--white) 100%);position:relative;overflow:hidden}.hero::before{content:"";position:absolute;top:-200px;right:-200px;width:500px;height:500px;background:radial-gradient(circle,rgba(20,184,196,0.1) 0%,transparent 70%);border-radius:50%}.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:999px;background:var(--white);border:1px solid var(--gray-200);font-size:0.85rem;font-weight:500;color:var(--gray-600);margin-bottom:24px;box-shadow:var(--shadow-sm)}.hero h1{font-size:3.5rem;font-weight:800;line-height:1.1;margin-bottom:20px}.hero h1 .gradient-text{background:linear-gradient(135deg,var(--ocean-blue),var(--cyan),var(--sea-green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.hero-subtitle{font-size:1.2rem;color:var(--gray-500);max-width:600px;margin-bottom:32px;line-height:1.7}.hero-actions{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:60px}.hero-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}.hero-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:20px;text-align:center;transition:var(--transition)}.hero-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--cyan)}.hero-card-icon{width:48px;height:48px;border-radius:var(--radius);display:inline-flex;align-items:center;justify-content:center;margin-bottom:12px;color:white}.hero-card h4{font-size:0.85rem;font-weight:600;margin-bottom:4px}.hero-card p{font-size:0.75rem;color:var(--gray-500)}.positioning{padding:60px 0;background:var(--white);border-top:1px solid var(--gray-100);border-bottom:1px solid var(--gray-100)}.positioning h3{text-align:center;font-size:1.8rem;margin-bottom:40px;color:var(--deep-ocean)}.positioning-items{display:flex;justify-content:center;flex-wrap:wrap;gap:24px}.positioning-item{display:flex;align-items:center;gap:10px;padding:12px 20px;background:var(--ocean-light);border-radius:999px;font-weight:600;font-size:0.9rem;color:var(--deep-ocean);transition:var(--transition)}.positioning-item:hover{background:var(--ocean-blue);color:white;transform:translateY(-2px)}.positioning-item i{width:20px;height:20px}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}.cards-grid-2{grid-template-columns:repeat(2,1fr)}.cards-grid-3{grid-template-columns:repeat(3,1fr)}.cards-grid-4{grid-template-columns:repeat(4,1fr)}.card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:28px;transition:var(--transition)}.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--cyan)}.card-icon{width:48px;height:48px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:white}.card-icon.blue{background:linear-gradient(135deg,var(--ocean-blue),var(--cyan))}.card-icon.teal{background:linear-gradient(135deg,var(--teal),var(--sea-green))}.card-icon.navy{background:linear-gradient(135deg,var(--deep-ocean),var(--ocean-blue))}.card-icon.green{background:linear-gradient(135deg,var(--sea-green),#34D399)}.card-icon.orange{background:linear-gradient(135deg,#F59E0B,#F97316)}.card-icon.red{background:linear-gradient(135deg,#EF4444,#F97316)}.card h3{font-size:1.1rem;margin-bottom:8px}.card p{font-size:0.9rem;color:var(--gray-500);line-height:1.6}.problem-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:24px;transition:var(--transition);position:relative;overflow:hidden}.problem-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#EF4444,#F97316)}.problem-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}.problem-card .problem-num{position:absolute;top:16px;right:16px;width:28px;height:28px;border-radius:50%;background:#FEE2E2;color:#DC2626;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700}.problem-card h4{font-size:1rem;margin-bottom:8px;color:var(--dark-navy);padding-right:36px}.problem-card p{font-size:0.85rem;color:var(--gray-500);line-height:1.6}
+.ecosystem{position:relative;max-width:800px;margin:0 auto;padding:60px 0}.ecosystem-hub{width:160px;height:160px;border-radius:50%;background:linear-gradient(135deg,var(--ocean-blue),var(--cyan));display:flex;flex-direction:column;align-items:center;justify-content:center;color:white;margin:0 auto;position:relative;z-index:2;box-shadow:0 0 40px rgba(20,184,196,0.3)}.ecosystem-hub h3{color:white;font-size:1.3rem;font-weight:700}.ecosystem-hub p{color:rgba(255,255,255,0.8);font-size:0.75rem}.ecosystem-branches{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}.ecosystem-branch{text-align:center;padding:20px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);transition:var(--transition)}.ecosystem-branch:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}.ecosystem-branch-icon{width:40px;height:40px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin-bottom:8px;color:white}.ecosystem-branch h4{font-size:0.9rem;margin-bottom:4px}.ecosystem-branch p{font-size:0.8rem;color:var(--gray-500)}.persona-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:24px;text-align:center;transition:var(--transition)}.persona-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--cyan)}.persona-avatar{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:1.5rem;color:white}.persona-card h4{font-size:1rem;margin-bottom:4px}.persona-card .persona-role{font-size:0.8rem;color:var(--gray-500);margin-bottom:12px}.persona-card .persona-uses{font-size:0.75rem;color:var(--ocean-blue);font-weight:500;margin-bottom:8px}.persona-card .persona-value{font-size:0.8rem;color:var(--gray-600);line-height:1.5}
+.mockup-container{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}.mockup-phone{width:280px;margin:0 auto;background:var(--gray-900);border-radius:36px;padding:12px;box-shadow:var(--shadow-xl)}.mockup-phone-screen{background:var(--white);border-radius:28px;overflow:hidden;padding:16px}.mockup-phone-notch{width:120px;height:24px;background:var(--gray-900);border-radius:0 0 16px 16px;margin:-16px auto 16px}.mockup-phone .greeting{font-size:0.9rem;color:var(--gray-700);margin-bottom:4px}.mockup-phone .user-name{font-size:1.1rem;font-weight:700;color:var(--dark-navy);margin-bottom:16px}.mockup-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}.mockup-stat{text-align:center;padding:12px 8px;background:var(--ocean-light);border-radius:var(--radius)}.mockup-stat .stat-value{font-size:1.1rem;font-weight:700;color:var(--ocean-blue)}.mockup-stat .stat-label{font-size:0.65rem;color:var(--gray-500)}.mockup-quick-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:16px}.mockup-action{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--gray-50);border-radius:var(--radius);font-size:0.75rem;font-weight:500;color:var(--gray-700)}.mockup-action i{width:16px;height:16px;color:var(--ocean-blue)}.mockup-bottom-nav{display:flex;justify-content:space-around;padding:12px 0 4px;border-top:1px solid var(--gray-200)}.mockup-bottom-nav span{font-size:0.6rem;color:var(--gray-400);display:flex;flex-direction:column;align-items:center;gap:4px}.mockup-bottom-nav span.active{color:var(--ocean-blue)}.mockup-bottom-nav span i{width:18px;height:18px}.dashboard-mockup{background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-xl)}.dashboard-topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:var(--white);border-bottom:1px solid var(--gray-200)}.dashboard-search{display:flex;align-items:center;gap:8px;padding:8px 16px;background:var(--gray-100);border-radius:8px;font-size:0.85rem;color:var(--gray-400)}.dashboard-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:20px}.dashboard-stat-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:16px}.dashboard-stat-card .stat-value{font-size:1.5rem;font-weight:700;color:var(--dark-navy);font-family:"Space Grotesk",sans-serif}.dashboard-stat-card .stat-label{font-size:0.8rem;color:var(--gray-500)}
+.dashboard-content{display:grid;grid-template-columns:2fr 1fr;gap:16px;padding:0 20px 20px}.dashboard-chart{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:20px;min-height:200px}.dashboard-chart-placeholder{display:flex;align-items:flex-end;gap:8px;height:140px;padding-top:20px}.chart-bar{flex:1;border-radius:4px 4px 0 0;transition:var(--transition)}.dashboard-recent{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:20px}.dashboard-recent h4{font-size:0.9rem;margin-bottom:12px}.recent-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--gray-100)}.recent-item:last-child{border-bottom:none}.recent-item-info{display:flex;align-items:center;gap:10px}.recent-item-avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:0.75rem}.recent-item-name{font-size:0.85rem;font-weight:500}.recent-item-desc{font-size:0.75rem;color:var(--gray-500)}.badge{display:inline-block;padding:2px 10px;border-radius:999px;font-size:0.7rem;font-weight:600}.badge-verified{background:#DCFCE7;color:#16A34A}.badge-pending{background:#FEF3C7;color:#D97706}.badge-review{background:#DBEAFE;color:#2563EB}.badge-active{background:#DCFCE7;color:#16A34A}.workflow{display:flex;gap:16px;margin-bottom:32px;flex-wrap:wrap}.workflow-step{flex:1;min-width:140px;text-align:center;padding:16px 12px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);position:relative}.workflow-step::after{content:"→";position:absolute;right:-12px;top:50%;transform:translateY(-50%);color:var(--gray-400);font-size:1.2rem}.workflow-step:last-child::after{display:none}.workflow-step .step-num{width:28px;height:28px;border-radius:50%;background:var(--ocean-blue);color:white;display:inline-flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;margin-bottom:8px}.workflow-step h4{font-size:0.85rem;margin-bottom:4px}.workflow-step p{font-size:0.75rem;color:var(--gray-500)}.data-table{width:100%;border-collapse:collapse;font-size:0.85rem}.data-table th{text-align:left;padding:12px 16px;background:var(--gray-50);border-bottom:2px solid var(--gray-200);font-weight:600;color:var(--gray-600);font-size:0.8rem;text-transform:uppercase;letter-spacing:0.5px}.data-table td{padding:12px 16px;border-bottom:1px solid var(--gray-100)}.data-table tr:hover td{background:var(--gray-50)}
+.progress-container{margin:24px 0}.progress-bar-bg{width:100%;height:12px;background:var(--gray-200);border-radius:999px;overflow:hidden}.progress-bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--ocean-blue),var(--cyan),var(--sea-green));transition:width 1.5s cubic-bezier(0.4,0,0.2,1)}.progress-label{display:flex;justify-content:space-between;margin-top:8px;font-size:0.85rem;font-weight:600}.member-card{display:flex;gap:16px;padding:20px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);transition:var(--transition)}.member-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}.member-avatar{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:1.1rem;flex-shrink:0}.member-info h4{font-size:1rem;margin-bottom:2px}.member-info .member-role{font-size:0.8rem;color:var(--gray-500);margin-bottom:8px}.member-stats{display:flex;gap:16px}.member-stat{font-size:0.75rem;color:var(--gray-500)}.member-stat strong{color:var(--ocean-blue);font-weight:700}.event-card{display:flex;gap:16px;padding:20px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);transition:var(--transition)}.event-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}.event-icon{width:48px;height:48px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;color:white;flex-shrink:0}.event-info h4{font-size:0.95rem;margin-bottom:4px}.event-info p{font-size:0.8rem;color:var(--gray-500)}.opportunity-card{padding:24px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);transition:var(--transition)}.opportunity-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}.opportunity-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}.opportunity-indicator{padding:2px 8px;border-radius:999px;font-size:0.65rem;font-weight:700}.indicator-investment{background:#FEF3C7;color:#D97706}.indicator-revenue{background:#DCFCE7;color:#16A34A}
+.sos-button{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,#DC2626,#EF4444);color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 32px;cursor:pointer;border:none;font-size:1.5rem;font-weight:800;animation:pulse 2s infinite;box-shadow:0 0 30px rgba(220,38,38,0.4)}@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,0.4)}50%{box-shadow:0 0 0 20px rgba(220,38,38,0)}}.emergency-card{padding:24px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);text-align:center;transition:var(--transition)}.emergency-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:#FCA5A5}.map-placeholder{width:100%;height:400px;background:linear-gradient(135deg,var(--ocean-light) 0%,#CFFAFE 50%,var(--ocean-light) 100%);border-radius:var(--radius-lg);display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px dashed var(--cyan);color:var(--ocean-blue);position:relative;overflow:hidden}.map-placeholder::before{content:"";position:absolute;width:200%;height:200%;background:repeating-linear-gradient(45deg,transparent,transparent 20px,rgba(20,184,196,0.05) 20px,rgba(20,184,196,0.05) 40px);animation:mapMove 20s linear infinite}@keyframes mapMove{from{transform:translate(-50%,-50%)}to{transform:translate(0%,0%)}}.zone-card{padding:24px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);transition:var(--transition)}.zone-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--cyan)}.zone-card .zone-badge{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--ocean-blue);color:white;font-size:0.7rem;font-weight:700;margin-bottom:12px}.zone-card h4{font-size:1rem;margin-bottom:4px}.zone-card .zone-location{font-size:0.8rem;color:var(--gray-500);margin-bottom:8px}.zone-card .zone-districts{font-size:0.8rem;color:var(--gray-600)}.level-card{text-align:center;padding:24px 16px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);transition:var(--transition)}.level-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}.level-icon{width:56px;height:56px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:white;margin-bottom:12px}.level-card h4{font-size:0.95rem;margin-bottom:4px}.level-card p{font-size:0.8rem;color:var(--gray-500)}.year-card{padding:28px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);text-align:center;transition:var(--transition)}.year-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}.year-card .year{font-size:2rem;font-weight:800;font-family:"Space Grotesk",sans-serif;margin-bottom:16px}.year-card .year-metrics{display:flex;flex-direction:column;gap:8px}.year-metric{display:flex;justify-content:space-between;padding:6px 12px;background:var(--gray-50);border-radius:8px;font-size:0.85rem}.year-metric strong{color:var(--ocean-blue)}
+.impact-card{text-align:center;padding:28px 20px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);transition:var(--transition)}.impact-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}.impact-card .impact-value{font-size:2.2rem;font-weight:800;font-family:"Space Grotesk",sans-serif;margin-bottom:4px}.impact-card .impact-label{font-size:0.85rem;color:var(--gray-500)}.privacy-card{display:flex;gap:16px;padding:20px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);transition:var(--transition)}.privacy-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}.privacy-icon{width:40px;height:40px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;color:white;flex-shrink:0}.flow-steps{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}.flow-step{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px;min-width:100px}.flow-step-icon{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white}.flow-step h4{font-size:0.8rem;text-align:center}.flow-arrow{display:flex;align-items:center;color:var(--gray-400);font-size:1.2rem;padding-top:8px}.timeline{position:relative;padding-left:32px}.timeline::before{content:"";position:absolute;left:12px;top:0;bottom:0;width:2px;background:var(--gray-200)}.timeline-item{position:relative;padding-bottom:32px}.timeline-item::before{content:"";position:absolute;left:-26px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--ocean-blue);border:3px solid var(--white);box-shadow:0 0 0 2px var(--ocean-blue)}.timeline-item h4{font-size:1rem;margin-bottom:4px}.timeline-item p{font-size:0.85rem;color:var(--gray-500)}.question-group{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);margin-bottom:12px;overflow:hidden}.question-header{display:flex;align-items:center;gap:12px;padding:16px 20px;cursor:pointer;transition:var(--transition)}.question-header:hover{background:var(--gray-50)}.question-header .q-num{width:32px;height:32px;border-radius:8px;background:var(--ocean-blue);color:white;display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;flex-shrink:0}.question-header h4{font-size:0.95rem;flex:1}.question-header i{color:var(--gray-400);transition:var(--transition)}.question-group.open .question-header i{transform:rotate(180deg)}.question-body{display:none;padding:0 20px 16px 64px}.question-group.open .question-body{display:block}.question-body ul{list-style:none;padding:0}.question-body li{padding:6px 0;font-size:0.85rem;color:var(--gray-600);display:flex;align-items:flex-start;gap:8px}.question-body li::before{content:"•";color:var(--ocean-blue);font-weight:700}
+.checklist-item{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);margin-bottom:8px;transition:var(--transition)}.checklist-item:hover{border-color:var(--cyan)}.checklist-item input[type="checkbox"]{width:20px;height:20px;accent-color:var(--ocean-blue);flex-shrink:0}.checklist-item label{font-size:0.9rem;cursor:pointer}.cta-section{padding:80px 0;text-align:center;background:linear-gradient(135deg,var(--deep-ocean) 0%,var(--ocean-blue) 50%,var(--cyan) 100%);color:var(--white)}.cta-section h2{color:var(--white);font-size:2.5rem;margin-bottom:16px}.cta-section p{font-size:1.1rem;opacity:0.9;max-width:600px;margin:0 auto 32px}.cta-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}.btn-white{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:999px;background:var(--white);color:var(--ocean-blue);font-weight:600;font-size:0.95rem;border:none;cursor:pointer;transition:var(--transition);box-shadow:var(--shadow-lg)}.btn-white:hover{transform:translateY(-2px);box-shadow:var(--shadow-xl);color:var(--ocean-blue)}.btn-outline-white{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:999px;background:transparent;color:var(--white);font-weight:600;font-size:0.95rem;border:2px solid rgba(255,255,255,0.4);cursor:pointer;transition:var(--transition)}.btn-outline-white:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.8);color:white}.footer{padding:48px 0 24px;background:var(--dark-navy);color:var(--gray-400)}.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}.footer-brand h3{color:var(--white);font-size:1.3rem;margin-bottom:8px}.footer-brand p{font-size:0.9rem;line-height:1.6}.footer-links h4{color:var(--white);font-size:0.9rem;margin-bottom:16px}.footer-links a{display:block;color:var(--gray-400);font-size:0.85rem;padding:4px 0;transition:var(--transition)}.footer-links a:hover{color:var(--cyan)}.footer-bottom{padding-top:24px;border-top:1px solid rgba(255,255,255,0.1);text-align:center;font-size:0.8rem}.back-to-top{position:fixed;bottom:24px;right:24px;z-index:999;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--ocean-blue),var(--cyan));color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(8,126,164,0.4);cursor:pointer;border:none;opacity:0;visibility:hidden;transform:translateY(16px);transition:var(--transition)}.back-to-top.visible{opacity:1;visibility:visible;transform:translateY(0)}.back-to-top:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(8,126,164,0.5);color:#fff}
+.comparison-box{background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:24px;margin-top:24px}.comparison-box h4{font-size:1rem;margin-bottom:12px;color:var(--deep-ocean)}.comparison-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.comparison-col h5{font-size:0.85rem;margin-bottom:8px;color:var(--ocean-blue)}.comparison-col ul{list-style:none;padding:0}.comparison-col li{font-size:0.8rem;color:var(--gray-600);padding:4px 0}.offline-columns{display:grid;grid-template-columns:1fr 1fr;gap:24px}.offline-col{padding:24px;border-radius:var(--radius-lg)}.offline-col.available{background:#F0FDF4;border:1px solid #BBF7D0}.offline-col.network{background:#FEF3C7;border:1px solid #FDE68A}.offline-col h4{margin-bottom:12px}.offline-col li{font-size:0.85rem;padding:6px 0;color:var(--gray-700)}.layer-options{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}.layer-option{display:flex;align-items:center;gap:8px;padding:8px 16px;background:var(--white);border:1px solid var(--gray-200);border-radius:999px;font-size:0.8rem;font-weight:500;color:var(--gray-700);transition:var(--transition);cursor:pointer}.layer-option:hover{background:var(--ocean-light);border-color:var(--cyan)}.layer-dot{width:8px;height:8px;border-radius:50%}.category-card{padding:24px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);text-align:center;transition:var(--transition)}.category-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--cyan)}.category-card i{width:32px;height:32px;color:var(--ocean-blue);margin-bottom:12px}.category-card h4{font-size:0.95rem;margin-bottom:4px}.category-card p{font-size:0.8rem;color:var(--gray-500)}.note-box{padding:16px 20px;background:var(--ocean-light);border-left:4px solid var(--ocean-blue);border-radius:0 var(--radius) var(--radius) 0;margin-top:24px}.note-box p{font-size:0.85rem;color:var(--gray-700);line-height:1.6}.species-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.species-tag{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--ocean-light);border-radius:999px;font-size:0.8rem;font-weight:500;color:var(--ocean-blue)}.highlight-box{background:linear-gradient(135deg,var(--ocean-light) 0%,#CFFAFE 100%);border:1px solid var(--cyan);border-radius:var(--radius-lg);padding:24px;text-align:center;margin-top:24px}.highlight-box p{font-size:0.95rem;font-weight:600;color:var(--deep-ocean)}.features-list{list-style:none;padding:0}.features-list li{display:flex;align-items:flex-start;gap:10px;padding:8px 0;font-size:0.9rem;color:var(--gray-700)}.features-list li i{width:20px;height:20px;color:var(--sea-green);flex-shrink:0;margin-top:2px}
+.research-feature{display:flex;gap:16px;padding:20px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);transition:var(--transition)}.research-feature:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}.research-icon{width:48px;height:48px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;color:white;flex-shrink:0}.verification-item{display:flex;align-items:center;gap:16px;padding:16px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);margin-bottom:8px}.verification-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;flex-shrink:0}.value-card{padding:24px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);transition:var(--transition)}.value-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}.value-card h4{font-size:1rem;margin-bottom:8px;display:flex;align-items:center;gap:8px}.value-card p{font-size:0.85rem;color:var(--gray-500);line-height:1.6}.pilot-card{padding:28px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg)}.pilot-card h4{font-size:1.1rem;margin-bottom:12px;display:flex;align-items:center;gap:8px}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}.widget-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.widget-card{padding:20px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);transition:var(--transition)}.widget-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}.widget-card h4{font-size:0.85rem;margin-bottom:8px;display:flex;align-items:center;gap:8px}.widget-card p{font-size:0.8rem;color:var(--gray-500)}.stakeholder-flow{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}.stakeholder-col h4{text-align:center;font-size:1rem;margin-bottom:16px;color:var(--ocean-blue)}.stakeholder-item{padding:12px 16px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);margin-bottom:8px;font-size:0.85rem;text-align:center;transition:var(--transition)}.stakeholder-item:hover{border-color:var(--cyan);transform:translateY(-1px)}@media(max-width:1024px){.hero h1{font-size:2.5rem}.hero-cards{grid-template-columns:repeat(3,1fr)}.cards-grid-4{grid-template-columns:repeat(2,1fr)}.dashboard-stats{grid-template-columns:repeat(2,1fr)}.dashboard-content{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr 1fr}.mockup-container{grid-template-columns:1fr}}@media(max-width:768px){.section{padding:60px 0}.section-title h2{font-size:1.8rem}.header-nav{display:none}.hamburger{display:flex}.hero{padding:120px 0 60px}.hero h1{font-size:2rem}.hero-subtitle{font-size:1rem}.hero-cards{grid-template-columns:repeat(2,1fr)}.cards-grid{grid-template-columns:1fr}.cards-grid-2,.cards-grid-3,.cards-grid-4{grid-template-columns:1fr}.ecosystem-branches{grid-template-columns:repeat(2,1fr)}.positioning-items{flex-direction:column;align-items:center}.workflow{flex-direction:column}.workflow-step::after{display:none}.comparison-grid{grid-template-columns:1fr}.offline-columns{grid-template-columns:1fr}.cta-section h2{font-size:1.8rem}.footer-inner{grid-template-columns:1fr}.dashboard-stats{grid-template-columns:1fr}.mockup-container{gap:30px}.flow-steps{flex-direction:column;align-items:center}.flow-arrow{transform:rotate(90deg)}.widget-grid{grid-template-columns:repeat(2,1fr)}.two-col{grid-template-columns:1fr}.stakeholder-flow{grid-template-columns:1fr}}@media(max-width:480px){.container{padding:0 16px}.hero h1{font-size:1.6rem}.hero-cards{grid-template-columns:1fr}.mockup-phone{width:240px}.section-title{margin-bottom:40px}.widget-grid{grid-template-columns:1fr}}@media print{.header,.back-to-top,.hamburger,.mobile-nav{display:none!important}body{font-size:11pt;color:#000;background:#fff}.section{padding:20px 0;page-break-inside:avoid}.card,.problem-card,.persona-card{border:1px solid #ddd;box-shadow:none;page-break-inside:avoid}.hero{padding:20px 0}.cta-section{background:#f0f0f0!important;color:#000!important}.cta-section h2,.cta-section p{color:#000!important}a{color:#000;text-decoration:underline}.demo-badge{border:1px solid #F59E0B}}
+/* Header responsive */
+@media(max-width:1024px){:root{--hdr-h:92px}.header-nav{display:none!important}.hamburger{display:flex!important}.brand-zone{padding:6px 16px 6px 14px;gap:12px}.logo-card{height:68px;border-radius:12px;padding:4px}.brand-name{font-size:1.35rem}.brand-sub{font-size:.62rem;letter-spacing:.1em}.doc-chip{display:none}.header-main{padding:8px 16px;flex-direction:row;align-items:center;justify-content:flex-end}.demo-pill{display:none}.hero{padding:122px 0 60px}}
+@media(max-width:640px){.btn-nav{display:none}.brand-sub{display:none}.brand-name{font-size:1.15rem}.logo-card{height:56px}}
+/* Print styles */
+@media print{.header,.floating-demo,.back-to-top,.mobile-nav,.hamburger{display:none!important}.section{padding:40px 0!important}}</style></head>
+<body>
+<header class="header" id="header">
+<div class="header-inner">
+<a href="#overview" class="brand-zone">
+<img src="O3L-logo.png" alt="O3L - One Ocean One Life" class="logo-card" width="225" height="150">
+<span class="brand-text">
+<span class="brand-name">O3L</span>
+<span class="brand-sub">One Ocean One Life</span>
+<span class="doc-chip">Customer Demo Document</span>
+</span>
+</a>
+<div class="header-main">
+<div class="top-row">
+<span class="demo-pill">Interactive Demo Walkthrough</span>
+<a href="technical-document.html" class="btn-nav">Technical Docs</a>
+<a href="#cta" class="btn-primary">Request a Demo</a>
+<button class="hamburger" id="hamburger" aria-label="Toggle mobile menu">
+<span></span><span></span><span></span>
+</button>
+</div>
+<nav class="header-nav" aria-label="Main navigation">
+<a href="#overview">Overview</a>
+<a href="#problem">Problem</a>
+<a href="#solution">Solution</a>
+<a href="#mobile-app">Mobile App</a>
+<a href="#web-platform">Web Platform</a>
+<a href="#ocean-sound">Ocean Sound</a>
+<a href="#sightings">Sightings</a>
+<a href="#contributions-pipeline">Contributions</a>
+<a href="#cleanups">Cleanups</a>
+<a href="#community">Community</a>
+<a href="#economy">Economy</a>
+<a href="#ecotourism">Ecotourism</a>
+<a href="#recognition">Recognition</a>
+<a href="#emergency">Emergency</a>
+<a href="#research">Research</a>
+<a href="#implementation">Implementation</a>
+</nav>
+</div>
+</div>
+</header>
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+<a href="#overview" onclick="closeMobileNav()">Overview</a>
+<a href="#problem" onclick="closeMobileNav()">Problem</a>
+<a href="#solution" onclick="closeMobileNav()">Solution</a>
+<a href="#mobile-app" onclick="closeMobileNav()">Mobile App</a>
+<a href="#web-platform" onclick="closeMobileNav()">Web Platform</a>
+<a href="#ocean-sound" onclick="closeMobileNav()">Ocean Sound</a>
+<a href="#sightings" onclick="closeMobileNav()">Sightings</a>
+<a href="#contributions-pipeline" onclick="closeMobileNav()">Contributions</a>
+<a href="#cleanups" onclick="closeMobileNav()">Cleanups</a>
+<a href="#community" onclick="closeMobileNav()">Community</a>
+<a href="#economy" onclick="closeMobileNav()">Economy</a>
+<a href="#ecotourism" onclick="closeMobileNav()">Ecotourism</a>
+<a href="#recognition" onclick="closeMobileNav()">Recognition</a>
+<a href="#emergency" onclick="closeMobileNav()">Emergency</a>
+<a href="#research" onclick="closeMobileNav()">Research</a>
+<a href="#implementation" onclick="closeMobileNav()">Implementation</a>
+</nav>
+<section class="hero" id="overview">
+<div class="container">
+<div class="reveal">
+<span class="hero-badge">O3L Platform &mdash; Customer Demo <span class="demo-badge">Demo</span></span>
+<h1>O3L &mdash; One Ocean<br><span class="gradient-text">One Life</span></h1>
+<p class="hero-subtitle">Connecting coastal communities, marine ecosystems, and sustainable livelihoods through a unified digital platform that transforms how we observe, protect, and benefit from our oceans.</p>
+<div class="hero-actions">
+<a href="#solution" class="btn-primary"><i data-lucide="compass"></i> Explore O3L</a>
+<a href="#cta" class="btn-secondary"><i data-lucide="play-circle"></i> Request a Demo</a>
+</div>
+</div>
+<div class="hero-cards reveal">
+<div class="hero-card">
+<div class="hero-card-icon" style="background:linear-gradient(135deg,var(--ocean-blue),var(--cyan))"><i data-lucide="binoculars"></i></div>
+<h4>Marine Observations</h4>
+<p>Real-time wildlife tracking</p>
+</div>
+<div class="hero-card">
+<div class="hero-card-icon" style="background:linear-gradient(135deg,var(--teal),var(--sea-green))"><i data-lucide="users"></i></div>
+<h4>Community</h4>
+<p>Coastal contributor network</p>
+</div>
+<div class="hero-card">
+<div class="hero-card-icon" style="background:linear-gradient(135deg,var(--deep-ocean),var(--ocean-blue))"><i data-lucide="audio-lines"></i></div>
+<h4>Ocean Sound</h4>
+<p>Underwater acoustics</p>
+</div>
+<div class="hero-card">
+<div class="hero-card-icon" style="background:linear-gradient(135deg,#F59E0B,#F97316)"><i data-lucide="map-pin"></i></div>
+<h4>Ecotourism</h4>
+<p>Sustainable coastal travel</p>
+</div>
+<div class="hero-card">
+<div class="hero-card-icon" style="background:linear-gradient(135deg,#8B5CF6,#A78BFA)"><i data-lucide="trending-up"></i></div>
+<h4>Blue Economy</h4>
+<p>Circular livelihoods</p>
+</div>
+</div>
+</div>
+</section>
+<section class="positioning reveal">
+<div class="container">
+<h3>One Ocean. One Community. One Connected Platform.</h3>
+<div class="positioning-items">
+<div class="positioning-item"><i data-lucide="heart"></i> People</div>
+<div class="positioning-item"><i data-lucide="waves"></i> Ocean</div>
+<div class="positioning-item"><i data-lucide="book-open"></i> Knowledge</div>
+<div class="positioning-item"><i data-lucide="flask-conical"></i> Research</div>
+<div class="positioning-item"><i data-lucide="briefcase"></i> Livelihood</div>
+<div class="positioning-item"><i data-lucide="shield-check"></i> Conservation</div>
+</div>
+</div>
+</section>
+<section class="section section-light" id="problem">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="alert-triangle"></i></div>
+<h2>The Problem</h2>
+<p>Coastal communities face fragmented systems that fail to connect people, knowledge, and ocean resources into a unified ecosystem.</p>
+</div>
+<div class="cards-grid cards-grid-3 reveal">
+<div class="problem-card">
+<span class="problem-num">1</span>
+<h4>Fragmented Knowledge</h4>
+<p>Ocean information is scattered across disconnected sources with no single platform linking communities to marine data.</p>
+</div>
+<div class="problem-card">
+<span class="problem-num">2</span>
+<h4>Lost Observations</h4>
+<p>Critical marine sightings go unrecorded because there is no simple, accessible tool for fishermen and coastal residents.</p>
+</div>
+<div class="problem-card">
+<span class="problem-num">3</span>
+<h4>Difficult Data Collection</h4>
+<p>Researchers struggle to gather real-time, ground-truth coastal data from the people who know the ocean best.</p>
+</div>
+<div class="problem-card">
+<span class="problem-num">4</span>
+<h4>Expensive Research</h4>
+<p>Marine research costs remain high without community-sourced observation networks and shared data infrastructure.</p>
+</div>
+<div class="problem-card">
+<span class="problem-num">5</span>
+<h4>Limited Livelihoods</h4>
+<p>Fishing communities lack access to markets, fair pricing tools, and economic opportunities beyond traditional catch.</p>
+</div>
+<div class="problem-card">
+<span class="problem-num">6</span>
+<h4>Underdeveloped Tourism</h4>
+<p>Coastal ecotourism potential remains untapped due to lack of organized platforms connecting visitors with local experiences.</p>
+</div>
+<div class="problem-card">
+<span class="problem-num">7</span>
+<h4>Emergency Gaps</h4>
+<p>Coastal emergencies lack a fast, localized response system with direct access to community volunteers and rescue teams.</p>
+</div>
+<div class="problem-card">
+<span class="problem-num">8</span>
+<h4>Unrecognized Contributions</h4>
+<p>Volunteer work, conservation efforts, and community participation often go unrecognized, reducing long-term engagement.</p>
+</div>
+<div class="problem-card">
+<span class="problem-num">9</span>
+<h4>Single-Focus Platforms</h4>
+<p>Existing apps focus on one feature only &mdash; research OR tourism OR community &mdash; never a connected coastal ecosystem.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="section section-ocean" id="solution">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon" style="background:rgba(255,255,255,0.15)"><i data-lucide="lightbulb"></i></div>
+<h2>The O3L Solution</h2>
+<p>A connected coastal community ecosystem that unites learning, observation, connection, livelihood, protection, and recognition.</p>
+</div>
+<div class="ecosystem reveal">
+<div class="ecosystem-hub">
+<h3>O3L</h3>
+<p>Connected Ecosystem</p>
+</div>
+<div class="ecosystem-branches">
+<div class="ecosystem-branch">
+<div class="ecosystem-branch-icon" style="background:linear-gradient(135deg,#8B5CF6,#A78BFA)"><i data-lucide="book-open"></i></div>
+<h4>Learn</h4>
+<p>Marine guides, education, local knowledge</p>
+</div>
+<div class="ecosystem-branch">
+<div class="ecosystem-branch-icon" style="background:linear-gradient(135deg,var(--ocean-blue),var(--cyan))"><i data-lucide="eye"></i></div>
+<h4>Observe</h4>
+<p>Sightings, ocean sound, data collection</p>
+</div>
+<div class="ecosystem-branch">
+<div class="ecosystem-branch-icon" style="background:linear-gradient(135deg,var(--teal),var(--sea-green))"><i data-lucide="users"></i></div>
+<h4>Connect</h4>
+<p>Community, events, social engagement</p>
+</div>
+<div class="ecosystem-branch">
+<div class="ecosystem-branch-icon" style="background:linear-gradient(135deg,#F59E0B,#F97316)"><i data-lucide="wallet"></i></div>
+<h4>Earn</h4>
+<p>Marketplace, circular economy, ecotourism</p>
+</div>
+<div class="ecosystem-branch">
+<div class="ecosystem-branch-icon" style="background:linear-gradient(135deg,#EF4444,#F97316)"><i data-lucide="shield"></i></div>
+<h4>Protect</h4>
+<p>Emergency, ocean map, conservation</p>
+</div>
+<div class="ecosystem-branch">
+<div class="ecosystem-branch-icon" style="background:linear-gradient(135deg,#EC4899,#F472B6)"><i data-lucide="award"></i></div>
+<h4>Recognize</h4>
+<p>Levels, evaluation, community impact</p>
+</div>
+</div>
+</div>
+<div class="highlight-box reveal">
+<p>O3L is not simply an information application. It is a connected coastal community ecosystem.</p>
+</div>
+</div>
+</section>
+<section class="section section-light" id="who-uses">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="users"></i></div>
+<h2>Who Uses O3L</h2>
+<p>A platform designed for every stakeholder in the coastal ecosystem &mdash; from fishermen to government agencies.</p>
+</div>
+<div class="cards-grid cards-grid-4 reveal">
+<div class="persona-card">
+<div class="persona-avatar" style="background:linear-gradient(135deg,var(--ocean-blue),var(--cyan))"><i data-lucide="anchor"></i></div>
+<h4>Fishermen</h4>
+<p class="persona-role">Primary Contributors</p>
+<p class="persona-uses">Mobile App &bull; Marketplace &bull; Emergency</p>
+<p class="persona-value">Record sightings, access fair markets, and get emergency help instantly.</p>
+</div>
+<div class="persona-card">
+<div class="persona-avatar" style="background:linear-gradient(135deg,#EC4899,#F472B6)"><i data-lucide="heart-handshake"></i></div>
+<h4>Fisher Families</h4>
+<p class="persona-role">Household Support</p>
+<p class="persona-uses">Education &bull; Safety &bull; Recognition</p>
+<p class="persona-value">Learn marine skills, track family safety, and earn recognition together.</p>
+</div>
+<div class="persona-card">
+<div class="persona-avatar" style="background:linear-gradient(135deg,var(--teal),var(--sea-green))"><i data-lucide="users"></i></div>
+<h4>Community Members</h4>
+<p class="persona-role">Local Participants</p>
+<p class="persona-uses">Events &bull; Guides &bull; Contribution</p>
+<p class="persona-value">Participate in cleanups, learn ocean knowledge, and build community impact.</p>
+</div>
+<div class="persona-card">
+<div class="persona-avatar" style="background:linear-gradient(135deg,#8B5CF6,#A78BFA)"><i data-lucide="building-2"></i></div>
+<h4>NGOs</h4>
+<p class="persona-role">Conservation Partners</p>
+<p class="persona-uses">Web Platform &bull; Research &bull; Events</p>
+<p class="persona-value">Organize programs, verify data, and track conservation outcomes at scale.</p>
+</div>
+<div class="persona-card">
+<div class="persona-avatar" style="background:linear-gradient(135deg,#F59E0B,#F97316)"><i data-lucide="flask-conical"></i></div>
+<h4>Marine Researchers</h4>
+<p class="persona-role">Data Consumers</p>
+<p class="persona-uses">Web Dashboard &bull; Ocean Sound &bull; Sightings</p>
+<p class="persona-value">Access verified community-sourced data for research and publications.</p>
+</div>
+<div class="persona-card">
+<div class="persona-avatar" style="background:linear-gradient(135deg,#06B6D4,#22D3EE)"><i data-lucide="graduation-cap"></i></div>
+<h4>Universities</h4>
+<p class="persona-role">Academic Partners</p>
+<p class="persona-uses">Research Data &bull; Student Programs</p>
+<p class="persona-value">Collaborate on research, offer student programs, and publish findings.</p>
+</div>
+<div class="persona-card">
+<div class="persona-avatar" style="background:linear-gradient(135deg,var(--deep-ocean),var(--ocean-blue))"><i data-lucide="landmark"></i></div>
+<h4>Government Departments</h4>
+<p class="persona-role">Policy & Governance</p>
+<p class="persona-uses">Admin Dashboard &bull; Zone Management</p>
+<p class="persona-value">Monitor coastal health, manage zones, and create evidence-based policies.</p>
+</div>
+<div class="persona-card">
+<div class="persona-avatar" style="background:linear-gradient(135deg,#10B981,#34D399)"><i data-lucide="compass"></i></div>
+<h4>Ecotourism Operators</h4>
+<p class="persona-role">Tourism Partners</p>
+<p class="persona-uses">Ecotourism Platform &bull; Marketplace</p>
+<p class="persona-value">Create sustainable tours, manage bookings, and promote local culture.</p>
+</div>
+<div class="persona-card">
+<div class="persona-avatar" style="background:linear-gradient(135deg,#F43F5E,#FB7185)"><i data-lucide="store"></i></div>
+<h4>Vendors</h4>
+<p class="persona-role">Local Suppliers</p>
+<p class="persona-uses">Marketplace &bull; Product Listings</p>
+<p class="persona-value">Sell fishing equipment, local products, and research instruments.</p>
+</div>
+<div class="persona-card">
+<div class="persona-avatar" style="background:linear-gradient(135deg,#7C3AED,#A78BFA)"><i data-lucide="leaf"></i></div>
+<h4>Environmental Organizations</h4>
+<p class="persona-role">Impact Partners</p>
+<p class="persona-uses">Web Platform &bull; Impact Dashboard</p>
+<p class="persona-value">Track environmental outcomes, verify conservation efforts, and report impact.</p>
+</div>
+<div class="persona-card">
+<div class="persona-avatar" style="background:linear-gradient(135deg,#0EA5E9,#38BDF8)"><i data-lucide="book-marked"></i></div>
+<h4>Students</h4>
+<p class="persona-role">Learners</p>
+<p class="persona-uses">Mobile App &bull; Education &bull; Internships</p>
+<p class="persona-value">Learn marine biology, gain field experience, and contribute to research.</p>
+</div>
+<div class="persona-card">
+<div class="persona-avatar" style="background:linear-gradient(135deg,#D946EF,#E879F9)"><i data-lucide="hand-helping"></i></div>
+<h4>Volunteers</h4>
+<p class="persona-role">Community Helpers</p>
+<p class="persona-uses">Events &bull; Emergency &bull; Recognition</p>
+<p class="persona-value">Help during emergencies, organize events, and earn recognition levels.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="section" id="mobile-app">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="smartphone"></i></div>
+<h2>Mobile App</h2>
+<p>A lightweight, intuitive mobile experience designed for coastal communities with varying levels of digital literacy.</p>
+</div>
+<div class="mockup-container reveal">
+<div>
+<ul class="features-list">
+<li><i data-lucide="check-circle"></i> Personalized greeting based on user profile and activity</li>
+<li><i data-lucide="check-circle"></i> Quick-action buttons for sightings, ocean sound, and emergencies</li>
+<li><i data-lucide="check-circle"></i> Real-time contribution stats and community impact scores</li>
+<li><i data-lucide="check-circle"></i> Bottom navigation for Home, Explore, Create, Community, Profile</li>
+<li><i data-lucide="check-circle"></i> Offline capability for remote coastal areas with limited connectivity</li>
+<li><i data-lucide="check-circle"></i> Multilingual support in local coastal languages</li>
+<li><i data-lucide="check-circle"></i> One-tap emergency SOS with automatic GPS location sharing</li>
+<li><i data-lucide="check-circle"></i> Push notifications for ocean alerts, events, and verification updates</li>
+</ul>
+</div>
+<div>
+<div class="mockup-phone">
+<div class="mockup-phone-screen">
+<div class="mockup-phone-notch"></div>
+<p class="greeting">Good morning,</p>
+<p class="user-name">Arun Kumar <span class="demo-badge">Demo</span></p>
+<div class="mockup-stats">
+<div class="mockup-stat">
+<div class="stat-value">37</div>
+<div class="stat-label">Contributions</div>
+</div>
+<div class="mockup-stat">
+<div class="stat-value">12</div>
+<div class="stat-label">Sightings</div>
+</div>
+<div class="mockup-stat">
+<div class="stat-value">89</div>
+<div class="stat-label">Score</div>
+</div>
+</div>
+<div class="mockup-quick-actions">
+<div class="mockup-action"><i data-lucide="camera"></i> Record Sighting</div>
+<div class="mockup-action"><i data-lucide="mic"></i> Ocean Sound</div>
+<div class="mockup-action"><i data-lucide="siren"></i> Emergency SOS</div>
+<div class="mockup-action"><i data-lucide="map"></i> Ocean Map</div>
+</div>
+<div class="mockup-bottom-nav">
+<span class="active"><i data-lucide="home"></i> Home</span>
+<span><i data-lucide="compass"></i> Explore</span>
+<span><i data-lucide="plus-circle"></i> Create</span>
+<span><i data-lucide="users"></i> Community</span>
+<span><i data-lucide="user"></i> Profile</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="section section-light" id="personalized-home">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="layout-dashboard"></i></div>
+<h2>Personalized Home Experience</h2>
+<p>Every user sees a dashboard tailored to their role, activity, and coastal zone &mdash; making O3L feel personally relevant.</p>
+</div>
+<div class="widget-grid reveal">
+<div class="widget-card">
+<h4><i data-lucide="bar-chart-3"></i> Your Contribution <span class="demo-badge">Demo</span></h4>
+<p>37 observations recorded this month. You are in the top 15% of contributors in your zone.</p>
+</div>
+<div class="widget-card">
+<h4><i data-lucide="heart"></i> Community Impact</h4>
+<p>Your contributions helped 12 researchers and supported 3 local conservation projects.</p>
+</div>
+<div class="widget-card">
+<h4><i data-lucide="calendar"></i> Nearby Events</h4>
+<p>Beach Cleanup this Saturday at Marina Bay. 24 volunteers registered.</p>
+</div>
+<div class="widget-card">
+<h4><i data-lucide="alert-triangle"></i> Ocean Alerts</h4>
+<p>Cyclone watch active for Zone 3. Stay safe and check emergency contacts.</p>
+</div>
+<div class="widget-card">
+<h4><i data-lucide="phone"></i> Emergency Contacts</h4>
+<p>Coast Guard: 1093 &bull; Police: 100 &bull; Hospital: 108 &bull; O3L Volunteers: 52</p>
+</div>
+<div class="widget-card">
+<h4><i data-lucide="cloud-sun"></i> Today&rsquo;s Ocean</h4>
+<p>Water temp: 28&deg;C &bull; Wave height: 1.2m &bull; Tide: High at 3:45 PM</p>
+</div>
+</div>
+<div class="highlight-box reveal" style="margin-top:32px">
+<p>Core Principle: Every person matters. Every contribution counts.</p>
+</div>
+</div>
+</section>
+<section class="section" id="web-platform">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="monitor"></i></div>
+<h2>Web Platform</h2>
+<p>A powerful browser-based dashboard for researchers, NGOs, and government agencies to manage and analyze coastal data.</p>
+</div>
+<div class="dashboard-mockup reveal">
+<div class="dashboard-topbar">
+<div class="dashboard-search"><i data-lucide="search"></i> Search sightings, users, zones...</div>
+<div style="display:flex;align-items:center;gap:12px">
+<span class="demo-badge">Demo</span>
+<div style="width:32px;height:32px;border-radius:50%;background:var(--ocean-blue);display:flex;align-items:center;justify-content:center;color:white;font-size:0.75rem"><i data-lucide="user"></i></div>
+</div>
+</div>
+<div class="dashboard-stats">
+<div class="dashboard-stat-card">
+<div class="stat-value">1,248</div>
+<div class="stat-label">Contributions <span class="demo-badge">Demo</span></div>
+</div>
+<div class="dashboard-stat-card">
+<div class="stat-value">327</div>
+<div class="stat-label">Marine Sightings <span class="demo-badge">Demo</span></div>
+</div>
+<div class="dashboard-stat-card">
+<div class="stat-value">86</div>
+<div class="stat-label">Ocean Sound Records <span class="demo-badge">Demo</span></div>
+</div>
+<div class="dashboard-stat-card">
+<div class="stat-value">54</div>
+<div class="stat-label">Events <span class="demo-badge">Demo</span></div>
+</div>
+</div>
+<div class="dashboard-content">
+<div class="dashboard-chart">
+<h4 style="font-size:0.9rem;margin-bottom:16px">Monthly Contributions <span class="demo-badge">Demo</span></h4>
+<div class="dashboard-chart-placeholder">
+<div class="chart-bar" style="height:45%;background:var(--ocean-blue)"></div>
+<div class="chart-bar" style="height:62%;background:var(--ocean-blue)"></div>
+<div class="chart-bar" style="height:38%;background:var(--ocean-blue)"></div>
+<div class="chart-bar" style="height:75%;background:var(--cyan)"></div>
+<div class="chart-bar" style="height:55%;background:var(--ocean-blue)"></div>
+<div class="chart-bar" style="height:82%;background:var(--cyan)"></div>
+<div class="chart-bar" style="height:68%;background:var(--ocean-blue)"></div>
+<div class="chart-bar" style="height:91%;background:linear-gradient(180deg,var(--cyan),var(--sea-green))"></div>
+<div class="chart-bar" style="height:73%;background:var(--ocean-blue)"></div>
+<div class="chart-bar" style="height:85%;background:var(--cyan)"></div>
+<div class="chart-bar" style="height:60%;background:var(--ocean-blue)"></div>
+<div class="chart-bar" style="height:95%;background:linear-gradient(180deg,var(--cyan),var(--sea-green))"></div>
+</div>
+</div>
+<div class="dashboard-recent">
+<h4>Recent Sightings</h4>
+<div class="recent-item">
+<div class="recent-item-info">
+<div class="recent-item-avatar" style="background:var(--ocean-blue)"><i data-lucide="fish" style="width:16px;height:16px"></i></div>
+<div>
+<div class="recent-item-name">Dolphin Pod <span class="demo-badge">Demo</span></div>
+<div class="recent-item-desc">Chennai Coast &bull; 2h ago</div>
+</div>
+</div>
+<span class="badge badge-verified">Verified</span>
+</div>
+<div class="recent-item">
+<div class="recent-item-info">
+<div class="recent-item-avatar" style="background:var(--teal)"><i data-lucide="whale" style="width:16px;height:16px"></i></div>
+<div>
+<div class="recent-item-name">Whale Sighting <span class="demo-badge">Demo</span></div>
+<div class="recent-item-desc">Rameswaram &bull; 5h ago</div>
+</div>
+</div>
+<span class="badge badge-pending">Pending</span>
+</div>
+<div class="recent-item">
+<div class="recent-item-info">
+<div class="recent-item-avatar" style="background:#8B5CF6"><i data-lucide="shell" style="width:16px;height:16px"></i></div>
+<div>
+<div class="recent-item-name">Dugong Observation <span class="demo-badge">Demo</span></div>
+<div class="recent-item-desc">Palk Bay &bull; 1d ago</div>
+</div>
+</div>
+<span class="badge badge-review">Under Review</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="section section-light" id="guides">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="book-open"></i></div>
+<h2>Marine Guides</h2>
+<p>Comprehensive identification guides to help communities recognize and understand marine life in their coastal zones.</p>
+</div>
+<div class="cards-grid cards-grid-4 reveal">
+<div class="card">
+<div class="card-icon blue"><i data-lucide="fish"></i></div>
+<h3>Marine Mammals</h3>
+<p>Identify dolphins, whales, dugongs, and porpoises found in Tamil Nadu coastal waters. Includes photos, sounds, and seasonal patterns.</p>
+</div>
+<div class="card">
+<div class="card-icon teal"><i data-lucide="octagon"></i></div>
+<h3>Fish Species</h3>
+<p>Complete guide to commercially important fish, their habitats, breeding seasons, and sustainable fishing practices.</p>
+</div>
+<div class="card">
+<div class="card-icon navy"><i data-lucide="bird"></i></div>
+<h3>Seabirds</h3>
+<p>Coastal and migratory bird identification, nesting patterns, and their role in the marine ecosystem.</p>
+</div>
+<div class="card">
+<div class="card-icon green"><i data-lucide="trees"></i></div>
+<h3>Coastal Habitats</h3>
+<p>Mangroves, coral reefs, seagrass beds, and rocky shores &mdash; their importance and conservation status.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="section" id="education">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="graduation-cap"></i></div>
+<h2>Education &amp; Local Knowledge</h2>
+<p>Preserving and sharing centuries of coastal wisdom alongside modern marine science education.</p>
+</div>
+<div class="cards-grid cards-grid-2 reveal">
+<div class="card">
+<div class="card-icon orange"><i data-lucide="mic"></i></div>
+<h3>Fishermen Experiences</h3>
+<p>First-hand accounts from experienced fishermen about ocean behavior, fish migration, seasonal changes, and traditional navigation techniques.</p>
+</div>
+<div class="card">
+<div class="card-icon blue"><i data-lucide="compass"></i></div>
+<h3>Local Ocean Knowledge</h3>
+<p>Generations of knowledge about local tides, currents, weather patterns, and marine life behavior passed down through coastal communities.</p>
+</div>
+<div class="card">
+<div class="card-icon teal"><i data-lucide="scroll"></i></div>
+<h3>Traditional Practices</h3>
+<p>Sustainable fishing methods, traditional boat building, net making, and time-tested conservation practices from coastal heritage.</p>
+</div>
+<div class="card">
+<div class="card-icon green"><i data-lucide="presentation"></i></div>
+<h3>Tutorials &amp; Workshops</h3>
+<p>Video tutorials and workshop materials on marine biology, conservation techniques, and sustainable livelihood practices.</p>
+</div>
+</div>
+<div class="comparison-box reveal">
+<h4>Guides vs. Education</h4>
+<div class="comparison-grid">
+<div class="comparison-col">
+<h5>Marine Guides</h5>
+<ul>
+<li>Species identification with photos</li>
+<li>Scientific classification and taxonomy</li>
+<li>Habitat information and distribution maps</li>
+<li>Conservation status and threats</li>
+</ul>
+</div>
+<div class="comparison-col">
+<h5>Education &amp; Local Knowledge</h5>
+<ul>
+<li>Lived experience from coastal communities</li>
+<li>Traditional ecological knowledge</li>
+<li>Practical skills and tutorials</li>
+<li>Cultural heritage and oral histories</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="section section-light" id="ocean-sound">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="audio-lines"></i></div>
+<h2>Ocean Sound Recording</h2>
+<p>A unique feature allowing users to capture and contribute underwater acoustic data for marine research.</p>
+</div>
+<div class="workflow reveal">
+<div class="workflow-step">
+<div class="step-num">1</div>
+<h4>Record Sound</h4>
+<p>Use the in-app recorder to capture underwater audio</p>
+</div>
+<div class="workflow-step">
+<div class="step-num">2</div>
+<h4>Add Location</h4>
+<p>GPS automatically pins the exact recording location</p>
+</div>
+<div class="workflow-step">
+<div class="step-num">3</div>
+<h4>Date &amp; Time</h4>
+<p>Timestamp is recorded for temporal analysis</p>
+</div>
+<div class="workflow-step">
+<div class="step-num">4</div>
+<h4>Instrument Details</h4>
+<p>Record hydrophone type and water depth</p>
+</div>
+<div class="workflow-step">
+<div class="step-num">5</div>
+<h4>Submit &amp; Verify</h4>
+<p>Data enters the verification pipeline for researcher review</p>
+</div>
+</div>
+<div class="reveal">
+<table class="data-table">
+<thead>
+<tr><th>Field</th><th>Description</th><th>Example</th></tr>
+</thead>
+<tbody>
+<tr><td>Sound File</td><td>Audio recording in WAV/MP3 format</td><td>ocean_recording_001.wav</td></tr>
+<tr><td>GPS Location</td><td>Latitude and longitude coordinates</td><td>13.0827&deg;N, 80.2707&deg;E</td></tr>
+<tr><td>Date &amp; Time</td><td>Exact recording timestamp</td><td>2026-08-15, 06:30 AM</td></tr>
+<tr><td>Water Depth</td><td>Depth at recording location</td><td>12 meters</td></tr>
+<tr><td>Instrument</td><td>Hydrophone type and model</td><td>SoundTrap ST600</td></tr>
+<tr><td>Duration</td><td>Length of the recording</td><td>5 minutes 32 seconds</td></tr>
+<tr><td>Conditions</td><td>Weather and sea state notes</td><td>Calm sea, light breeze</td></tr>
+<tr><td>Status</td><td>Current verification status</td><td><span class="badge badge-verified">Verified</span></td></tr>
+</tbody>
+</table>
+</div>
+<div class="note-box reveal">
+<p><strong>Verification Statuses:</strong> <span class="badge badge-pending">Pending Review</span> &mdash; Newly submitted. <span class="badge badge-review">Under Review</span> &mdash; Being analyzed by researchers. <span class="badge badge-verified">Verified</span> &mdash; Confirmed and published to the research database.</p>
+</div>
+</div>
+</section>
+<section class="section" id="contribution-progress">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="trending-up"></i></div>
+<h2>Contribution Progress</h2>
+<p>Track your journey from new contributor to recognized ocean guardian with meaningful milestones.</p>
+</div>
+<div class="card reveal" style="max-width:700px;margin:0 auto">
+<h3 style="margin-bottom:8px">Your Monthly Progress <span class="demo-badge">Demo</span></h3>
+<p style="margin-bottom:16px">You have made 37 contributions this month. Keep going to reach the next level!</p>
+<div class="progress-container">
+<div class="progress-bar-bg">
+<div class="progress-bar-fill" style="width:74%"></div>
+</div>
+<div class="progress-label">
+<span>37 contributions</span>
+<span>Goal: 50</span>
+</div>
+</div>
+<div class="note-box" style="margin-top:20px">
+<p>Contribution thresholds are configurable per zone. Default tiers: 10 (Bronze), 25 (Silver), 50 (Gold), 100 (Platinum), 250 (Ocean Guardian). Each tier unlocks new features and recognition badges.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="section section-light" id="sightings">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="binoculars"></i></div>
+<h2>Marine Sightings</h2>
+<p>A structured workflow for recording and verifying marine wildlife observations that build the coastal knowledge base.</p>
+</div>
+<div class="workflow reveal">
+<div class="workflow-step">
+<div class="step-num">1</div>
+<h4>Spot</h4>
+<p>Observe marine life from shore or boat</p>
+</div>
+<div class="workflow-step">
+<div class="step-num">2</div>
+<h4>Photo/Video</h4>
+<p>Capture visual evidence with the camera</p>
+</div>
+<div class="workflow-step">
+<div class="step-num">3</div>
+<h4>GPS Location</h4>
+<p>Auto-tag the exact observation coordinates</p>
+</div>
+<div class="workflow-step">
+<div class="step-num">4</div>
+<h4>Date/Time</h4>
+<p>Record when the sighting occurred</p>
+</div>
+<div class="workflow-step">
+<div class="step-num">5</div>
+<h4>Species ID</h4>
+<p>Select or identify the species observed</p>
+</div>
+<div class="workflow-step">
+<div class="step-num">6</div>
+<h4>Submit</h4>
+<p>Data enters verification for researcher review</p>
+</div>
+</div>
+<div class="reveal">
+<table class="data-table">
+<thead>
+<tr><th>Field</th><th>Description</th><th>Example</th></tr>
+</thead>
+<tbody>
+<tr><td>Species</td><td>Name of the marine animal observed</td><td>Bottlenose Dolphin</td></tr>
+<tr><td>Photo/Video</td><td>Visual evidence attached to record</td><td>dolphin_pod_001.jpg</td></tr>
+<tr><td>GPS Location</td><td>Coordinates of the sighting</td><td>9.9252&deg;N, 78.1198&deg;E</td></tr>
+<tr><td>Date &amp; Time</td><td>When the sighting occurred</td><td>2026-08-20, 4:15 PM</td></tr>
+<tr><td>Quantity</td><td>Number of animals observed</td><td>8-10 individuals</td></tr>
+<tr><td>Behavior</td><td>Activity observed</td><td>Feeding, traveling north</td></tr>
+<tr><td>Conditions</td><td>Sea state and weather</td><td>Calm, clear sky, 28&deg;C</td></tr>
+<tr><td>Status</td><td>Verification status</td><td><span class="badge badge-verified">Verified</span></td></tr>
+</tbody>
+</table>
+</div>
+<div class="species-tags reveal">
+<span class="species-tag"><i data-lucide="fish"></i> Dolphin</span>
+<span class="species-tag"><i data-lucide="whale"></i> Whale</span>
+<span class="species-tag"><i data-lucide="shell"></i> Dugong</span>
+<span class="species-tag"><i data-lucide="fish"></i> Porpoise</span>
+<span class="species-tag"><i data-lucide="turtle"></i> Sea Turtle</span>
+<span class="species-tag"><i data-lucide="bird"></i> Seabird</span>
+</div>
+<div class="note-box reveal">
+<p><strong>Species Identification:</strong> O3L includes an AI-assisted species identification feature that helps users identify marine life from photos. The system suggests likely species, and the final identification is confirmed by verified researchers in the network.</p>
+</div>
+</div>
+</section>
+<section class="section section-light" id="contributions-pipeline">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="git-merge"></i></div>
+<h2>One Contribution, Many Homes</h2>
+<p>A unified submission engine: citizens contribute once; verified data powers sightings, sounds, catches, observations, events, cleanups, education, and the species guide.</p>
+</div>
+<div class="cards-grid cards-grid-3 reveal">
+<div class="widget-card">
+<h4><i data-lucide="list-checks"></i> 1. Contribute</h4>
+<p>One guided wizard with per-type fields. Choose a contribution type — sighting, ocean sound, fish catch, observation, event, cleanup, education post, or guide update — and fill only the fields that type needs.</p>
+</div>
+<div class="widget-card">
+<h4><i data-lucide="shield-check"></i> 2. Review</h4>
+<p>Submissions land in a moderation queue. Auto-checks cover photos, location, species and quality; moderators and scientific validators approve, request changes, or reject with reasons.</p>
+</div>
+<div class="widget-card">
+<h4><i data-lucide="share-2"></i> 3. Publish</h4>
+<p>Approved contributions are mirrored into the right module tables and appear on the public feeds, maps, leaderboards, research exports, and dashboards — no double entry.</p>
+</div>
+</div>
+<div class="note-box reveal">
+<p><strong>Live now:</strong> The pipeline ships with the platform — wizard configuration, admin review queue, scoring (quantity, quality, verification, community impact), and publishing into marine sightings, ocean sounds, fish catches, observations, events, beach cleanups, education posts, and the species guide.</p>
+</div>
+</div>
+</section>
+<section class="section" id="catches-observations">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="clipboard-list"></i></div>
+<h2>Catches &amp; Observations</h2>
+<p>Two live data modules that turn everyday coastal activity into structured, research-grade records.</p>
+</div>
+<div class="cards-grid cards-grid-2 reveal">
+<div class="pilot-card">
+<h4><i data-lucide="fish"></i> Fish Catches</h4>
+<ul class="features-list">
+<li><i data-lucide="check-circle"></i> Logbook-style catch records: species, gear, weight, depth</li>
+<li><i data-lucide="check-circle"></i> Links to the species guide for identification help</li>
+<li><i data-lucide="check-circle"></i> Public catch feed on web and mobile</li>
+<li><i data-lucide="check-circle"></i> Feeds marketplace supply and fisheries analytics</li>
+</ul>
+</div>
+<div class="pilot-card">
+<h4><i data-lucide="telescope"></i> Marine Observations</h4>
+<ul class="features-list">
+<li><i data-lucide="check-circle"></i> Generic observation records for researchers and volunteers</li>
+<li><i data-lucide="check-circle"></i> Date, location, species link, notes, and media attachments</li>
+<li><i data-lucide="check-circle"></i> Research export compatible (CSV / GeoJSON / API)</li>
+<li><i data-lucide="check-circle"></i> Contributes to hotspot generation and annual reports</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section class="section section-light" id="cleanups">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="trash-2"></i></div>
+<h2>Beach Cleanups</h2>
+<p>Public cleanup campaigns with signup, photo galleries, and impact tracking — open to volunteers, schools, and NGOs on web and mobile.</p>
+</div>
+<div class="cards-grid cards-grid-3 reveal">
+<div class="widget-card">
+<h4><i data-lucide="calendar-check"></i> Campaigns</h4>
+<p>Create and browse cleanup events with date, beach, meeting point, and target waste. Participants join with one tap.</p>
+</div>
+<div class="widget-card">
+<h4><i data-lucide="camera"></i> Photo Evidence</h4>
+<p>Before/after galleries and participant photos attach to each cleanup, proving impact for sponsors and agencies.</p>
+</div>
+<div class="widget-card">
+<h4><i data-lucide="bar-chart-3"></i> Impact Tracking</h4>
+<p>Cleanup counts, volunteer totals, and waste estimates roll into zone dashboards, recognition scores, and yearly reports.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="section" id="community">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="users"></i></div>
+<h2>Community</h2>
+<p>The people who make O3L thrive &mdash; active contributors building a connected coastal network.</p>
+</div>
+<div class="cards-grid cards-grid-3 reveal">
+<div class="member-card">
+<div class="member-avatar" style="background:linear-gradient(135deg,var(--ocean-blue),var(--cyan))">AK</div>
+<div class="member-info">
+<h4>Arun Kumar <span class="badge badge-active">Active Contributor</span></h4>
+<p class="member-role">Fisherman &bull; Chennai Zone</p>
+<div class="member-stats">
+<div class="member-stat"><strong>127</strong> Contributions</div>
+<div class="member-stat"><strong>43</strong> Sightings</div>
+<div class="member-stat"><strong>Level 4</strong></div>
+</div>
+</div>
+</div>
+<div class="member-card">
+<div class="member-avatar" style="background:linear-gradient(135deg,#EC4899,#F472B6)">MR</div>
+<div class="member-info">
+<h4>Meena R. <span class="badge badge-active">Regular Participant</span></h4>
+<p class="member-role">Community Volunteer &bull; Nagapattinam</p>
+<div class="member-stats">
+<div class="member-stat"><strong>89</strong> Contributions</div>
+<div class="member-stat"><strong>28</strong> Sightings</div>
+<div class="member-stat"><strong>Level 3</strong></div>
+</div>
+</div>
+</div>
+<div class="member-card">
+<div class="member-avatar" style="background:linear-gradient(135deg,#8B5CF6,#A78BFA)">PS</div>
+<div class="member-info">
+<h4>Dr. Priya S. <span class="badge badge-review">Research Partner</span></h4>
+<p class="member-role">Marine Biologist &bull; Annamalai University</p>
+<div class="member-stats">
+<div class="member-stat"><strong>156</strong> Verified</div>
+<div class="member-stat"><strong>12</strong> Publications</div>
+<div class="member-stat"><strong>Level 5</strong></div>
+</div>
+</div>
+</div>
+</div>
+<div class="note-box reveal">
+<p><strong>Community Activity Language:</strong> O3L uses positive, inclusive language for activity statuses. Terms like "Active Contributor," "Regular Participant," and "Research Partner" recognize different types of engagement rather than ranking people against each other.</p>
+</div>
+</div>
+</section>
+<section class="section section-light" id="events">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="calendar-days"></i></div>
+<h2>Community Events</h2>
+<p>Organized activities that bring coastal communities together for conservation, education, and livelihood development.</p>
+</div>
+<div class="cards-grid cards-grid-2 reveal">
+<div class="event-card">
+<div class="event-icon" style="background:linear-gradient(135deg,var(--sea-green),#34D399)"><i data-lucide="trash-2"></i></div>
+<div class="event-info">
+<h4>Beach Cleanup Drives</h4>
+<p>Weekly community-led beach cleanups with waste tracking, volunteer recognition, and data collection on marine debris types and quantities.</p>
+</div>
+</div>
+<div class="event-card">
+<div class="event-icon" style="background:linear-gradient(135deg,var(--ocean-blue),var(--cyan))"><i data-lucide="anchor"></i></div>
+<div class="event-info">
+<h4>Fishing Workshops</h4>
+<p>Sustainable fishing technique workshops led by experienced fishermen, covering net selection, seasonal practices, and catch management.</p>
+</div>
+</div>
+<div class="event-card">
+<div class="event-icon" style="background:linear-gradient(135deg,#8B5CF6,#A78BFA)"><i data-lucide="awareness"></i></div>
+<div class="event-info">
+<h4>Marine Awareness Programs</h4>
+<p>Public education sessions on marine conservation, plastic pollution, and the importance of biodiversity in local coastal ecosystems.</p>
+</div>
+</div>
+<div class="event-card">
+<div class="event-icon" style="background:linear-gradient(135deg,#F59E0B,#F97316)"><i data-lucide="school"></i></div>
+<div class="event-info">
+<h4>School Programs</h4>
+<p>Ocean literacy programs for coastal schools with hands-on activities, field trips, and student contribution tracking.</p>
+</div>
+</div>
+<div class="event-card">
+<div class="event-icon" style="background:linear-gradient(135deg,#06B6D4,#22D3EE)"><i data-lucide="microscope"></i></div>
+<div class="event-info">
+<h4>Research Surveys</h4>
+<p>Community-assisted marine surveys where fishermen and researchers work together to collect data on species populations and habitats.</p>
+</div>
+</div>
+<div class="event-card">
+<div class="event-icon" style="background:linear-gradient(135deg,#10B981,#34D399)"><i data-lucide="tree-palm"></i></div>
+<div class="event-info">
+<h4>Mangrove &amp; Tree Plantation</h4>
+<p>Coastal reforestation events targeting mangrove restoration and coastal green belt development with community participation.</p>
+</div>
+</div>
+<div class="event-card">
+<div class="event-icon" style="background:linear-gradient(135deg,#EF4444,#F97316)"><i data-lucide="siren"></i></div>
+<div class="event-info">
+<h4>Boat Safety Training</h4>
+<p>Emergency preparedness training for fishermen including first aid, navigation safety, and weather awareness for coastal waters.</p>
+</div>
+</div>
+<div class="event-card">
+<div class="event-icon" style="background:linear-gradient(135deg,#EC4899,#F472B6)"><i data-lucide="music"></i></div>
+<div class="event-info">
+<h4>Coastal Festivals</h4>
+<p>Celebrations of coastal culture, heritage, and ocean connection with community performances, food, and shared storytelling.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="section" id="economy">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="recycle"></i></div>
+<h2>Circular Economy</h2>
+<p>Turning ocean waste into livelihood opportunities while protecting marine ecosystems.</p>
+</div>
+<div class="cards-grid cards-grid-3 reveal">
+<div class="opportunity-card">
+<div class="opportunity-header">
+<h4>Plastic Recycling Units</h4>
+<span class="opportunity-indicator indicator-investment">Investment Needed</span>
+</div>
+<p>Set up community-owned plastic collection and recycling units at fishing harbors to process marine debris into usable materials.</p>
+</div>
+<div class="opportunity-card">
+<div class="opportunity-header">
+<h4>Upcycled Products</h4>
+<span class="opportunity-indicator indicator-revenue">Revenue Potential</span>
+</div>
+<p>Create jewelry, furniture, and accessories from recovered ocean waste, selling through the O3L marketplace and eco-stores.</p>
+</div>
+<div class="opportunity-card">
+<div class="opportunity-header">
+<h4>Fish Waste Utilization</h4>
+<span class="opportunity-indicator indicator-revenue">Revenue Potential</span>
+</div>
+<p>Convert fish processing waste into fish meal, organic fertilizer, and bio-gas for local use and sale.</p>
+</div>
+<div class="opportunity-card">
+<div class="opportunity-header">
+<h4>Seaweed Cultivation</h4>
+<span class="opportunity-indicator indicator-revenue">Revenue Potential</span>
+</div>
+<p>Promote seaweed farming as an alternative livelihood that also helps marine ecosystem restoration.</p>
+</div>
+<div class="opportunity-card">
+<div class="opportunity-header">
+<h4>Coconut Shell Products</h4>
+<span class="opportunity-indicator indicator-revenue">Revenue Potential</span>
+</div>
+<p>Utilize coconut waste from coastal areas to produce activated carbon, handicrafts, and bio-fuel.</p>
+</div>
+<div class="opportunity-card">
+<div class="opportunity-header">
+<h4>Coral Reef Tourism</h4>
+<span class="opportunity-indicator indicator-investment">Investment Needed</span>
+</div>
+<p>Develop sustainable snorkeling and diving experiences that fund reef conservation and community income.</p>
+</div>
+</div>
+<div class="note-box reveal">
+<p><strong>Now live:</strong> O3L also ships an SHG (Self-Help Group) economy microsite under <strong>Economy</strong> &mdash; livelihood strategies, revenue trackers, loan schemes, fish products, recipes, fresh-fish flows, sea-to-plate stories, and circular-economy ideas for women&rsquo;s groups and village cooperatives.</p>
+</div>
+</div>
+</section>
+<section class="section" id="payments">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="credit-card"></i></div>
+<h2>Payments &amp; Payouts</h2>
+<p>Live checkout for marketplace orders and ecotourism bookings, with automated provider payouts.</p>
+</div>
+<div class="cards-grid cards-grid-3 reveal">
+<div class="widget-card">
+<h4><i data-lucide="shopping-cart"></i> Marketplace Checkout</h4>
+<p>Cart to order with stock management. Pay by Razorpay or Stripe; webhooks verify signatures and update order status automatically.</p>
+</div>
+<div class="widget-card">
+<h4><i data-lucide="palmtree"></i> Booking Payments</h4>
+<p>Ecotourism packages and experiences take secure pay-ins. Cancelations and refunds follow the booking ledger.</p>
+</div>
+<div class="widget-card">
+<h4><i data-lucide="split"></i> Split Payouts</h4>
+<p>Providers define split rules (homestay, guide, community fund). Payouts are previewed before booking and settled from the ledger after payment.</p>
+</div>
+</div>
+<div class="note-box reveal">
+<p><strong>Demo-safe:</strong> When payment keys are not configured, the platform runs in demo mode so demos and training never fail on missing credentials.</p>
+</div>
+</div>
+</section>
+<section class="section section-light" id="ecotourism">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="compass"></i></div>
+<h2>Ecotourism</h2>
+<p>Sustainable coastal tourism that benefits local communities while protecting marine ecosystems.</p>
+</div>
+<div class="cards-grid cards-grid-4 reveal">
+<div class="card">
+<div class="card-icon green"><i data-lucide="trash-2"></i></div>
+<h3>Beach Cleanup Experiences</h3>
+<p>Tourist-inclusive cleanup drives with storytelling, making visitors part of the conservation journey.</p>
+</div>
+<div class="card">
+<div class="card-icon blue"><i data-lucide="armchair"></i></div>
+<h3>Seating &amp; Rest Areas</h3>
+<p>Eco-friendly coastal seating areas made from recycled materials with ocean-view relaxation zones.</p>
+</div>
+<div class="card">
+<div class="card-icon teal"><i data-lucide="utensils"></i></div>
+<h3>Hygienic Food Stalls</h3>
+<p>Certified local food stalls offering traditional coastal cuisine with hygiene standards and local sourcing.</p>
+</div>
+<div class="card">
+<div class="card-icon orange"><i data-lucide="shopping-bag"></i></div>
+<h3>Local Products</h3>
+<p>Marketplace for local artisans to sell handmade coastal products, handicrafts, and sustainable souvenirs.</p>
+</div>
+<div class="card">
+<div class="card-icon navy"><i data-lucide="map"></i></div>
+<h3>Guided Activities</h3>
+<p>Led by trained local guides: mangrove walks, bird watching, fishing experiences, and underwater trails.</p>
+</div>
+<div class="card">
+<div class="card-icon red"><i data-lucide="shield-check"></i></div>
+<h3>Safety Standards</h3>
+<p>Lifeguard presence, first-aid stations, safety signage, and emergency response protocols for all tourist areas.</p>
+</div>
+<div class="card">
+<div class="card-icon green"><i data-lucide="recycle"></i></div>
+<h3>Waste Management</h3>
+<p>On-site waste segregation, composting units, and recycling stations at all ecotourism locations.</p>
+</div>
+<div class="card">
+<div class="card-icon blue"><i data-lucide="calendar"></i></div>
+<h3>Weekly Programs</h3>
+<p>Regular events including fish market tours, boat rides, night sky observation, and coastal heritage walks.</p>
+</div>
+</div>
+<div class="note-box reveal">
+<p><strong>Blue Flag Awareness:</strong> O3L promotes Blue Flag beach standards as a benchmark for ecotourism quality, encouraging coastal communities to work toward international certification for clean, safe, and environmentally responsible beaches.</p>
+</div>
+</div>
+</section>
+<section class="section" id="marketplace">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="store"></i></div>
+<h2>Marketplace</h2>
+<p>A localized e-commerce platform connecting coastal vendors, fishermen, and consumers for sustainable trade.</p>
+</div>
+<div class="cards-grid cards-grid-3 reveal">
+<div class="category-card">
+<i data-lucide="anchor"></i>
+<h4>Fishing Equipment</h4>
+<p>Nets, lines, hooks, floats, and traditional fishing tools from local manufacturers.</p>
+</div>
+<div class="category-card">
+<i data-lucide="microscope"></i>
+<h4>Research Instruments</h4>
+<p>Water testing kits, thermometers, GPS devices, and marine survey equipment.</p>
+</div>
+<div class="category-card">
+<i data-lucide="life-buoy"></i>
+<h4>Safety Equipment</h4>
+<p>Life jackets, first-aid kits, flares, waterproof communication devices, and safety gear.</p>
+</div>
+<div class="category-card">
+<i data-lucide="lamp-desk"></i>
+<h4>Ecotourism Furniture</h4>
+<p>Eco-friendly seating, shelters, signage, and decor made from sustainable materials.</p>
+</div>
+<div class="category-card">
+<i data-lucide="ship"></i>
+<h4>Marine Equipment</h4>
+<p>Boat accessories, navigation tools, anchors, and marine maintenance supplies.</p>
+</div>
+<div class="category-card">
+<i data-lucide="recycle"></i>
+<h4>Recycling Products</h4>
+<p>Upcycled products made from ocean waste including jewelry, bags, and home decor.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="section section-light" id="emergency">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon" style="background:#FEE2E2;color:#DC2626"><i data-lucide="siren"></i></div>
+<h2>Emergency Response</h2>
+<p>One-tap emergency system that connects coastal communities to immediate help and rescue coordination.</p>
+</div>
+<div class="reveal">
+<button class="sos-button" aria-label="Emergency SOS Button">
+<i data-lucide="siren" style="width:32px;height:32px"></i>
+SOS
+</button>
+</div>
+<div class="cards-grid cards-grid-3 reveal">
+<div class="emergency-card">
+<i data-lucide="ship" style="width:32px;height:32px;color:var(--ocean-blue);margin-bottom:12px"></i>
+<h4>Coast Guard</h4>
+<p style="font-size:1.5rem;font-weight:700;color:var(--deep-ocean);margin:8px 0">1093</p>
+<p style="font-size:0.8rem;color:var(--gray-500)">24/7 Maritime Rescue<br>Direct SOS Integration</p>
+</div>
+<div class="emergency-card">
+<i data-lucide="shield" style="width:32px;height:32px;color:#DC2626;margin-bottom:12px"></i>
+<h4>Police &amp; Hospital</h4>
+<p style="font-size:1.5rem;font-weight:700;color:var(--deep-ocean);margin:8px 0">100 / 108</p>
+<p style="font-size:0.8rem;color:var(--gray-500)">Emergency Services<br>Ambulance Dispatch</p>
+</div>
+<div class="emergency-card">
+<i data-lucide="users" style="width:32px;height:32px;color:var(--teal);margin-bottom:12px"></i>
+<h4>Community Volunteers</h4>
+<p style="font-size:1.5rem;font-weight:700;color:var(--deep-ocean);margin:8px 0">52</p>
+<p style="font-size:0.8rem;color:var(--gray-500)">Local Trained Responders<br>First Aid Certified</p>
+</div>
+</div>
+<div class="card reveal" style="margin-top:24px">
+<h4 style="margin-bottom:8px"><i data-lucide="map-pin"></i> Your Location Info <span class="demo-badge">Demo</span></h4>
+<p style="font-size:0.85rem;color:var(--gray-600)">Zone: Chennai Coast &bull; GPS: 13.0827&deg;N, 80.2707&deg;E &bull; Nearest Harbor: 2.3 km &bull; Nearest Hospital: 5.1 km</p>
+</div>
+<div class="note-box reveal">
+<p><strong>Boundary Awareness:</strong> The SOS system is zone-aware. It automatically identifies your coastal zone and connects you with the nearest rescue team, volunteers, and medical facilities. For cross-boundary emergencies, the system escalates to regional coordination centers.</p>
+</div>
+</div>
+</section>
+<section class="section" id="offline-emergency">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="wifi-off"></i></div>
+<h2>Offline Emergency Access</h2>
+<p>Even without internet, O3L ensures coastal communities can access critical emergency information.</p>
+</div>
+<div class="offline-columns reveal">
+<div class="offline-col available">
+<h4><i data-lucide="check-circle"></i> Available Offline</h4>
+<ul style="list-style:none;padding:0">
+<li style="display:flex;align-items:center;gap:8px;font-size:0.85rem;padding:6px 0"><i data-lucide="phone" style="width:16px;height:16px;color:var(--sea-green)"></i> Emergency contact numbers</li>
+<li style="display:flex;align-items:center;gap:8px;font-size:0.85rem;padding:6px 0"><i data-lucide="map-pin" style="width:16px;height:16px;color:var(--sea-green)"></i> Last known GPS coordinates</li>
+<li style="display:flex;align-items:center;gap:8px;font-size:0.85rem;padding:6px 0"><i data-lucide="info" style="width:16px;height:16px;color:var(--sea-green)"></i> Emergency protocol instructions</li>
+<li style="display:flex;align-items:center;gap:8px;font-size:0.85rem;padding:6px 0"><i data-lucide="radio" style="width:16px;height:16px;color:var(--sea-green)"></i> FM/AM radio frequencies for coast guard</li>
+<li style="display:flex;align-items:center;gap:8px;font-size:0.85rem;padding:6px 0"><i data-lucide="book-open" style="width:16px;height:16px;color:var(--sea-green)"></i> First aid guide and procedures</li>
+<li style="display:flex;align-items:center;gap:8px;font-size:0.85rem;padding:6px 0"><i data-lucide="cloud-sun" style="width:16px;height:16px;color:var(--sea-green)"></i> Weather warning basics</li>
+</ul>
+</div>
+<div class="offline-col network">
+<h4><i data-lucide="wifi"></i> Requires Network</h4>
+<ul style="list-style:none;padding:0">
+<li style="display:flex;align-items:center;gap:8px;font-size:0.85rem;padding:6px 0"><i data-lucide="send" style="width:16px;height:16px;color:#D97706"></i> Sending SOS with live GPS</li>
+<li style="display:flex;align-items:center;gap:8px;font-size:0.85rem;padding:6px 0"><i data-lucide="users" style="width:16px;height:16px;color:#D97706"></i> Notifying rescue teams and volunteers</li>
+<li style="display:flex;align-items:center;gap:8px;font-size:0.85rem;padding:6px 0"><i data-lucide="upload" style="width:16px;height:16px;color:#D97706"></i> Uploading emergency sighting data</li>
+<li style="display:flex;align-items:center;gap:8px;font-size:0.85rem;padding:6px 0"><i data-lucide="message-circle" style="width:16px;height:16px;color:#D97706"></i> Real-time chat with responders</li>
+<li style="display:flex;align-items:center;gap:8px;font-size:0.85rem;padding:6px 0"><i data-lucide="map" style="width:16px;height:16px;color:#D97706"></i> Live map tracking and navigation</li>
+<li style="display:flex;align-items:center;gap:8px;font-size:0.85rem;padding:6px 0"><i data-lucide="bell" style="width:16px;height:16px;color:#D97706"></i> Push notification alerts</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section class="section section-light" id="ocean-map">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="map"></i></div>
+<h2>Ocean Map</h2>
+<p>A multi-layered interactive map combining real-time data from community contributions, research, and environmental monitoring.</p>
+</div>
+<div class="reveal">
+<figure style="margin:0 0 32px">
+<img src="Interactive-Ocean-Map.png" alt="O3L Interactive Ocean Map — 24 map layers, zone legend, state profile panel and live platform stats" style="width:100%;height:auto;display:block;border:1px solid var(--gray-200);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg)">
+<figcaption style="margin-top:12px;font-size:0.85rem;color:var(--gray-500);text-align:center">Live Ocean Map — habitats, biodiversity, O3L zones and hotspots with state-by-state coastal profiles (AP · KA · KL · TN)</figcaption>
+</figure>
+<div class="map-placeholder">
+<i data-lucide="map" style="width:48px;height:48px;margin-bottom:16px;position:relative;z-index:1"></i>
+<h3 style="position:relative;z-index:1;font-size:1.3rem">Interactive Ocean Map</h3>
+<p style="position:relative;z-index:1;font-size:0.9rem;opacity:0.8">Real-time data visualization for Tamil Nadu coastal zones</p>
+</div>
+<div class="layer-options">
+<div class="layer-option"><span class="layer-dot" style="background:var(--ocean-blue)"></span> Marine Sightings</div>
+<div class="layer-option"><span class="layer-dot" style="background:var(--sea-green)"></span> Ocean Sound</div>
+<div class="layer-option"><span class="layer-dot" style="background:var(--teal)"></span> Fishing Zones</div>
+<div class="layer-option"><span class="layer-dot" style="background:#F59E0B"></span> Ecotourism Spots</div>
+<div class="layer-option"><span class="layer-dot" style="background:#EF4444"></span> Emergency Areas</div>
+<div class="layer-option"><span class="layer-dot" style="background:#8B5CF6"></span> Conservation Zones</div>
+<div class="layer-option"><span class="layer-dot" style="background:#EC4899"></span> Coral Reefs</div>
+<div class="layer-option"><span class="layer-dot" style="background:#06B6D4"></span> Water Temperature</div>
+</div>
+</div>
+</div>
+</section>
+<section class="section" id="hotspots">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="flame"></i></div>
+<h2>Ocean Hotspots</h2>
+<p>Identifying high-activity marine areas through community-sourced observation density mapping.</p>
+</div>
+<div class="two-col reveal">
+<div>
+<h3 style="margin-bottom:16px">How Hotspots Are Generated</h3>
+<div class="workflow" style="flex-direction:column">
+<div class="workflow-step" style="text-align:left;display:flex;align-items:center;gap:12px;min-width:auto">
+<div class="step-num">1</div>
+<div><h4>GPS Data Collection</h4><p>Every sighting and ocean sound recording includes GPS coordinates from contributor devices.</p></div>
+</div>
+<div class="workflow-step" style="text-align:left;display:flex;align-items:center;gap:12px;min-width:auto">
+<div class="step-num">2</div>
+<div><h4>Grid Mapping</h4><p>The coastline is divided into grid cells. Each cell accumulates observation counts over time.</p></div>
+</div>
+<div class="workflow-step" style="text-align:left;display:flex;align-items:center;gap:12px;min-width:auto">
+<div class="step-num">3</div>
+<div><h4>Density Analysis</h4><p>Observation density per grid cell is calculated, weighted by species diversity and frequency.</p></div>
+</div>
+<div class="workflow-step" style="text-align:left;display:flex;align-items:center;gap:12px;min-width:auto">
+<div class="step-num">4</div>
+<div><h4>Hotspot Identification</h4><p>High-density areas are flagged as hotspots, visible on the Ocean Map layer for researchers and communities.</p></div>
+</div>
+</div>
+</div>
+<div>
+<div class="map-placeholder" style="height:350px;background:linear-gradient(135deg,#FEE2E2,#FEF3C7,#DCFCE7,#DBEAFE,#E0E7FF)">
+<i data-lucide="flame" style="width:48px;height:48px;margin-bottom:16px;position:relative;z-index:1;color:#EF4444"></i>
+<h3 style="position:relative;z-index:1;font-size:1.2rem;color:var(--dark-navy)">Heatmap Visualization</h3>
+<p style="position:relative;z-index:1;font-size:0.85rem;color:var(--gray-600)">Community-generated observation density</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="section section-light" id="zones">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="map-pin"></i></div>
+<h2>Coastal Zones</h2>
+<p>Tamil Nadu divided into 6 coastal zones, each with unique marine ecosystems and community needs.</p>
+</div>
+<div class="cards-grid cards-grid-3 reveal">
+<div class="zone-card">
+<span class="zone-badge">Z1</span>
+<h4>North Coast</h4>
+<p class="zone-location">Chennai Metropolitan Region</p>
+<p class="zone-districts">Tiruvallur, Chennai, Chengalpattu</p>
+<p style="font-size:0.8rem;color:var(--gray-500);margin-top:8px">Urban coastal zone with high population density, industrial activity, and critical marine research stations.</p>
+</div>
+<div class="zone-card">
+<span class="zone-badge">Z2</span>
+<h4>North-Central Coast</h4>
+<p class="zone-location">Coromandel Coast Section</p>
+<p class="zone-districts">Villupuram, Cuddalore, Mayiladuthurai</p>
+<p style="font-size:0.8rem;color:var(--gray-500);margin-top:8px">Rich fishing grounds with traditional fishing communities and important nesting sites for sea turtles.</p>
+</div>
+<div class="zone-card">
+<span class="zone-badge">Z3</span>
+<h4>Cauvery Delta</h4>
+<p class="zone-location">River Delta Ecosystem</p>
+<p class="zone-districts">Nagapattinam, Tiruvarur, Thanjavur, Pudukkottai</p>
+<p style="font-size:0.8rem;color:var(--gray-500);margin-top:8px">Fertile delta region with brackish water ecosystems, extensive aquaculture, and mangrove habitats.</p>
+</div>
+<div class="zone-card">
+<span class="zone-badge">Z4</span>
+<h4>Gulf of Mannar</h4>
+<p class="zone-location">Biosphere Reserve Region</p>
+<p class="zone-districts">Ramanathapuram, Thoothukudi</p>
+<p style="font-size:0.8rem;color:var(--gray-500);margin-top:8px">UNESCO Biosphere Reserve with exceptional biodiversity including dugongs, coral reefs, and whale sharks.</p>
+</div>
+<div class="zone-card">
+<span class="zone-badge">Z5</span>
+<h4>Southern Cape</h4>
+<p class="zone-location">Southernmost Coastal Region</p>
+<p class="zone-districts">Tirunelveli, Kanyakumari</p>
+<p style="font-size:0.8rem;color:var(--gray-500);margin-top:8px">Where three oceans meet, with unique convergence ecosystems and important migratory bird habitats.</p>
+</div>
+<div class="zone-card">
+<span class="zone-badge" style="background:linear-gradient(135deg,#F59E0B,#F97316)">Z6</span>
+<h4>Ocean Contribution Hotspots</h4>
+<p class="zone-location">Dynamic Zone</p>
+<p class="zone-districts">Data-driven, real-time boundaries</p>
+<p style="font-size:0.8rem;color:var(--gray-500);margin-top:8px">Dynamically generated zone based on high-density contribution areas, updated as community data grows.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="section" id="recognition">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="award"></i></div>
+<h2>Recognition System</h2>
+<p>A multi-level recognition framework that values every contribution and celebrates community impact.</p>
+</div>
+<div class="cards-grid cards-grid-5 reveal" style="margin-bottom:40px">
+<div class="level-card">
+<div class="level-icon" style="background:linear-gradient(135deg,#CD7F32,#D4A574)"><i data-lucide="user"></i></div>
+<h4>Individual</h4>
+<p>Personal contribution tracking, badges, and level progression.</p>
+</div>
+<div class="level-card">
+<div class="level-icon" style="background:linear-gradient(135deg,#94A3B8,#CBD5E1)"><i data-lucide="home"></i></div>
+<h4>Village</h4>
+<p>Village-level leaderboards and community recognition events.</p>
+</div>
+<div class="level-card">
+<div class="level-icon" style="background:linear-gradient(135deg,#F59E0B,#F97316)"><i data-lucide="building"></i></div>
+<h4>District</h4>
+<p>District-wide impact metrics and annual recognition ceremonies.</p>
+</div>
+<div class="level-card">
+<div class="level-icon" style="background:linear-gradient(135deg,#3B82F6,#60A5FA)"><i data-lucide="map"></i></div>
+<h4>Zone</h4>
+<p>Zone-level comparison, best practices sharing, and zone awards.</p>
+</div>
+<div class="level-card">
+<div class="level-icon" style="background:linear-gradient(135deg,#8B5CF6,#A78BFA)"><i data-lucide="globe"></i></div>
+<h4>State</h4>
+<p>Statewide recognition, government appreciation, and media features.</p>
+</div>
+</div>
+<div class="cards-grid cards-grid-4 reveal">
+<div class="card" style="text-align:center">
+<div style="font-size:2rem;margin-bottom:8px">&#127758;</div>
+<h4>Ocean Guardian</h4>
+<p>Conservation efforts, cleanup drives, and habitat protection.</p>
+</div>
+<div class="card" style="text-align:center">
+<div style="font-size:2rem;margin-bottom:8px">&#128065;</div>
+<h4>Eagle Eye</h4>
+<p>Accurate and consistent marine wildlife sightings.</p>
+</div>
+<div class="card" style="text-align:center">
+<div style="font-size:2rem;margin-bottom:8px">&#127911;</div>
+<h4>Ocean Voice</h4>
+<p>Quality ocean sound recordings and acoustic data.</p>
+</div>
+<div class="card" style="text-align:center">
+<div style="font-size:2rem;margin-bottom:8px">&#128218;</div>
+<h4>Knowledge Keeper</h4>
+<p>Educational content, tutorials, and local knowledge sharing.</p>
+</div>
+<div class="card" style="text-align:center">
+<div style="font-size:2rem;margin-bottom:8px">&#127757;</div>
+<h4>Tourism Champion</h4>
+<p>Outstanding ecotourism initiatives and visitor experiences.</p>
+</div>
+<div class="card" style="text-align:center">
+<div style="font-size:2rem;margin-bottom:8px">&#128295;</div>
+<h4>Innovation Star</h4>
+<p>Creative solutions for circular economy and blue livelihoods.</p>
+</div>
+<div class="card" style="text-align:center">
+<div style="font-size:2rem;margin-bottom:8px">&#128101;</div>
+<h4>Community Builder</h4>
+<p>Event organization, volunteer coordination, and outreach.</p>
+</div>
+<div class="card" style="text-align:center">
+<div style="font-size:2rem;margin-bottom:8px">&#128640;</div>
+<h4>Emergency Hero</h4>
+<p>Swift emergency response and life-saving contributions.</p>
+</div>
+</div>
+<div class="note-box reveal">
+<p><strong>Live now:</strong> Every contributor has a public profile page with slug URL (for example <code>/recognition/contributors/arun-kumar</code>), score breakdown, badges, and recent verified work. Leaderboards refresh automatically via scheduled jobs.</p>
+</div>
+<div class="highlight-box reveal">
+<p>Contribution is more than data. It is community trust, shared knowledge, and a living commitment to the ocean.</p>
+</div>
+</div>
+</section>
+<section class="section section-light" id="yearly-evaluation">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="calendar-check"></i></div>
+<h2>Yearly Evaluation</h2>
+<p>Annual performance tracking showing growth trajectories and community development milestones.</p>
+</div>
+<div class="cards-grid cards-grid-3 reveal">
+<div class="year-card">
+<div class="year" style="color:var(--ocean-blue)">2026 <span class="demo-badge">Demo</span></div>
+<p style="font-size:0.85rem;color:var(--gray-500);margin-bottom:16px">Foundation Year</p>
+<div class="year-metrics">
+<div class="year-metric"><span>Active Contributors</span><strong>500</strong></div>
+<div class="year-metric"><span>Marine Sightings</span><strong>2,000</strong></div>
+<div class="year-metric"><span>Ocean Sound Records</span><strong>150</strong></div>
+<div class="year-metric"><span>Community Events</span><strong>48</strong></div>
+<div class="year-metric"><span>Zones Covered</span><strong>3 of 6</strong></div>
+</div>
+</div>
+<div class="year-card">
+<div class="year" style="color:var(--teal)">2027 <span class="demo-badge">Demo</span></div>
+<p style="font-size:0.85rem;color:var(--gray-500);margin-bottom:16px">Growth Year</p>
+<div class="year-metrics">
+<div class="year-metric"><span>Active Contributors</span><strong>2,500</strong></div>
+<div class="year-metric"><span>Marine Sightings</span><strong>12,000</strong></div>
+<div class="year-metric"><span>Ocean Sound Records</span><strong>800</strong></div>
+<div class="year-metric"><span>Community Events</span><strong>180</strong></div>
+<div class="year-metric"><span>Zones Covered</span><strong>6 of 6</strong></div>
+</div>
+</div>
+<div class="year-card">
+<div class="year" style="color:var(--sea-green)">2028 <span class="demo-badge">Demo</span></div>
+<p style="font-size:0.85rem;color:var(--gray-500);margin-bottom:16px">Scale Year</p>
+<div class="year-metrics">
+<div class="year-metric"><span>Active Contributors</span><strong>10,000</strong></div>
+<div class="year-metric"><span>Marine Sightings</span><strong>50,000</strong></div>
+<div class="year-metric"><span>Ocean Sound Records</span><strong>3,500</strong></div>
+<div class="year-metric"><span>Community Events</span><strong>500</strong></div>
+<div class="year-metric"><span>States Covered</span><strong>Tamil Nadu + 2</strong></div>
+</div>
+</div>
+</div>
+<div class="note-box reveal">
+<p><strong>Why contributions vary:</strong> Year-over-year growth depends on smartphone penetration in coastal areas, mobile network coverage, community champion recruitment, NGO partnerships, and government support. O3L is designed to scale organically through community trust and demonstrated value.</p>
+</div>
+</div>
+</section>
+<section class="section" id="community-impact">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="bar-chart-3"></i></div>
+<h2>Community Impact</h2>
+<p>Measurable outcomes that demonstrate how O3L transforms coastal communities and marine ecosystems.</p>
+</div>
+<div class="cards-grid cards-grid-3 reveal">
+<div class="impact-card">
+<div class="impact-value" style="color:var(--ocean-blue)">1,248 <span class="demo-badge">Demo</span></div>
+<div class="impact-label">Total Contributions</div>
+<p style="font-size:0.8rem;color:var(--gray-400);margin-top:8px">Community-sourced observations, sightings, and knowledge shared</p>
+</div>
+<div class="impact-card">
+<div class="impact-value" style="color:var(--teal)">327 <span class="demo-badge">Demo</span></div>
+<div class="impact-label">Verified Sightings</div>
+<p style="font-size:0.8rem;color:var(--gray-400);margin-top:8px">Marine wildlife observations confirmed by researchers</p>
+</div>
+<div class="impact-card">
+<div class="impact-value" style="color:var(--sea-green)">86 <span class="demo-badge">Demo</span></div>
+<div class="impact-label">Ocean Sound Records</div>
+<p style="font-size:0.8rem;color:var(--gray-400);margin-top:8px">Underwater acoustic recordings for marine research</p>
+</div>
+<div class="impact-card">
+<div class="impact-value" style="color:#F59E0B">54 <span class="demo-badge">Demo</span></div>
+<div class="impact-label">Events Organized</div>
+<p style="font-size:0.8rem;color:var(--gray-400);margin-top:8px">Community events, cleanups, and workshops held</p>
+</div>
+<div class="impact-card">
+<div class="impact-value" style="color:#8B5CF6">12 <span class="demo-badge">Demo</span></div>
+<div class="impact-label">Research Papers</div>
+<p style="font-size:0.8rem;color:var(--gray-400);margin-top:8px">Academic publications using O3L community data</p>
+</div>
+<div class="impact-card">
+<div class="impact-value" style="color:#EC4899">850+ <span class="demo-badge">Demo</span></div>
+<div class="impact-label">Active Volunteers</div>
+<p style="font-size:0.8rem;color:var(--gray-400);margin-top:8px">Trained community members ready for action</p>
+</div>
+</div>
+</div>
+</section>
+<section class="section section-light" id="research">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="flask-conical"></i></div>
+<h2>Research View</h2>
+<p>A dedicated interface for marine researchers, universities, and conservation scientists to leverage community-sourced data.</p>
+</div>
+<div class="cards-grid cards-grid-3 reveal">
+<div class="research-feature">
+<div class="research-icon" style="background:linear-gradient(135deg,var(--ocean-blue),var(--cyan))"><i data-lucide="database"></i></div>
+<div>
+<h4>Verified Data Access</h4>
+<p style="font-size:0.8rem;color:var(--gray-500)">Filter by species, zone, date range, and verification status for clean research datasets.</p>
+</div>
+</div>
+<div class="research-feature">
+<div class="research-icon" style="background:linear-gradient(135deg,var(--teal),var(--sea-green))"><i data-lucide="download"></i></div>
+<div>
+<h4>Export &amp; Analysis</h4>
+<p style="font-size:0.8rem;color:var(--gray-500)">Download data in CSV, GeoJSON, and API formats for use in research tools and GIS software.</p>
+</div>
+</div>
+<div class="research-feature">
+<div class="research-icon" style="background:linear-gradient(135deg,#8B5CF6,#A78BFA)"><i data-lucide="git-branch"></i></div>
+<div>
+<h4>Collaborative Projects</h4>
+<p style="font-size:0.8rem;color:var(--gray-500)">Create research projects, invite community participants, and track data collection progress.</p>
+</div>
+</div>
+<div class="research-feature">
+<div class="research-icon" style="background:linear-gradient(135deg,#F59E0B,#F97316)"><i data-lucide="line-chart"></i></div>
+<div>
+<h4>Trend Analysis</h4>
+<p style="font-size:0.8rem;color:var(--gray-500)">Visualize species population trends, migration patterns, and habitat changes over time.</p>
+</div>
+</div>
+<div class="research-feature">
+<div class="research-icon" style="background:linear-gradient(135deg,#EF4444,#F97316)"><i data-lucide="radio"></i></div>
+<div>
+<h4>Ocean Sound Analysis</h4>
+<p style="font-size:0.8rem;color:var(--gray-500)">Access acoustic recordings with spectrogram visualization and species call identification.</p>
+</div>
+</div>
+<div class="research-feature">
+<div class="research-icon" style="background:linear-gradient(135deg,#EC4899,#F472B6)"><i data-lucide="users"></i></div>
+<div>
+<h4>Community Network</h4>
+<p style="font-size:0.8rem;color:var(--gray-500)">Connect with trained local observers for targeted data collection and field research support.</p>
+</div>
+</div>
+</div>
+<div class="note-box reveal">
+<p><strong>Data Quality:</strong> All research data passes through O3L&rsquo;s multi-stage verification pipeline. Researchers can filter by verification confidence level and access raw data alongside verified datasets for comparative analysis.</p>
+</div>
+</div>
+</section>
+<section class="section" id="ngo-gov">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="landmark"></i></div>
+<h2>NGO &amp; Government View</h2>
+<p>Dashboard insights for policy makers, coastal management agencies, and conservation organizations.</p>
+</div>
+<div class="dashboard-mockup reveal">
+<div class="dashboard-topbar">
+<div class="dashboard-search"><i data-lucide="search"></i> Search zones, metrics, programs...</div>
+<div style="display:flex;align-items:center;gap:12px">
+<span class="badge badge-active">Admin View</span>
+<span class="demo-badge">Demo</span>
+</div>
+</div>
+<div class="dashboard-stats">
+<div class="dashboard-stat-card">
+<div class="stat-value">6</div>
+<div class="stat-label">Active Zones</div>
+</div>
+<div class="dashboard-stat-card">
+<div class="stat-value">2,500</div>
+<div class="stat-label">Total Contributors</div>
+</div>
+<div class="dashboard-stat-card">
+<div class="stat-value">87%</div>
+<div class="stat-label">Data Verification Rate</div>
+</div>
+<div class="dashboard-stat-card">
+<div class="stat-value">94%</div>
+<div class="stat-label">Community Satisfaction</div>
+</div>
+</div>
+<div style="padding:0 20px 20px">
+<h4 style="font-size:0.95rem;margin-bottom:16px">Coastal Community Health Metrics</h4>
+<div class="cards-grid cards-grid-4" style="gap:12px">
+<div style="padding:16px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);text-align:center">
+<div style="font-size:1.5rem;font-weight:700;color:var(--sea-green)">High</div>
+<div style="font-size:0.8rem;color:var(--gray-500)">Ecosystem Health</div>
+</div>
+<div style="padding:16px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);text-align:center">
+<div style="font-size:1.5rem;font-weight:700;color:var(--ocean-blue)">Growing</div>
+<div style="font-size:0.8rem;color:var(--gray-500)">Community Engagement</div>
+</div>
+<div style="padding:16px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);text-align:center">
+<div style="font-size:1.5rem;font-weight:700;color:var(--teal)">Stable</div>
+<div style="font-size:0.8rem;color:var(--gray-500)">Livelihood Index</div>
+</div>
+<div style="padding:16px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);text-align:center">
+<div style="font-size:1.5rem;font-weight:700;color:#F59E0B">Moderate</div>
+<div style="font-size:0.8rem;color:var(--gray-500)">Emergency Readiness</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="section section-light" id="data-trust">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="shield-check"></i></div>
+<h2>Data Trust &amp; Verification</h2>
+<p>Every piece of data in O3L passes through a structured verification pipeline to ensure research-grade quality.</p>
+</div>
+<div class="reveal">
+<div class="verification-item">
+<div class="verification-icon" style="background:#94A3B8"><i data-lucide="file-plus"></i></div>
+<div style="flex:1">
+<h4 style="font-size:0.95rem;margin-bottom:2px">Submitted</h4>
+<p style="font-size:0.8rem;color:var(--gray-500)">Data has been submitted by a community contributor and entered into the system.</p>
+</div>
+<span class="badge badge-pending">Submitted</span>
+</div>
+<div class="verification-item">
+<div class="verification-icon" style="background:#F59E0B"><i data-lucide="eye"></i></div>
+<div style="flex:1">
+<h4 style="font-size:0.95rem;margin-bottom:2px">Under Review</h4>
+<p style="font-size:0.8rem;color:var(--gray-500)">Data is being reviewed by a trained community verifier or researcher for accuracy.</p>
+</div>
+<span class="badge badge-review">Under Review</span>
+</div>
+<div class="verification-item">
+<div class="verification-icon" style="background:#3B82F6"><i data-lucide="check-circle"></i></div>
+<div style="flex:1">
+<h4 style="font-size:0.95rem;margin-bottom:2px">Verified</h4>
+<p style="font-size:0.8rem;color:var(--gray-500)">Data has been verified by at least one researcher and is considered reliable.</p>
+</div>
+<span class="badge badge-verified">Verified</span>
+</div>
+<div class="verification-item">
+<div class="verification-icon" style="background:#10B981"><i data-lucide="badge-check"></i></div>
+<div style="flex:1">
+<h4 style="font-size:0.95rem;margin-bottom:2px">Published</h4>
+<p style="font-size:0.8rem;color:var(--gray-500)">Data is published to the research database and is available for academic and policy use.</p>
+</div>
+<span class="badge badge-verified">Published</span>
+</div>
+<div class="verification-item">
+<div class="verification-icon" style="background:#EF4444"><i data-lucide="x-circle"></i></div>
+<div style="flex:1">
+<h4 style="font-size:0.95rem;margin-bottom:2px">Rejected</h4>
+<p style="font-size:0.8rem;color:var(--gray-500)">Data did not meet quality standards. The contributor receives feedback for resubmission.</p>
+</div>
+<span class="badge" style="background:#FEE2E2;color:#DC2626">Rejected</span>
+</div>
+</div>
+<div class="note-box reveal">
+<p><strong>Under the hood:</strong> These five stages are the customer-facing story. The backend pipeline is finer-grained — draft, submitted, auto-validated (photo / location / species / quality checks), moderator review, scientific review, verified, rejected, and duplicate — so automation handles the easy cases while humans focus on edge cases.</p>
+</div>
+</div>
+</section>
+<section class="section" id="privacy">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="lock"></i></div>
+<h2>Data Privacy &amp; Ownership</h2>
+<p>O3L is built on the principle that community data belongs to the community.</p>
+</div>
+<div class="cards-grid cards-grid-2 reveal">
+<div class="privacy-card">
+<div class="privacy-icon" style="background:linear-gradient(135deg,var(--ocean-blue),var(--cyan))"><i data-lucide="user-check"></i></div>
+<div>
+<h4 style="font-size:0.95rem;margin-bottom:4px">User Data Ownership</h4>
+<p style="font-size:0.8rem;color:var(--gray-500)">Contributors retain full ownership of their data. They can download, export, or delete their records at any time.</p>
+</div>
+</div>
+<div class="privacy-card">
+<div class="privacy-icon" style="background:linear-gradient(135deg,var(--teal),var(--sea-green))"><i data-lucide="shield"></i></div>
+<div>
+<h4 style="font-size:0.95rem;margin-bottom:4px">Consent-Based Sharing</h4>
+<p style="font-size:0.8rem;color:var(--gray-500)">Data is only shared with researchers and institutions after explicit contributor consent is obtained.</p>
+</div>
+</div>
+<div class="privacy-card">
+<div class="privacy-icon" style="background:linear-gradient(135deg,#8B5CF6,#A78BFA)"><i data-lucide="eye-off"></i></div>
+<div>
+<h4 style="font-size:0.95rem;margin-bottom:4px">Privacy by Design</h4>
+<p style="font-size:0.8rem;color:var(--gray-500)">Personal information is anonymized in research datasets. Only aggregated, non-identifying data is shared publicly.</p>
+</div>
+</div>
+<div class="privacy-card">
+<div class="privacy-icon" style="background:linear-gradient(135deg,#F59E0B,#F97316)"><i data-lucide="file-text"></i></div>
+<div>
+<h4 style="font-size:0.95rem;margin-bottom:4px">Transparent Policies</h4>
+<p style="font-size:0.8rem;color:var(--gray-500)">Clear, jargon-free privacy policies available in local languages explaining exactly how data is used.</p>
+</div>
+</div>
+<div class="privacy-card">
+<div class="privacy-icon" style="background:linear-gradient(135deg,#EC4899,#F472B6)"><i data-lucide="server"></i></div>
+<div>
+<h4 style="font-size:0.95rem;margin-bottom:4px">Secure Infrastructure</h4>
+<p style="font-size:0.8rem;color:var(--gray-500)">Encrypted data storage, secure API access, and regular security audits protect all community data.</p>
+</div>
+</div>
+<div class="privacy-card">
+<div class="privacy-icon" style="background:linear-gradient(135deg,#EF4444,#F97316)"><i data-lucide="undo"></i></div>
+<div>
+<h4 style="font-size:0.95rem;margin-bottom:4px">Right to Withdraw</h4>
+<p style="font-size:0.8rem;color:var(--gray-500)">Contributors can withdraw their data from the research database at any time, and it will be removed.</p>
+</div>
+</div>
+<div class="privacy-card">
+<div class="privacy-icon" style="background:linear-gradient(135deg,#06B6D4,#22D3EE)"><i data-lucide="scale"></i></div>
+<div>
+<h4 style="font-size:0.95rem;margin-bottom:4px">Ethical Use Agreement</h4>
+<p style="font-size:0.8rem;color:var(--gray-500)">All institutions accessing O3L data sign ethical use agreements ensuring data is used for conservation benefit.</p>
+</div>
+</div>
+<div class="privacy-card">
+<div class="privacy-icon" style="background:linear-gradient(135deg,#10B981,#34D399)"><i data-lucide="globe"></i></div>
+<div>
+<h4 style="font-size:0.95rem;margin-bottom:4px">Community Governance</h4>
+<p style="font-size:0.8rem;color:var(--gray-500)">A community advisory board oversees data policies, ensuring decisions reflect contributor interests.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="section section-light" id="product-journey">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="route"></i></div>
+<h2>Product Journey</h2>
+<p>The complete user lifecycle from first discovery to becoming a recognized ocean guardian.</p>
+</div>
+<div class="flow-steps reveal">
+<div class="flow-step">
+<div class="flow-step-icon" style="background:linear-gradient(135deg,#94A3B8,#CBD5E1)"><i data-lucide="megaphone"></i></div>
+<h4>Discover</h4>
+</div>
+<div class="flow-arrow"><i data-lucide="chevron-right"></i></div>
+<div class="flow-step">
+<div class="flow-step-icon" style="background:linear-gradient(135deg,var(--ocean-blue),var(--cyan))"><i data-lucide="book-open"></i></div>
+<h4>Learn</h4>
+</div>
+<div class="flow-arrow"><i data-lucide="chevron-right"></i></div>
+<div class="flow-step">
+<div class="flow-step-icon" style="background:linear-gradient(135deg,var(--teal),var(--sea-green))"><i data-lucide="eye"></i></div>
+<h4>Observe</h4>
+</div>
+<div class="flow-arrow"><i data-lucide="chevron-right"></i></div>
+<div class="flow-step">
+<div class="flow-step-icon" style="background:linear-gradient(135deg,#F59E0B,#F97316)"><i data-lucide="plus-circle"></i></div>
+<h4>Contribute</h4>
+</div>
+<div class="flow-arrow"><i data-lucide="chevron-right"></i></div>
+<div class="flow-step">
+<div class="flow-step-icon" style="background:linear-gradient(135deg,#8B5CF6,#A78BFA)"><i data-lucide="check-circle"></i></div>
+<h4>Verify</h4>
+</div>
+<div class="flow-arrow"><i data-lucide="chevron-right"></i></div>
+<div class="flow-step">
+<div class="flow-step-icon" style="background:linear-gradient(135deg,#EC4899,#F472B6)"><i data-lucide="users"></i></div>
+<h4>Connect</h4>
+</div>
+<div class="flow-arrow"><i data-lucide="chevron-right"></i></div>
+<div class="flow-step">
+<div class="flow-step-icon" style="background:linear-gradient(135deg,#06B6D4,#22D3EE)"><i data-lucide="store"></i></div>
+<h4>Create</h4>
+</div>
+<div class="flow-arrow"><i data-lucide="chevron-right"></i></div>
+<div class="flow-step">
+<div class="flow-step-icon" style="background:linear-gradient(135deg,#10B981,#34D399)"><i data-lucide="award"></i></div>
+<h4>Recognize</h4>
+</div>
+<div class="flow-arrow"><i data-lucide="chevron-right"></i></div>
+<div class="flow-step">
+<div class="flow-step-icon" style="background:linear-gradient(135deg,#EF4444,#F97316)"><i data-lucide="flask-conical"></i></div>
+<h4>Research</h4>
+</div>
+<div class="flow-arrow"><i data-lucide="chevron-right"></i></div>
+<div class="flow-step">
+<div class="flow-step-icon" style="background:linear-gradient(135deg,var(--deep-ocean),var(--ocean-blue))"><i data-lucide="refresh-cw"></i></div>
+<h4>Improve</h4>
+</div>
+</div>
+</div>
+</section>
+<section class="section" id="demo-flow">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="play-circle"></i></div>
+<h2>Customer Demo Flow</h2>
+<p>A structured 15-minute walkthrough designed to showcase O3L&rsquo;s value proposition and key features.</p>
+</div>
+<div class="timeline reveal">
+<div class="timeline-item">
+<h4>0:00 - 1:00 | Introduction</h4>
+<p>O3L vision, mission, and the coastal community challenge we address.</p>
+</div>
+<div class="timeline-item">
+<h4>1:00 - 2:30 | The Problem</h4>
+<p>Nine key problems facing coastal communities and why existing solutions fall short.</p>
+</div>
+<div class="timeline-item">
+<h4>2:30 - 4:00 | Solution Overview</h4>
+<p>The O3L ecosystem: Learn, Observe, Connect, Earn, Protect, Recognize.</p>
+</div>
+<div class="timeline-item">
+<h4>4:00 - 6:00 | Mobile App Demo</h4>
+<p>Live walkthrough of the mobile experience: personalized home, quick actions, navigation.</p>
+</div>
+<div class="timeline-item">
+<h4>6:00 - 7:30 | Web Platform Demo</h4>
+<p>Dashboard tour: contribution tracking, sighting verification, data visualization.</p>
+</div>
+<div class="timeline-item">
+<h4>7:30 - 9:00 | Ocean Sound &amp; Sightings</h4>
+<p>Demo of the observation workflows: recording, submitting, and verifying community data.</p>
+</div>
+<div class="timeline-item">
+<h4>9:00 - 10:30 | Community &amp; Events</h4>
+<p>Community features, event management, and recognition system walkthrough.</p>
+</div>
+<div class="timeline-item">
+<h4>10:30 - 11:30 | Economy &amp; Ecotourism</h4>
+<p>Marketplace, circular economy opportunities, and ecotourism platform features.</p>
+</div>
+<div class="timeline-item">
+<h4>11:30 - 12:30 | Emergency &amp; Ocean Map</h4>
+<p>SOS system, offline capabilities, and the multi-layer ocean map visualization.</p>
+</div>
+<div class="timeline-item">
+<h4>12:30 - 13:30 | Research &amp; Data Trust</h4>
+<p>Research dashboard, verification pipeline, and data privacy framework.</p>
+</div>
+<div class="timeline-item">
+<h4>13:30 - 14:30 | Implementation Plan</h4>
+<p>12-step rollout timeline, pilot program, and success metrics.</p>
+</div>
+<div class="timeline-item">
+<h4>14:30 - 15:00 | Q&amp;A and Next Steps</h4>
+<p>Open discussion, customization options, and partnership opportunities.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="section section-light" id="demo-user-journey">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="user-check"></i></div>
+<h2>Demo User Journeys</h2>
+<p>See how different users interact with O3L throughout their daily lives.</p>
+</div>
+<div class="two-col reveal">
+<div class="card">
+<h3 style="margin-bottom:16px"><i data-lucide="anchor"></i> Arun the Fisherman</h3>
+<div class="timeline" style="padding-left:24px">
+<div class="timeline-item">
+<h4>5:30 AM - Check Ocean Data</h4>
+<p>Opens O3L to check tide times, water temperature, and overnight sighting reports from other fishermen.</p>
+</div>
+<div class="timeline-item">
+<h4>6:00 AM - Record Sighting</h4>
+<p>Spots a pod of dolphins during fishing. Opens the app, captures a photo, and submits with GPS location.</p>
+</div>
+<div class="timeline-item">
+<h4>10:00 AM - Market Access</h4>
+<p>Checks the O3L marketplace for today&rsquo;s fish prices and finds a direct buyer for his catch.</p>
+</div>
+<div class="timeline-item">
+<h4>2:00 PM - Community Event</h4>
+<p>Receives notification about a boat safety training session this weekend. Registers with one tap.</p>
+</div>
+<div class="timeline-item">
+<h4>6:00 PM - Check Recognition</h4>
+<p>Sees his contribution score has reached Level 3. Earns the "Eagle Eye" badge for 50 verified sightings.</p>
+</div>
+</div>
+</div>
+<div class="card">
+<h3 style="margin-bottom:16px"><i data-lucide="flask-conical"></i> Dr. Priya the Researcher</h3>
+<div class="timeline" style="padding-left:24px">
+<div class="timeline-item">
+<h4>8:00 AM - Dashboard Review</h4>
+<p>Logs into the web platform. Reviews overnight contributions from 6 coastal zones on her dashboard.</p>
+</div>
+<div class="timeline-item">
+<h4>9:30 AM - Verify Sightings</h4>
+<p>Reviews 15 new dolphin sightings. Verifies 12, flags 2 for additional photos, rejects 1 for misidentification.</p>
+</div>
+<div class="timeline-item">
+<h4>11:00 AM - Analyze Ocean Sound</h4>
+<p>Listens to 3 new underwater recordings. Identifies whale calls in one recording from the Gulf of Mannar.</p>
+</div>
+<div class="timeline-item">
+<h4>2:00 PM - Export Data</h4>
+<p>Downloads verified sighting data for the last 6 months in GeoJSON format for her migration study paper.</p>
+</div>
+<div class="timeline-item">
+<h4>4:00 PM - Plan Field Survey</h4>
+<p>Creates a research project on O3L, inviting 30 fishermen in Zone 4 to collect targeted data next month.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="section" id="ecosystem-overview">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="network"></i></div>
+<h2>End-to-End Ecosystem</h2>
+<p>How every stakeholder connects through O3L to create a thriving coastal community.</p>
+</div>
+<div class="stakeholder-flow reveal">
+<div class="stakeholder-col">
+<h4>Stakeholders</h4>
+<div class="stakeholder-item"><i data-lucide="anchor"></i> Fishermen</div>
+<div class="stakeholder-item"><i data-lucide="heart-handshake"></i> Fisher Families</div>
+<div class="stakeholder-item"><i data-lucide="users"></i> Community Members</div>
+<div class="stakeholder-item"><i data-lucide="building-2"></i> NGOs</div>
+<div class="stakeholder-item"><i data-lucide="flask-conical"></i> Researchers</div>
+<div class="stakeholder-item"><i data-lucide="landmark"></i> Government</div>
+<div class="stakeholder-item"><i data-lucide="compass"></i> Ecotourism</div>
+<div class="stakeholder-item"><i data-lucide="store"></i> Vendors</div>
+</div>
+<div class="stakeholder-col">
+<h4>O3L Platform</h4>
+<div class="stakeholder-item" style="background:var(--ocean-light);border-color:var(--ocean-blue)"><i data-lucide="smartphone"></i> Mobile App</div>
+<div class="stakeholder-item" style="background:var(--ocean-light);border-color:var(--ocean-blue)"><i data-lucide="monitor"></i> Web Platform</div>
+<div class="stakeholder-item" style="background:var(--ocean-light);border-color:var(--ocean-blue)"><i data-lucide="audio-lines"></i> Ocean Sound</div>
+<div class="stakeholder-item" style="background:var(--ocean-light);border-color:var(--ocean-blue)"><i data-lucide="binoculars"></i> Sightings</div>
+<div class="stakeholder-item" style="background:var(--ocean-light);border-color:var(--ocean-blue)"><i data-lucide="map"></i> Ocean Map</div>
+<div class="stakeholder-item" style="background:var(--ocean-light);border-color:var(--ocean-blue)"><i data-lucide="store"></i> Marketplace</div>
+<div class="stakeholder-item" style="background:var(--ocean-light);border-color:var(--ocean-blue)"><i data-lucide="siren"></i> Emergency</div>
+<div class="stakeholder-item" style="background:var(--ocean-light);border-color:var(--ocean-blue)"><i data-lucide="award"></i> Recognition</div>
+</div>
+<div class="stakeholder-col">
+<h4>Outcomes</h4>
+<div class="stakeholder-item" style="background:#F0FDF4;border-color:#BBF7D0"><i data-lucide="trending-up"></i> Verified Research Data</div>
+<div class="stakeholder-item" style="background:#F0FDF4;border-color:#BBF7D0"><i data-lucide="shield"></i> Marine Conservation</div>
+<div class="stakeholder-item" style="background:#F0FDF4;border-color:#BBF7D0"><i data-lucide="wallet"></i> Better Livelihoods</div>
+<div class="stakeholder-item" style="background:#F0FDF4;border-color:#BBF7D0"><i data-lucide="heart"></i> Community Health</div>
+<div class="stakeholder-item" style="background:#F0FDF4;border-color:#BBF7D0"><i data-lucide="siren"></i> Emergency Safety</div>
+<div class="stakeholder-item" style="background:#F0FDF4;border-color:#BBF7D0"><i data-lucide="compass"></i> Sustainable Tourism</div>
+<div class="stakeholder-item" style="background:#F0FDF4;border-color:#BBF7D0"><i data-lucide="recycle"></i> Circular Economy</div>
+<div class="stakeholder-item" style="background:#F0FDF4;border-color:#BBF7D0"><i data-lucide="award"></i> Recognized Community</div>
+</div>
+</div>
+</div>
+</section>
+<section class="section section-light" id="customer-value">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="gem"></i></div>
+<h2>Customer Value</h2>
+<p>Specific value delivered to each stakeholder group through the O3L platform.</p>
+</div>
+<div class="cards-grid cards-grid-3 reveal">
+<div class="value-card">
+<h4><i data-lucide="landmark"></i> Government</h4>
+<p>Evidence-based coastal policy making, real-time zone monitoring, disaster preparedness dashboards, and community engagement metrics for policy evaluation.</p>
+</div>
+<div class="value-card">
+<h4><i data-lucide="building-2"></i> NGOs</h4>
+<p>Scalable conservation programs, verified community data, volunteer management tools, and impact reporting for donor communication.</p>
+</div>
+<div class="value-card">
+<h4><i data-lucide="flask-conical"></i> Researchers</h4>
+<p>Ground-truth marine data, community-assisted field research, acoustic datasets, and longitudinal observation networks at fraction of traditional cost.</p>
+</div>
+<div class="value-card">
+<h4><i data-lucide="anchor"></i> Fishermen</h4>
+<p>Fair market access, emergency safety net, community recognition, ocean condition data, and sustainable fishing guidance for long-term livelihood security.</p>
+</div>
+<div class="value-card">
+<h4><i data-lucide="heart-handshake"></i> Families</h4>
+<p>Safety tracking, educational resources for children, family recognition levels, emergency contacts, and community support network access.</p>
+</div>
+<div class="value-card">
+<h4><i data-lucide="store"></i> Vendors</h4>
+<p>Localized marketplace access, reduced marketing costs, direct customer relationships, and inventory management for coastal product sales.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="section" id="roadmap">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="map"></i></div>
+<h2>Future Roadmap</h2>
+<p>A phased approach to expanding O3L from Tamil Nadu to the entire Indian coastline and beyond.</p>
+</div>
+<div class="cards-grid cards-grid-2 reveal">
+<div class="card">
+<div class="card-icon navy"><i data-lucide="rocket"></i></div>
+<h3>Phase 1: Foundation (2026)</h3>
+<ul class="features-list">
+<li><i data-lucide="check"></i> Mobile app launch for Tamil Nadu coastal zones</li>
+<li><i data-lucide="check"></i> Core features: Sightings, Ocean Sound, Emergency</li>
+<li><i data-lucide="check"></i> Web platform for researchers and NGOs</li>
+<li><i data-lucide="check"></i> 3-zone pilot with 500 active contributors</li>
+</ul>
+</div>
+<div class="card">
+<div class="card-icon teal"><i data-lucide="trending-up"></i></div>
+<h3>Phase 2: Growth (2027)</h3>
+<ul class="features-list">
+<li><i data-lucide="check"></i> Expand to all 6 Tamil Nadu coastal zones</li>
+<li><i data-lucide="check"></i> Marketplace and circular economy features</li>
+<li><i data-lucide="check"></i> Ecotourism platform integration</li>
+<li><i data-lucide="check"></i> AI-assisted species identification</li>
+</ul>
+</div>
+<div class="card">
+<div class="card-icon blue"><i data-lucide="globe"></i></div>
+<h3>Phase 3: Scale (2028)</h3>
+<ul class="features-list">
+<li><i data-lucide="check"></i> Expand to Kerala, Karnataka, and Andhra Pradesh</li>
+<li><i data-lucide="check"></i> Multi-language support for all coastal states</li>
+<li><i data-lucide="check"></i> Satellite data integration for ocean mapping</li>
+<li><i data-lucide="check"></i> International research collaboration features</li>
+</ul>
+</div>
+<div class="card">
+<div class="card-icon orange"><i data-lucide="sparkles"></i></div>
+<h3>Phase 4: Vision (2029+)</h3>
+<ul class="features-list">
+<li><i data-lucide="check"></i> Pan-India coastal platform covering 7,500 km coastline</li>
+<li><i data-lucide="check"></i> Integration with global ocean observation systems</li>
+<li><i data-lucide="check"></i> AI-powered predictive analytics for marine conservation</li>
+<li><i data-lucide="check"></i> Carbon credit tracking for coastal communities</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section class="section section-light" id="implementation">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="settings"></i></div>
+<h2>Implementation Plan</h2>
+<p>A structured 12-step approach to deploying O3L in any coastal region.</p>
+</div>
+<div class="timeline reveal">
+<div class="timeline-item">
+<h4>Step 1: Stakeholder Mapping</h4>
+<p>Identify and engage local fishermen associations, NGOs, government offices, and community leaders.</p>
+</div>
+<div class="timeline-item">
+<h4>Step 2: Zone Assessment</h4>
+<p>Evaluate coastal zone characteristics, existing infrastructure, network coverage, and community readiness.</p>
+</div>
+<div class="timeline-item">
+<h4>Step 3: Community Champions</h4>
+<p>Recruit and train 10-15 community champions per zone as O3L ambassadors and data verifiers.</p>
+</div>
+<div class="timeline-item">
+<h4>Step 4: Infrastructure Setup</h4>
+<p>Deploy ocean sound recording stations, establish community access points, and configure zone dashboards.</p>
+</div>
+<div class="timeline-item">
+<h4>Step 5: Training Programs</h4>
+<p>Conduct hands-on training workshops for fishermen, volunteers, and local administrators on app usage.</p>
+</div>
+<div class="timeline-item">
+<h4>Step 6: Pilot Launch</h4>
+<p>Go live in 2-3 zones with a controlled group of 300 contributors for initial data collection.</p>
+</div>
+<div class="timeline-item">
+<h4>Step 7: Feedback Collection</h4>
+<p>Gather user feedback, identify pain points, and iterate on app features and community processes.</p>
+</div>
+<div class="timeline-item">
+<h4>Step 8: Verification Pipeline</h4>
+<p>Establish researcher network, set up verification workflows, and ensure data quality standards.</p>
+</div>
+<div class="timeline-item">
+<h4>Step 9: Marketplace Activation</h4>
+<p>Onboard local vendors, set up product categories, and enable circular economy features.</p>
+</div>
+<div class="timeline-item">
+<h4>Step 10: Ecotourism Integration</h4>
+<p>Partner with ecotourism operators, create experience packages, and activate the tourism layer.</p>
+</div>
+<div class="timeline-item">
+<h4>Step 11: Zone Expansion</h4>
+<p>Scale to remaining zones using lessons learned from the pilot, with trained champions leading the way.</p>
+</div>
+<div class="timeline-item">
+<h4>Step 12: Statewide Rollout</h4>
+<p>Full deployment across Tamil Nadu with government integration, research partnerships, and media outreach.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="section" id="pilot">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="test-tubes"></i></div>
+<h2>Pilot Program</h2>
+<p>A structured pilot to validate O3L&rsquo;s impact before full-scale deployment.</p>
+</div>
+<div class="cards-grid cards-grid-2 reveal">
+<div class="pilot-card">
+<h4><i data-lucide="target"></i> Pilot Scope</h4>
+<ul class="features-list">
+<li><i data-lucide="map-pin"></i> 2 coastal zones (Chennai + Nagapattinam)</li>
+<li><i data-lucide="users"></i> 300 active contributors over 6 months</li>
+<li><i data-lucide="smartphone"></i> Full mobile app + web platform access</li>
+<li><i data-lucide="book-open"></i> Marine guides + education content</li>
+<li><i data-lucide="audio-lines"></i> Ocean Sound recording in 5 locations</li>
+<li><i data-lucide="siren"></i> Emergency SOS system active</li>
+</ul>
+</div>
+<div class="pilot-card">
+<h4><i data-lucide="bar-chart-3"></i> Success Metrics</h4>
+<ul class="features-list">
+<li><i data-lucide="trending-up"></i> 500+ verified observations per month</li>
+<li><i data-lucide="check-circle"></i> 80%+ data verification rate</li>
+<li><i data-lucide="users"></i> 70%+ monthly active contributor retention</li>
+<li><i data-lucide="zap"></i> &lt;5 minute average emergency response time</li>
+<li><i data-lucide="star"></i> 4.0+ user satisfaction rating</li>
+<li><i data-lucide="file-text"></i> 2+ research papers from pilot data</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section class="section section-light" id="questions">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="help-circle"></i></div>
+<h2>Customer Requirements &amp; Questions</h2>
+<p>Key questions organized by category to help customers evaluate O3L for their needs.</p>
+</div>
+<div class="reveal">
+<div class="question-group open" data-faq>
+<div class="question-header">
+<span class="q-num">A</span>
+<h4>Organization &amp; Vision</h4>
+<i data-lucide="chevron-down"></i>
+</div>
+<div class="question-body">
+<ul>
+<li>Who is the target audience for O3L?</li>
+<li>What is the long-term vision for the platform?</li>
+<li>How does O3L differ from existing ocean apps?</li>
+<li>What is the business model and sustainability plan?</li>
+</ul>
+</div>
+</div>
+<div class="question-group" data-faq>
+<div class="question-header">
+<span class="q-num">B</span>
+<h4>Geography &amp; Coverage</h4>
+<i data-lucide="chevron-down"></i>
+</div>
+<div class="question-body">
+<ul>
+<li>Which coastal zones does O3L cover initially?</li>
+<li>How are zone boundaries determined?</li>
+<li>Can O3L work in other Indian coastal states?</li>
+<li>How does the platform handle cross-zone data?</li>
+</ul>
+</div>
+</div>
+<div class="question-group" data-faq>
+<div class="question-header">
+<span class="q-num">C</span>
+<h4>User Onboarding</h4>
+<i data-lucide="chevron-down"></i>
+</div>
+<div class="question-body">
+<ul>
+<li>How are fishermen onboarded onto the platform?</li>
+<li>What digital literacy level is required?</li>
+<li>Is training provided in local languages?</li>
+<li>How are community champions recruited and trained?</li>
+</ul>
+</div>
+</div>
+<div class="question-group" data-faq>
+<div class="question-header">
+<span class="q-num">D</span>
+<h4>Data Collection</h4>
+<i data-lucide="chevron-down"></i>
+</div>
+<div class="question-body">
+<ul>
+<li>What types of data can be collected?</li>
+<li>How does offline data collection work?</li>
+<li>What is the minimum device requirement?</li>
+<li>How is data accuracy maintained?</li>
+</ul>
+</div>
+</div>
+<div class="question-group" data-faq>
+<div class="question-header">
+<span class="q-num">E</span>
+<h4>Verification &amp; Quality</h4>
+<i data-lucide="chevron-down"></i>
+</div>
+<div class="question-body">
+<ul>
+<li>Who verifies the community-submitted data?</li>
+<li>What is the verification workflow?</li>
+<li>How long does verification typically take?</li>
+<li>What happens to rejected data submissions?</li>
+</ul>
+</div>
+</div>
+<div class="question-group" data-faq>
+<div class="question-header">
+<span class="q-num">F</span>
+<h4>Marketplace &amp; Economy</h4>
+<i data-lucide="chevron-down"></i>
+</div>
+<div class="question-body">
+<ul>
+<li>How does the marketplace connect buyers and sellers?</li>
+<li>What commission structure applies?</li>
+<li>How are circular economy products validated?</li>
+<li>Can vendors set their own prices?</li>
+</ul>
+</div>
+</div>
+<div class="question-group" data-faq>
+<div class="question-header">
+<span class="q-num">G</span>
+<h4>Recognition &amp; Gamification</h4>
+<i data-lucide="chevron-down"></i>
+</div>
+<div class="question-body">
+<ul>
+<li>How are contribution levels determined?</li>
+<li>What rewards come with each level?</li>
+<li>How is community recognition implemented?</li>
+<li>Can recognition criteria be customized?</li>
+</ul>
+</div>
+</div>
+<div class="question-group" data-faq>
+<div class="question-header">
+<span class="q-num">H</span>
+<h4>Emergency System</h4>
+<i data-lucide="chevron-down"></i>
+</div>
+<div class="question-body">
+<ul>
+<li>How does the SOS system work?</li>
+<li>What happens when an SOS is triggered?</li>
+<li>How is the system tested for reliability?</li>
+<li>Can the emergency system work without internet?</li>
+</ul>
+</div>
+</div>
+<div class="question-group" data-faq>
+<div class="question-header">
+<span class="q-num">I</span>
+<h4>Ecotourism</h4>
+<i data-lucide="chevron-down"></i>
+</div>
+<div class="question-body">
+<ul>
+<li>How are ecotourism experiences structured?</li>
+<li>What safety standards are maintained?</li>
+<li>How are local communities involved in tourism?</li>
+<li>What is the revenue-sharing model?</li>
+</ul>
+</div>
+</div>
+<div class="question-group" data-faq>
+<div class="question-header">
+<span class="q-num">J</span>
+<h4>Research Integration</h4>
+<i data-lucide="chevron-down"></i>
+</div>
+<div class="question-body">
+<ul>
+<li>How do researchers access O3L data?</li>
+<li>What data formats are supported?</li>
+<li>Can researchers create custom data collection projects?</li>
+<li>How is data quality ensured for academic use?</li>
+</ul>
+</div>
+</div>
+<div class="question-group" data-faq>
+<div class="question-header">
+<span class="q-num">K</span>
+<h4>Administration</h4>
+<i data-lucide="chevron-down"></i>
+</div>
+<div class="question-body">
+<ul>
+<li>What admin tools are available for government agencies?</li>
+<li>How is zone-level reporting handled?</li>
+<li>Can admin dashboards be customized?</li>
+<li>What integration APIs exist for government systems?</li>
+</ul>
+</div>
+</div>
+<div class="question-group" data-faq>
+<div class="question-header">
+<span class="q-num">L</span>
+<h4>Mobile &amp; Technical</h4>
+<i data-lucide="chevron-down"></i>
+</div>
+<div class="question-body">
+<ul>
+<li>What are the minimum device requirements?</li>
+<li>Which mobile platforms are supported?</li>
+<li>How much storage does the app require?</li>
+<li>What is the app update frequency?</li>
+</ul>
+</div>
+</div>
+<div class="question-group" data-faq>
+<div class="question-header">
+<span class="q-num">M</span>
+<h4>Business &amp; Partnership</h4>
+<i data-lucide="chevron-down"></i>
+</div>
+<div class="question-body">
+<ul>
+<li>What partnership models does O3L offer?</li>
+<li>How is the platform funded?</li>
+<li>What are the licensing options?</li>
+<li>How is ongoing support and maintenance provided?</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="section" id="checklist">
+<div class="container">
+<div class="section-title reveal">
+<div class="section-icon"><i data-lucide="clipboard-check"></i></div>
+<h2>Decision Checklist</h2>
+<p>Use this checklist to evaluate if O3L is the right fit for your organization or community.</p>
+</div>
+<div class="card reveal" style="max-width:700px;margin:0 auto">
+<div class="checklist-item">
+<input type="checkbox" id="c1"><label for="c1">We serve coastal communities and need a unified digital platform</label>
+</div>
+<div class="checklist-item">
+<input type="checkbox" id="c2"><label for="c2">We need verified, ground-truth marine data for research or policy</label>
+</div>
+<div class="checklist-item">
+<input type="checkbox" id="c3"><label for="c3">We want to empower fishermen as citizen scientists</label>
+</div>
+<div class="checklist-item">
+<input type="checkbox" id="c4"><label for="c4">We need an emergency response system for coastal areas</label>
+</div>
+<div class="checklist-item">
+<input type="checkbox" id="c5"><label for="c5">We want to promote sustainable ecotourism in coastal regions</label>
+</div>
+<div class="checklist-item">
+<input type="checkbox" id="c6"><label for="c6">We need to track and recognize community contributions</label>
+</div>
+<div class="checklist-item">
+<input type="checkbox" id="c7"><label for="c7">We want to build a circular economy around ocean resources</label>
+</div>
+<div class="checklist-item">
+<input type="checkbox" id="c8"><label for="c8">We need offline capabilities for remote coastal areas</label>
+</div>
+<div class="checklist-item">
+<input type="checkbox" id="c9"><label for="c9">We want a platform that works in local coastal languages</label>
+</div>
+<div class="checklist-item">
+<input type="checkbox" id="c10"><label for="c10">We need a marketplace connecting coastal vendors and buyers</label>
+</div>
+<div class="checklist-item">
+<input type="checkbox" id="c11"><label for="c11">We want data privacy and community data ownership</label>
+</div>
+<div class="checklist-item">
+<input type="checkbox" id="c12"><label for="c12">We need multi-stakeholder dashboards (NGO, Government, Research)</label>
+</div>
+<div class="checklist-item">
+<input type="checkbox" id="c13"><label for="c13">We want to partner on a platform built for Indian coastal contexts</label>
+</div>
+<div class="checklist-item">
+<input type="checkbox" id="c14"><label for="c14">We are ready to pilot O3L in our coastal zone</label>
+</div>
+</div>
+</div>
+</section>
+<section class="cta-section" id="cta">
+<div class="container reveal">
+<h2>One Ocean.<br>One Life.<br>One Connected Community.</h2>
+<p>Join us in building the digital future of India&rsquo;s coastal communities. Let&rsquo;s create a platform that works for the people who know the ocean best.</p>
+<div class="cta-buttons">
+<a href="mailto:hello@oneoceanonelife.org?subject=Request%20a%20Demo" class="btn-white"><i data-lucide="play-circle"></i> Request a Demo</a>
+<a href="mailto:hello@oneoceanonelife.org?subject=Discuss%20the%20Pilot" class="btn-outline-white"><i data-lucide="message-circle"></i> Discuss the Pilot</a>
+</div>
+</div>
+</section>
+<footer class="footer">
+<div class="container">
+<div class="footer-inner">
+<div class="footer-brand">
+<h3>O3L &mdash; One Ocean One Life</h3>
+<p>A connected coastal community ecosystem designed to unite people, ocean knowledge, research, livelihood, and conservation into one powerful platform.</p>
+</div>
+<div class="footer-links">
+<h4>Platform</h4>
+<a href="#overview">Overview</a>
+<a href="#solution">Solution</a>
+<a href="#mobile-app">Mobile App</a>
+<a href="#web-platform">Web Platform</a>
+<a href="#implementation">Implementation</a>
+</div>
+<div class="footer-links">
+<h4>Features</h4>
+<a href="#ocean-sound">Ocean Sound</a>
+<a href="#sightings">Sightings</a>
+<a href="#contributions-pipeline">Contributions</a>
+<a href="#catches-observations">Catches &amp; Observations</a>
+<a href="#cleanups">Beach Cleanups</a>
+<a href="#community">Community</a>
+<a href="#economy">Economy</a>
+<a href="#payments">Payments</a>
+<a href="#ecotourism">Ecotourism</a>
+</div>
+<div class="footer-links">
+<h4>Resources</h4>
+<a href="#privacy">Privacy Policy</a>
+<a href="#privacy">Terms of Service</a>
+<a href="#cta">Contact</a>
+<a href="technical-document.html">Documentation</a>
+<a href="index.html">Home</a>
+</div>
+</div>
+<div class="footer-bottom">
+<p>&copy; 2026 O3L &mdash; One Ocean One Life. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<button class="back-to-top" id="backToTop" aria-label="Back to top" title="Back to top">
+<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+</button>
+<script>
+lucide.createIcons();
+const hamburger=document.getElementById("hamburger");
+const mobileNav=document.getElementById("mobileNav");
+hamburger.addEventListener("click",()=>{mobileNav.classList.toggle("open")});
+function closeMobileNav(){mobileNav.classList.remove("open")}
+let lastScrollY=window.scrollY;
+window.addEventListener("scroll",()=>{
+const y=window.scrollY;
+const hdr=document.getElementById("header");
+hdr.classList.toggle("scrolled",y>50);
+document.getElementById("backToTop").classList.toggle("visible",y>500);
+if(mobileNav.classList.contains("open")){hdr.classList.remove("hide");lastScrollY=y;return;}
+if(y>lastScrollY+2&&y>160){hdr.classList.add("hide");}
+else if(y<lastScrollY-2||y<80){hdr.classList.remove("hide");}
+lastScrollY=y<=0?0:y;
+},{passive:true});
+document.getElementById("backToTop").addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
+const observer=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("visible")}})},{threshold:0.1});
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+document.querySelectorAll("[data-faq] .question-header").forEach(header=>{
+header.addEventListener("click",()=>{header.parentElement.classList.toggle("open")})
+});
+const progressFill=document.querySelector(".progress-bar-fill");
+if(progressFill){const progressObserver=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){progressFill.style.width=progressFill.style.width}})},{threshold:0.5});progressObserver.observe(progressFill)}
+</script>
+</body>
+</html>

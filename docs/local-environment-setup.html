@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<title>O3L — Local Environment Setup (Developer Guide)</title>
+<meta name="description" content="Shareable quick-start guide to run the O3L platform locally: Django API, PostgreSQL+PostGIS, Redis, Next.js web and Expo mobile.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+    --deep:#063B4C;--blue:#087EA4;--green:#16A085;--coral:#FF7660;--navy:#082A38;--abyss:#041B24;
+    --bg:#F6FAFB;--surface:#fff;--text:#1E293B;--muted:#64748B;--border:#E2E8F0;
+    --code:#0B2430;--warn:#F59E0B;--danger:#EF4444;--ok:#10B981;--info:#3B82F6;
+    --bar:60px;--side:250px;--r:13px;
+    --sh:0 1px 3px rgba(6,59,76,.07);--sh2:0 8px 26px rgba(6,59,76,.1);--e:cubic-bezier(.4,0,.2,1)
+}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--bar) + 20px)}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:rgba(8,126,164,.22)}
+a{color:var(--blue)}
+
+/* progress + topbar */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--blue),var(--green),var(--coral));z-index:2000;box-shadow:0 0 10px rgba(22,160,133,.6)}
+.topbar{position:fixed;top:0;left:0;right:0;height:var(--bar);z-index:1500;background:rgba(6,59,76,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:16px;padding:0 18px}
+.topbar::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,var(--blue),var(--green) 50%,var(--coral));opacity:.85}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.brand img{height:36px;width:36px;object-fit:contain;background:#fff;border-radius:9px;padding:3px;box-shadow:0 3px 12px rgba(0,0,0,.3)}
+.brand b{color:#fff;font-family:'Space Grotesk',sans-serif;font-size:15px;letter-spacing:-.2px;display:block;line-height:1.15}
+.brand span{color:rgba(255,255,255,.5);font-size:9px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase}
+.nav{display:flex;gap:2px;margin-left:8px}
+.nav a{color:rgba(255,255,255,.72);text-decoration:none;font-size:12.8px;font-weight:500;padding:7px 11px;border-radius:8px;transition:.2s}
+.nav a:hover{color:#fff;background:rgba(255,255,255,.09)}
+.nav a.active{color:#fff;background:rgba(22,160,133,.28)}
+.tb-right{margin-left:auto;display:flex;gap:8px;align-items:center}
+.chip{font-size:10.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#bae6fd;display:inline-flex;align-items:center;gap:6px}
+.chip.ok{color:#86efac;background:rgba(16,185,129,.15);border-color:rgba(134,239,172,.32)}
+.chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+.btn-ghost{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#e2e8f0;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);padding:7px 13px;border-radius:9px;cursor:pointer;font-family:inherit;transition:.2s}
+.btn-ghost:hover{background:rgba(255,255,255,.18);color:#fff;transform:translateY(-1px)}
+.burger{display:none;background:none;border:1px solid rgba(255,255,255,.16);border-radius:9px;width:36px;height:34px;cursor:pointer}
+.burger i{display:block;width:16px;height:2px;background:#fff;margin:3.5px auto;border-radius:2px}
+
+/* hero */
+.hero{position:relative;padding:calc(var(--bar) + 60px) 20px 70px;text-align:center;overflow:hidden;background:linear-gradient(155deg,#02151d,var(--deep) 32%,var(--navy) 58%,#0a4f63 82%,var(--blue) 100%)}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 760px 520px at 18% 40%,rgba(8,126,164,.32),transparent 68%),radial-gradient(ellipse 620px 480px at 86% 24%,rgba(22,160,133,.24),transparent 68%),radial-gradient(ellipse 420px 400px at 70% 90%,rgba(255,118,96,.12),transparent 70%)}
+.hero .grid{position:absolute;inset:0;opacity:.05;background-image:linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px);background-size:54px 54px;mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,#000 40%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,#000 40%,transparent 100%)}
+.dots{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.dotp{position:absolute;bottom:-10px;border-radius:50%;background:rgba(255,255,255,.13);animation:rise linear infinite}
+@keyframes rise{0%{transform:translateY(0) scale(.4);opacity:0}12%{opacity:.85}88%{opacity:.85}100%{transform:translateY(-560px) scale(1.1);opacity:0}}
+.hero-in{position:relative;z-index:2;max-width:880px;margin:0 auto}
+.hero .tag{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.82);font-size:11px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:22px;animation:fd .8s var(--e) both}
+.hero .tag i{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}
+h1{font-family:'Space Grotesk',sans-serif;color:#fff;font-weight:700;font-size:clamp(32px,5.4vw,56px);line-height:1.08;letter-spacing:-1.6px;margin-bottom:16px;animation:fu .9s .1s var(--e) both}
+h1 .g{background:linear-gradient(100deg,#7dd3fc,#2DD4BF 45%,#FF9A85);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.lead{color:rgba(226,240,244,.82);font-size:clamp(14.5px,1.5vw,17px);max-width:680px;margin:0 auto 28px;animation:fu .9s .2s var(--e) both}
+.cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;animation:fu .9s .3s var(--e) both}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 25px;border-radius:11px;font-size:14px;font-weight:700;text-decoration:none;transition:all .25s var(--e);border:none;font-family:inherit;cursor:pointer}
+.btn-p{background:linear-gradient(135deg,var(--green),#2DD4BF);color:#04212c;box-shadow:0 9px 26px rgba(22,160,133,.38)}
+.btn-p:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(22,160,133,.5)}
+.btn-o{background:rgba(255,255,255,.06);color:#fff;border:1.5px solid rgba(255,255,255,.28)}
+.btn-o:hover{background:rgba(255,255,255,.14);transform:translateY(-3px)}
+@keyframes fd{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+@keyframes fu{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* layout */
+.layout{display:flex;max-width:1400px;margin:0 auto;align-items:flex-start}
+.side{position:sticky;top:var(--bar);width:var(--side);flex:0 0 var(--side);height:calc(100vh - var(--bar));overflow-y:auto;background:var(--surface);border-right:1px solid var(--border);padding:18px 12px 30px;scrollbar-width:thin;animation:si .55s .15s var(--e) both}
+@keyframes si{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:none}}
+.side::-webkit-scrollbar{width:6px}.side::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:6px}
+.sg{font-size:10px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#94a3b8;margin:14px 8px 6px}
+.sl{display:flex;align-items:center;gap:9px;padding:8px 10px;margin:2px 0;color:var(--muted);text-decoration:none;font-size:13.2px;font-weight:500;border-radius:9px;transition:all .18s var(--e)}
+.sl:hover{background:#f1f5f9;color:var(--blue);transform:translateX(3px)}
+.sl.active{background:linear-gradient(90deg,rgba(8,126,164,.13),rgba(22,160,133,.07));color:var(--deep);font-weight:700;box-shadow:inset 3px 0 0 var(--blue)}
+.sl .n{width:20px;height:20px;flex:0 0 20px;border-radius:6px;background:#eef4f7;color:var(--blue);display:grid;place-items:center;font-size:10.5px;font-weight:800}
+.sl.active .n{background:var(--blue);color:#fff}
+.side-note{margin-top:16px;padding:13px;border-radius:11px;font-size:12px;line-height:1.5;background:linear-gradient(140deg,#063B4C,#087EA4);color:rgba(255,255,255,.85)}
+.side-note b{display:block;color:#fff;margin-bottom:4px}
+.side-note a{color:#7dd3fc;font-weight:600;text-decoration:none}
+.main{flex:1;min-width:0;padding:34px clamp(18px,3.2vw,46px) 70px}
+
+/* sections */
+.sec{margin-bottom:56px;scroll-margin-top:calc(var(--bar) + 18px)}
+.sec-h{display:flex;gap:14px;align-items:flex-start}
+.sec-i{width:42px;height:42px;flex:0 0 42px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--deep),var(--blue));color:#fff;box-shadow:0 7px 18px rgba(8,126,164,.3)}
+.sec-i.g{background:linear-gradient(135deg,#0f766e,var(--green));box-shadow:0 7px 18px rgba(22,160,133,.3)}
+.sec-i.o{background:linear-gradient(135deg,#b45309,#f59e0b);box-shadow:0 7px 18px rgba(245,158,11,.28)}
+.sec-i.r{background:linear-gradient(135deg,#9f1239,var(--coral));box-shadow:0 7px 18px rgba(255,118,96,.3)}
+.eb{font-size:10.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--blue)}
+h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(23px,2.7vw,30px);font-weight:700;color:var(--navy);letter-spacing:-.8px;line-height:1.2}
+.sub{color:var(--muted);font-size:14.6px;max-width:720px;margin-top:6px}
+.rule{height:3px;width:58px;border-radius:3px;background:linear-gradient(90deg,var(--blue),var(--green));margin:16px 0 26px}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s var(--e),transform .65s var(--e)}
+.reveal.on{opacity:1;transform:none}
+
+/* code */
+.cb{background:var(--code);border-radius:12px;overflow:hidden;margin:16px 0;border:1px solid rgba(255,255,255,.07);box-shadow:0 9px 26px rgba(4,27,36,.16)}
+.ch{display:flex;align-items:center;gap:8px;padding:8px 14px;background:rgba(255,255,255,.045);border-bottom:1px solid rgba(255,255,255,.07)}
+.dots3{display:flex;gap:5px}.dots3 i{width:9px;height:9px;border-radius:50%;display:block}
+.dots3 i:nth-child(1){background:#ff5f57}.dots3 i:nth-child(2){background:#febc2e}.dots3 i:nth-child(3){background:#28c840}
+.ct{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.03em;margin-left:3px}
+.cpy{margin-left:auto;display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.72);font-size:11px;font-weight:600;padding:4px 10px;border-radius:7px;cursor:pointer;font-family:inherit;transition:.2s}
+.cpy:hover{background:rgba(255,255,255,.18);color:#fff}
+.cpy.done{background:rgba(16,185,129,.22);border-color:rgba(16,185,129,.5);color:#86efac}
+.cb pre{padding:15px 17px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:12.6px;line-height:1.7;color:#d6e9ef}
+.cb pre::-webkit-scrollbar{height:7px}.cb pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:7px}
+.cm{color:#6d97a8;font-style:italic}.kw{color:#fbbf24}.st{color:#86efac}
+code.ic{font-family:'JetBrains Mono',monospace;font-size:.87em;background:#EEF4F7;color:#0b5d75;padding:2px 6px;border-radius:5px;border:1px solid #dbe7ec;font-weight:500;white-space:nowrap}
+
+/* callouts, cards, steps */
+.co{display:flex;gap:13px;padding:15px 17px;border-radius:12px;margin:18px 0;border:1px solid;font-size:13.7px;line-height:1.6}
+.co .ci{flex:0 0 20px;height:20px;margin-top:1px}
+.co b{display:block;margin-bottom:3px;font-size:14px}
+.co.warn{background:#FFFBEB;border-color:#FDE68A;color:#78350f}.co.warn .ci{color:var(--warn)}
+.co.tip{background:#ECFDF5;border-color:#A7F3D0;color:#14532d}.co.tip .ci{color:var(--ok)}
+.co.info{background:#EFF6FF;border-color:#BFDBFE;color:#1e3a5f}.co.info .ci{color:var(--info)}
+.co.danger{background:#FEF2F2;border-color:#FECACA;color:#7f1d1d}.co.danger .ci{color:var(--danger)}
+.steps{position:relative}
+.step{display:flex;gap:18px;position:relative;padding-bottom:30px}
+.step:last-child{padding-bottom:0}
+.rail{flex:0 0 42px;display:flex;flex-direction:column;align-items:center}
+.sn{width:42px;height:42px;flex:0 0 42px;border-radius:12px;display:grid;place-items:center;background:#fff;border:2px solid var(--blue);color:var(--blue);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;box-shadow:0 5px 14px rgba(8,126,164,.18);transition:all .3s var(--e);z-index:2}
+.step:hover .sn{background:var(--blue);color:#fff;transform:scale(1.08) rotate(-4deg)}
+.ln{flex:1;width:2px;margin-top:7px;background:repeating-linear-gradient(to bottom,var(--border) 0 7px,transparent 7px 14px)}
+.step:last-child .ln{display:none}
+.sb{flex:1;min-width:0;padding-top:2px}
+.sb h3{font-size:17.5px;font-weight:700;color:var(--navy);margin-bottom:4px;letter-spacing:-.3px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.sb>p{color:var(--muted);font-size:14.1px;margin-bottom:4px}
+.pill{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:6px;background:rgba(22,160,133,.13);color:#0f766e}
+.pill.a{background:rgba(245,158,11,.16);color:#b45309}.pill.r{background:rgba(239,68,68,.13);color:#b91c1c}.pill.b{background:rgba(8,126,164,.13);color:var(--blue)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:19px;box-shadow:var(--sh);transition:all .3s var(--e);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--green));transform:scaleX(0);transform-origin:left;transition:transform .4s var(--e)}
+.card:hover{transform:translateY(-4px);box-shadow:var(--sh2);border-color:#cfe3ea}
+.card:hover::before{transform:scaleX(1)}
+.card h4{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.card p{font-size:13.3px;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:11px}
+.tg{font-size:10.8px;font-weight:600;padding:3px 8px;border-radius:6px;background:#f1f5f9;color:#475569;border:1px solid var(--border)}
+.tg.b{background:rgba(8,126,164,.1);color:var(--blue);border-color:rgba(8,126,164,.2)}
+.tg.g{background:rgba(22,160,133,.1);color:#0f766e;border-color:rgba(22,160,133,.22)}
+.tg.a{background:rgba(245,158,11,.12);color:#b45309;border-color:rgba(245,158,11,.25)}
+.mt{font-size:11.5px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase;color:var(--blue);margin:24px 0 9px;display:flex;align-items:center;gap:8px}
+.mt::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
+
+/* tables */
+.tw{overflow-x:auto;border:1px solid var(--border);border-radius:12px;background:#fff;box-shadow:var(--sh);margin:16px 0}
+table{width:100%;border-collapse:collapse;font-size:13.4px;min-width:520px}
+th{background:linear-gradient(135deg,var(--deep),#0a5269);color:#fff;text-align:left;padding:11px 14px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+td{padding:11px 14px;border-bottom:1px solid #EDF2F5;color:#334155;vertical-align:top}
+tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#F7FBFC}
+.mono{font-family:'JetBrains Mono',monospace;font-size:12.3px;color:#0b5d75;white-space:nowrap}
+
+/* checklist + accordion */
+.chk{display:grid;gap:9px}
+.chk li{list-style:none;display:flex;align-items:flex-start;gap:11px;padding:11px 14px;background:#fff;border:1px solid var(--border);border-radius:10px;font-size:13.7px;transition:all .25s var(--e)}
+.chk li:hover{border-color:#A7F3D0;background:#F4FDFA;transform:translateX(3px)}
+.tk{width:20px;height:20px;flex:0 0 20px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--green),#2DD4BF);color:#fff;font-size:11px;font-weight:900;box-shadow:0 2px 7px rgba(22,160,133,.35);margin-top:1px}
+.acc{display:flex;flex-direction:column;gap:10px}
+details.ai{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:all .28s var(--e);box-shadow:var(--sh)}
+details.ai[open]{border-color:#bfe0ea;box-shadow:var(--sh2)}
+details.ai summary{list-style:none;cursor:pointer;padding:15px 18px;font-weight:650;font-size:14.5px;color:var(--navy);display:flex;align-items:center;gap:12px}
+details.ai summary::-webkit-details-marker{display:none}
+details.ai summary:hover{background:#F7FBFC}
+.aq{width:25px;height:25px;flex:0 0 25px;border-radius:7px;display:grid;place-items:center;background:rgba(8,126,164,.12);color:var(--blue);font-size:12.5px;font-weight:800;transition:all .3s var(--e)}
+details[open] .aq{background:var(--blue);color:#fff;transform:rotate(45deg)}
+.aa{margin-left:auto;color:#94a3b8;transition:transform .3s var(--e)}
+details[open] .aa{transform:rotate(180deg);color:var(--blue)}
+.ab{padding:0 18px 17px 55px;color:var(--muted);font-size:13.8px;animation:fu .32s var(--e) both}
+.ab p{margin-bottom:8px}
+.ab ul{margin:6px 0 6px 17px}.ab li{margin-bottom:5px}
+ul.bul{margin:8px 0 8px 4px;list-style:none}
+ul.bul li{position:relative;padding-left:22px;margin-bottom:8px;font-size:14px;color:#334155}
+ul.bul li::before{content:'';position:absolute;left:3px;top:8px;width:8px;height:8px;border-radius:3px;background:linear-gradient(135deg,var(--blue),var(--green))}
+ul.bul li b{color:var(--navy)}
+
+/* strip + footer */
+.strip{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;background:linear-gradient(120deg,#063B4C,#0A5A73);color:#fff;border-radius:15px;padding:22px 26px;margin:24px 0;box-shadow:var(--sh2);position:relative;overflow:hidden}
+.strip::before{content:'';position:absolute;right:-50px;top:-50px;width:180px;height:180px;border-radius:50%;background:rgba(45,212,191,.16)}
+.strip h4{font-family:'Space Grotesk',sans-serif;font-size:16.5px;margin-bottom:3px;position:relative}
+.strip p{font-size:13.3px;color:rgba(255,255,255,.78);max-width:560px;position:relative}
+.sa{display:flex;gap:9px;flex-wrap:wrap;position:relative}
+.sb2{background:linear-gradient(135deg,var(--green),#2DD4BF);color:#04212c;font-size:12.8px;font-weight:700;padding:10px 17px;border-radius:10px;text-decoration:none;display:inline-flex;gap:7px;align-items:center;transition:.25s var(--e);border:none;font-family:inherit;cursor:pointer}
+.sb2:hover{transform:translateY(-2px)}
+.sb2.o{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.26)}
+.sb2.o:hover{background:rgba(255,255,255,.24)}
+footer{background:linear-gradient(160deg,#041B24,var(--deep) 60%,#0a4f63);color:rgba(255,255,255,.72);padding:40px 20px 24px;text-align:center}
+footer img{height:54px;background:#fff;border-radius:12px;padding:6px;box-shadow:0 8px 26px rgba(0,0,0,.4);margin-bottom:14px}
+footer h3{font-family:'Space Grotesk',sans-serif;color:#fff;font-size:19px;margin-bottom:6px}
+footer p{font-size:13.2px;max-width:600px;margin:0 auto}
+.fl{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin:20px 0 18px}
+.fl a{color:#bae6fd;text-decoration:none;font-size:12.6px;font-weight:600;padding:7px 14px;border:1px solid rgba(186,230,253,.24);border-radius:8px;transition:.22s var(--e)}
+.fl a:hover{background:rgba(186,230,253,.14);color:#fff;transform:translateY(-2px)}
+.fb{border-top:1px solid rgba(255,255,255,.1);padding-top:16px;font-size:12px;color:rgba(255,255,255,.5);display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between}
+.totop{position:fixed;right:22px;bottom:22px;width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--deep),var(--blue));color:#fff;border:none;display:grid;place-items:center;cursor:pointer;z-index:1200;box-shadow:0 8px 22px rgba(8,126,164,.42);opacity:0;transform:translateY(14px) scale(.85);pointer-events:none;transition:all .3s var(--e)}
+.totop.show{opacity:1;transform:none;pointer-events:auto}
+.totop:hover{transform:translateY(-3px)}
+
+@media(max-width:1100px){.nav{display:none}.burger{display:block}.grid3{grid-template-columns:1fr 1fr}}
+@media(max-width:900px){.side{position:fixed;top:var(--bar);left:0;transform:translateX(-102%);box-shadow:var(--sh2);transition:transform .32s var(--e);animation:none;background:#fff;z-index:960}.side.open{transform:none}.main{padding:26px 16px 60px}.two,.grid3{grid-template-columns:1fr}}
+@media(max-width:620px){.step{gap:12px}.ab{padding-left:18px}.tb-right .chip{display:none}.btn-ghost span{display:none}.fb{justify-content:center;text-align:center}}
+@media print{.topbar,.side,.totop,.progress,.cpy,.cta{display:none!important}.hero{padding:26px 16px}.main{padding:14px}.sec{page-break-inside:avoid;margin-bottom:28px}.reveal{opacity:1!important;transform:none!important}details.ai .ab{display:block!important}.cb,.card,.tw{box-shadow:none;break-inside:avoid}}
+</style>
+<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+
+<div class="progress" id="prog"></div>
+
+<header class="topbar" id="topbar">
+    <button class="burger" id="burger" aria-label="Menu"><i></i><i></i><i></i></button>
+    <a class="brand" href="#top">
+        <img src="O3L-logo.png" alt="O3L">
+        <span><b>Local Environment Setup</b><span>Developer Quick Start</span></span>
+    </a>
+    <nav class="nav" id="nav">
+        <a href="#start" data-n="start">Start Here</a>
+        <a href="#prereq" data-n="prereq">Prerequisites</a>
+        <a href="#steps" data-n="steps">Setup Steps</a>
+        <a href="#database" data-n="database">Database</a>
+        <a href="#run" data-n="run">Run &amp; Verify</a>
+        <a href="#mobile" data-n="mobile">Expo Go</a>
+        <a href="#fix" data-n="fix">Troubleshooting</a>
+    </nav>
+    <div class="tb-right">
+        <span class="chip ok"><span class="dot"></span> Local only</span>
+        <button class="btn-ghost" id="printBtn"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z"/></svg><span>PDF</span></button>
+    </div>
+</header>
+
+<section class="hero" id="top">
+    <div class="grid"></div>
+    <div class="dots" id="dots"></div>
+    <div class="hero-in">
+        <span class="tag"><i></i> For developers — local machine</span>
+        <h1>Run O3L on Your <span class="g">Local Machine</span></h1>
+        <p class="lead">One page. Eight steps. From a fresh Windows/macOS/Linux box to a working Django API, PostGIS database, Next.js web app and Expo Go mobile build.</p>
+        <div class="cta">
+            <a class="btn btn-p" href="#steps">Start the 8 Steps <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn btn-o" href="#database">Restore DB Backup</a>
+            <a class="btn btn-o" href="#fix">Common Errors</a>
+        </div>
+    </div>
+</section>
+
+<div class="layout">
+    <aside class="side" id="side">
+        <div class="sg">On this page</div>
+        <a class="sl" href="#start" data-s="start"><span class="n">1</span> Start Here</a>
+        <a class="sl" href="#prereq" data-s="prereq"><span class="n">2</span> Prerequisites</a>
+        <a class="sl" href="#steps" data-s="steps"><span class="n">3</span> Setup Steps</a>
+        <a class="sl" href="#database" data-s="database"><span class="n">4</span> Database Backup</a>
+        <a class="sl" href="#run" data-s="run"><span class="n">5</span> Run &amp; Verify</a>
+        <a class="sl" href="#mobile" data-s="mobile"><span class="n">6</span> Expo Go / Phone</a>
+        <a class="sl" href="#fix" data-s="fix"><span class="n">7</span> Troubleshooting</a>
+        <a class="sl" href="#sheet" data-s="sheet"><span class="n">8</span> Cheat Sheet</a>
+        <div class="side-note"><b>Full guide?</b>Docker, live VPS deployment and the complete config reference live in <a href="environment-setup.html">environment-setup.html</a>.</div>
+    </aside>
+
+    <main class="main">
+
+        <!-- 1. START HERE -->
+        <section class="sec" id="start">
+            <div class="sec-h reveal">
+                <div class="sec-i"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></div>
+                <div><div class="eb">01 · Orientation</div><h2>What You Are Setting Up</h2><p class="sub">A monorepo with three apps and a geospatial database. After this guide you will have every service running on your machine.</p></div>
+            </div>
+            <div class="rule reveal"></div>
+
+            <div class="grid3 reveal">
+                <div class="card"><h4>Backend API</h4><p>Django 5.2 + DRF, JWT auth, Celery workers.</p><div class="tags"><span class="tg b">Python 3.12+</span><span class="tg">:8000</span></div></div>
+                <div class="card"><h4>Database</h4><p>PostgreSQL 17/18 + PostGIS 3.6 (spatial data).</p><div class="tags"><span class="tg g">PostGIS</span><span class="tg">:5432</span></div></div>
+                <div class="card"><h4>Web Dashboard</h4><p>Next.js 16 + Tailwind 4 + MapLibre maps.</p><div class="tags"><span class="tg b">Next 16</span><span class="tg">:3000</span></div></div>
+                <div class="card"><h4>Mobile App</h4><p>Expo SDK 57 / React Native 0.86 in Expo Go.</p><div class="tags"><span class="tg g">Expo 57</span><span class="tg">:8081</span></div></div>
+                <div class="card"><h4>Cache &amp; Queue</h4><p>Redis 7 for cache + Celery broker.</p><div class="tags"><span class="tg a">Redis 7</span><span class="tg">:6379</span></div></div>
+                <div class="card"><h4>Repo Layout</h4><p><code class="ic">apps/api</code> · <code class="ic">apps/web</code> · <code class="ic">apps/mobile</code> · <code class="ic">docs/</code></p><div class="tags"><span class="tg">monorepo</span></div></div>
+            </div>
+
+            <div class="co warn reveal">
+                <svg class="ci" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg>
+                <div><b>Three rules that prevent 90% of setup issues</b>
+                <ul style="margin:6px 0 0 18px">
+                    <li>PostgreSQL must be <strong>17 or 18</strong> with the <strong>PostGIS</strong> extension (the shipped DB dump requires it).</li>
+                    <li>Always run the API as <code class="ic">runserver 0.0.0.0:8000</code> — plain <code class="ic">runserver</code> binds only localhost and Expo Go on a phone cannot connect.</li>
+                    <li>The phone must use your PC's <strong>LAN IP</strong> (e.g. <code class="ic">192.168.1.4</code>), never <code class="ic">localhost</code>.</li>
+                </ul></div>
+            </div>
+        </section>
+
+        <!-- 2. PREREQS -->
+        <section class="sec" id="prereq">
+            <div class="sec-h reveal">
+                <div class="sec-i g"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3 6 6 .9-4.5 4.3 1.1 6.3L12 17l-5.6 2.5 1.1-6.3L3 8.9 9 8z"/></svg></div>
+                <div><div class="eb">02 · Before You Start</div><h2>Prerequisites</h2><p class="sub">Install once per machine. Keep the versions close to these.</p></div>
+            </div>
+            <div class="rule reveal"></div>
+
+            <div class="tw reveal">
+                <table>
+                    <thead><tr><th>Tool</th><th>Version</th><th>Windows</th><th>macOS / Linux</th></tr></thead>
+                    <tbody>
+                        <tr><td><b>Git</b></td><td>2.40+</td><td class="mono">winget install Git.Git</td><td class="mono">brew/apt install git</td></tr>
+                        <tr><td><b>Python</b></td><td>3.12 / 3.13</td><td class="mono">winget install Python.Python.3.12</td><td class="mono">brew install python@3.12</td></tr>
+                        <tr><td><b>Node.js</b></td><td>20 LTS / 22</td><td class="mono">winget install OpenJS.NodeJS.LTS</td><td class="mono">brew install node@20</td></tr>
+                        <tr><td><b>PostgreSQL</b></td><td>17.x or 18.x</td><td>EDB installer → Stack Builder → <b>PostGIS 3.6</b></td><td class="mono">brew install postgresql@17 postgis</td></tr>
+                        <tr><td><b>Redis</b></td><td>7.x</td><td>Memurai Developer (or Redis in WSL2)</td><td class="mono">brew install redis</td></tr>
+                        <tr><td><b>Expo Go</b></td><td>latest</td><td colspan="2">Phone app (Play Store / App Store) — optional, for mobile testing</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="cb reveal">
+                <div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">verify toolchain (run in any shell)</span></div>
+<pre>git --version &amp;&amp; python --version &amp;&amp; node --version &amp;&amp; npm --version
+psql --version        <span class="cm"># must show 17.x or 18.x</span>
+redis-cli ping        <span class="cm"># expect: PONG</span></pre>
+            </div>
+
+            <div class="co tip reveal">
+                <svg class="ci" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M21 12a9 9 0 11-6.2-8.6"/></svg>
+                <div><b>Not needed for local dev</b>Docker, Twilio, Firebase, Stripe/Razorpay, Cloudflare R2 and Sentry are optional. Leave them blank in <code class="ic">.env</code> — the related features simply stay disabled.</div>
+            </div>
+        </section>
+
+        <!-- 3. STEPS -->
+        <section class="sec" id="steps">
+            <div class="sec-h reveal">
+                <div class="sec-i"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M21 12a9 9 0 11-6.2-8.6"/></svg></div>
+                <div><div class="eb">03 · The Build</div><h2>Setup Steps</h2><p class="sub">Follow in order. Total time ≈ 30–45 minutes on a clean machine.</p></div>
+            </div>
+            <div class="rule reveal"></div>
+
+            <div class="steps">
+
+                <div class="step reveal">
+                    <div class="rail"><div class="sn">1</div><div class="ln"></div></div>
+                    <div class="sb">
+                        <h3>Get the code <span class="pill">2 min</span></h3>
+                        <p>Copy or clone the project, skipping generated folders.</p>
+                        <div class="cb"><div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">powershell</span></div>
+<pre><span class="kw">git clone</span> &lt;repo-url&gt;.git oneoceanonelife
+<span class="kw">cd</span> oneoceanonelife
+
+<span class="cm"># or copy an existing working folder (exclude junk)</span>
+robocopy &lt;source&gt;\oneoceanonelife C:\projects\oneoceanonelife `
+        /XD node_modules .next venv __pycache__ .ruff_cache /MIR</pre>
+                        </div>
+                        <p class="sub" style="font-size:13.4px">Note: XAMPP is <b>not</b> used — the web server is Django/Nginx and the database is PostgreSQL, not MySQL.</p>
+                    </div>
+                </div>
+
+                <div class="step reveal">
+                    <div class="rail"><div class="sn">2</div><div class="ln"></div></div>
+                    <div class="sb">
+                        <h3>PostgreSQL + PostGIS database <span class="pill">10 min</span></h3>
+                        <p>Install PostgreSQL 17/18 (with PostGIS via Stack Builder or apt), then create the role, database and extensions.</p>
+                        <div class="cb"><div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">sql — psql -U postgres</span></div>
+<pre><span class="kw">CREATE ROLE</span> o3l_user <span class="kw">WITH LOGIN PASSWORD</span> <span class="st">'o3l_password'</span> <span class="kw">SUPERUSER CREATEDB</span>;
+<span class="kw">CREATE DATABASE</span> o3l_dev <span class="kw">OWNER</span> o3l_user;
+<span class="kw">\c</span> o3l_dev
+<span class="kw">CREATE EXTENSION IF NOT EXISTS</span> postgis;
+<span class="kw">CREATE EXTENSION IF NOT EXISTS</span> postgis_topology;
+<span class="kw">CREATE EXTENSION IF NOT EXISTS</span> fuzzystrmatch;
+<span class="kw">\dx</span>   <span class="cm">-- must list postgis, postgis_topology, fuzzystrmatch</span></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step reveal">
+                    <div class="rail"><div class="sn">3</div><div class="ln"></div></div>
+                    <div class="sb">
+                        <h3>GDAL / GEOS libraries <span class="pill a">Windows only</span></h3>
+                        <p>GeoDjango loads spatial DLLs from the PostgreSQL <code class="ic">bin</code> folder. Point <code class="ic">apps/api/o3l/settings/development.py</code> at yours.</p>
+                        <div class="cb"><div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">python — apps/api/o3l/settings/development.py</span></div>
+<pre>GDAL_LIBRARY_PATH = os.environ.get(<span class="st">'GDAL_LIBRARY_PATH'</span>, r<span class="st">'C:\PostgreSQL\18\bin\libgdal-35.dll'</span>)
+GEOS_LIBRARY_PATH = os.environ.get(<span class="st">'GEOS_LIBRARY_PATH'</span>, r<span class="st">'C:\PostgreSQL\18\bin\libgeos_c.dll'</span>)</pre>
+                        </div>
+                        <p class="sub" style="font-size:13.4px">Match the file names that actually exist in your <code class="ic">bin</code> folder — the version suffix changes per release. On macOS/Linux install <code class="ic">gdal-bin libgdal-dev libgeos-dev</code> instead.</p>
+                    </div>
+                </div>
+
+                <div class="step reveal">
+                    <div class="rail"><div class="sn">4</div><div class="ln"></div></div>
+                    <div class="sb">
+                        <h3>Python environment + dependencies <span class="pill">8 min</span></h3>
+                        <div class="cb"><div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">powershell — apps/api</span></div>
+<pre><span class="kw">cd</span> apps\api
+python -m venv venv
+.\venv\Scripts\Activate.ps1          <span class="cm"># Git Bash: source venv/Scripts/activate</span>
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+python manage.py check              <span class="cm"># "System check identified no issues"</span></pre>
+                        </div>
+                        <p class="sub" style="font-size:13.4px">Shortcut: run <code class="ic">bash setup.sh</code> from the repo root (Git Bash) — it creates the venv and installs the packages for you. If activation is blocked: <code class="ic">Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</code>.</p>
+                    </div>
+                </div>
+
+                <div class="step reveal">
+                    <div class="rail"><div class="sn">5</div><div class="ln"></div></div>
+                    <div class="sb">
+                        <h3>Environment file <span class="pill">2 min</span></h3>
+                        <p>Create <code class="ic">apps/api/.env</code> with these development defaults:</p>
+                        <div class="cb"><div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">env — apps/api/.env</span></div>
+<pre>DEBUG=True
+SECRET_KEY=dev-secret-key-not-for-production-change-in-production
+ALLOWED_HOSTS=localhost,127.0.0.1,192.168.*
+DJANGO_SETTINGS_MODULE=o3l.settings.development
+
+DB_NAME=o3l_dev
+DB_USER=o3l_user
+DB_PASSWORD=o3l_password
+DB_HOST=localhost
+DB_PORT=5432
+
+REDIS_URL=redis://localhost:6379/0
+JWT_ACCESS_TOKEN_LIFETIME=60
+JWT_REFRESH_TOKEN_LIFETIME=7
+CORS_ALLOWED_ORIGINS=http://localhost:3000,http://localhost:8081</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step reveal">
+                    <div class="rail"><div class="sn">6</div><div class="ln"></div></div>
+                    <div class="sb">
+                        <h3>Load the database <span class="pill b">fastest path</span></h3>
+                        <p>Restore the shipped dump (real data in seconds) <b>or</b> start empty and migrate + seed.</p>
+                        <div class="two">
+                            <div>
+                                <div class="mt" style="margin-top:6px">Option A — restore backup</div>
+                                <div class="cb"><div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">from repo root</span></div>
+<pre>$env:PGPASSWORD=<span class="st">'o3l_password'</span>
+psql -U o3l_user -d o3l_dev -w `
+  -v ON_ERROR_STOP=1 -f docs\database-backup.sql</pre>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="mt" style="margin-top:6px">Option B — migrate + seed</div>
+                                <div class="cb"><div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">apps/api</span></div>
+<pre>python manage.py migrate
+python manage.py seed_zones
+python manage.py seed_cms
+python manage.py seed_data
+python manage.py createsuperuser</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step reveal">
+                    <div class="rail"><div class="sn">7</div><div class="ln"></div></div>
+                    <div class="sb">
+                        <h3>Frontend dependencies <span class="pill">5 min</span></h3>
+                        <div class="two">
+                            <div>
+                                <div class="mt" style="margin-top:6px">Web — apps/web</div>
+                                <div class="cb"><div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">bash</span></div>
+<pre><span class="kw">cd</span> apps/web
+npm install</pre>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="mt" style="margin-top:6px">Mobile — apps/mobile</div>
+                                <div class="cb"><div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">bash</span></div>
+<pre><span class="kw">cd</span> apps/mobile
+npm install</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step reveal">
+                    <div class="rail"><div class="sn">8</div><div class="ln"></div></div>
+                    <div class="sb">
+                        <h3>Start everything <span class="pill">3 min</span></h3>
+                        <p>Four terminals. Keep them open while you develop.</p>
+                        <div class="two">
+                            <div>
+                                <div class="mt" style="margin-top:6px">1 — API (bind ALL interfaces)</div>
+                                <div class="cb"><div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">apps/api</span></div>
+<pre>.\venv\Scripts\Activate.ps1
+python manage.py runserver 0.0.0.0:8000
+<span class="cm"># → localhost:8000 + LAN IP:8000 (for phones)</span></pre>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="mt" style="margin-top:6px">2 — Web</div>
+                                <div class="cb"><div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">apps/web</span></div>
+<pre>npm run dev
+<span class="cm"># → http://localhost:3000</span></pre>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="two">
+                            <div>
+                                <div class="mt" style="margin-top:6px">3 — Celery workers</div>
+                                <div class="cb"><div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">apps/api</span></div>
+<pre>celery -A o3l worker -l info
+<span class="cm"># + celery -A o3l beat -l info</span></pre>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="mt" style="margin-top:6px">4 — Mobile (Expo Go)</div>
+                                <div class="cb"><div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">apps/mobile</span></div>
+<pre>npx expo start -c
+<span class="cm"># scan QR with Expo Go</span></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. DATABASE -->
+        <section class="sec" id="database">
+            <div class="sec-h reveal">
+                <div class="sec-i o"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></div>
+                <div><div class="eb">04 · Data</div><h2>Database Backup</h2><p class="sub">A verified plain-SQL dump ships with the project so you start with real content instead of an empty schema.</p></div>
+            </div>
+            <div class="rule reveal"></div>
+
+            <div class="grid3 reveal">
+                <div class="card"><h4>File</h4><p><code class="ic">docs/database-backup.sql</code></p><div class="tags"><span class="tg b">Plain SQL</span></div></div>
+                <div class="card"><h4>Contents</h4><p>105 tables · 102 migrations · PostGIS extensions · seeded data</p><div class="tags"><span class="tg a">≈ 2.2 MB</span></div></div>
+                <div class="card"><h4>Requires</h4><p>PostgreSQL <b>17 or 18</b> (dump made with pg_dump 18.6)</p><div class="tags"><span class="tg g">pg_dump 18.6</span></div></div>
+            </div>
+
+            <div class="mt">Restore (Windows)</div>
+            <div class="cb reveal"><div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">powershell — repo root</span></div>
+<pre>$env:PGPASSWORD=<span class="st">'o3l_password'</span>
+psql -U o3l_user -d o3l_dev -w -v ON_ERROR_STOP=1 -f docs\database-backup.sql
+
+<span class="cm"># verify</span>
+psql -U o3l_user -d o3l_dev -w -c <span class="st">"SELECT count(*) FROM django_migrations;"</span>   <span class="cm"># 102</span>
+psql -U o3l_user -d o3l_dev -w -c <span class="st">"SELECT count(*) FROM users;"</span>               <span class="cm"># 319</span></pre>
+            </div>
+
+            <div class="mt">Restore (macOS / Linux)</div>
+            <div class="cb reveal"><div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">bash</span></div>
+<pre>PGPASSWORD=<span class="st">'o3l_password'</span> psql -U o3l_user -d o3l_dev -w -v ON_ERROR_STOP=1 \
+  -f docs/database-backup.sql</pre>
+            </div>
+
+            <div class="co warn reveal">
+                <svg class="ci" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg>
+                <div><b>Restore errors</b>
+                <ul style="margin:6px 0 0 18px">
+                    <li><code class="ic">unrecognized configuration parameter "transaction_timeout"</code> → your server is PostgreSQL 16 or older; upgrade to 17/18.</li>
+                    <li><code class="ic">permission denied to create extension "postgis"</code> → restore as the <code class="ic">postgres</code> superuser.</li>
+                    <li>Re-running the restore is safe — the dump uses <code class="ic">--clean --if-exists</code>.</li>
+                </ul></div>
+            </div>
+        </section>
+
+        <!-- 5. RUN & VERIFY -->
+        <section class="sec" id="run">
+            <div class="sec-h reveal">
+                <div class="sec-i g"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M21 12a9 9 0 11-6.2-8.6"/></svg></div>
+                <div><div class="eb">05 · Acceptance</div><h2>Run &amp; Verify</h2><p class="sub">Everything below should pass before you call the setup done.</p></div>
+            </div>
+            <div class="rule reveal"></div>
+
+            <div class="two">
+                <div class="reveal">
+                    <div class="mt" style="margin-top:0">Services</div>
+                    <ul class="chk">
+                        <li><span class="tk">&#10003;</span><span><b>API</b> — <code class="ic">http://localhost:8000/api/v1/</code> responds</span></li>
+                        <li><span class="tk">&#10003;</span><span><b>Admin</b> — <code class="ic">http://localhost:8000/admin/</code> sign-in works</span></li>
+                        <li><span class="tk">&#10003;</span><span><b>Web</b> — <code class="ic">http://localhost:3000</code> renders, no console errors</span></li>
+                        <li><span class="tk">&#10003;</span><span><b>Celery</b> — worker logs “ready”</span></li>
+                        <li><span class="tk">&#10003;</span><span><b>Redis</b> — <code class="ic">redis-cli ping</code> → PONG</span></li>
+                    </ul>
+                </div>
+                <div class="reveal">
+                    <div class="mt" style="margin-top:0">Data &amp; auth</div>
+                    <ul class="chk">
+                        <li><span class="tk">&#10003;</span><span><b>Migrations</b> — <code class="ic">SELECT count(*) FROM django_migrations;</code> → 102</span></li>
+                        <li><span class="tk">&#10003;</span><span><b>PostGIS</b> — <code class="ic">SELECT postgis_version();</code> returns a value</span></li>
+                        <li><span class="tk">&#10003;</span><span><b>Tables</b> — 105 public tables present</span></li>
+                        <li><span class="tk">&#10003;</span><span><b>Login</b> — <code class="ic">POST /api/v1/auth/login/</code> returns JWT tokens</span></li>
+                        <li><span class="tk">&#10003;</span><span><b>Admin user</b> — your superuser can access /admin/</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="cb reveal">
+                <div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">powershell — one-shot smoke test</span></div>
+<pre><span class="kw">foreach</span> ($u <span class="kw">in</span> @(<span class="st">'http://localhost:8000/api/v1/'</span>,<span class="st">'http://localhost:3000'</span>)) {
+  <span class="kw">try</span> { $r = Invoke-WebRequest $u -UseBasicParsing -TimeoutSec 8
+        <span class="kw">Write-Host</span> <span class="st">"OK  $($r.StatusCode)  $u"</span> -ForegroundColor Green }
+  <span class="kw">catch</span> { <span class="kw">Write-Host</span> <span class="st">"FAIL       $u  — $($_.Exception.Message)"</span> -ForegroundColor Red }
+}</pre>
+            </div>
+
+            <div class="two">
+                <div class="reveal">
+                    <div class="mt">Default login endpoint</div>
+                    <div class="cb"><div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">http</span></div>
+<pre>POST /api/v1/auth/login/
+{ <span class="st">"username"</span>: <span class="st">"you@example.com"</span>, <span class="st">"password"</span>: <span class="st">"…"</span> }
+<span class="cm"># email works in the username field too (LoginSerializer)</span></pre>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <div class="mt">Useful accounts</div>
+                    <div class="cb"><div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">bash</span></div>
+<pre>python manage.py createsuperuser   <span class="cm"># /admin/ access</span>
+python manage.py seed_data         <span class="cm"># demo users + content</span></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. MOBILE -->
+        <section class="sec" id="mobile">
+            <div class="sec-h reveal">
+                <div class="sec-i r"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg></div>
+                <div><div class="eb">06 · Physical Device</div><h2>Expo Go on a Real Phone</h2><p class="sub">The most common first-day blocker. The phone is a different machine — it cannot see your PC's <code class="ic">localhost</code>.</p></div>
+            </div>
+            <div class="rule reveal"></div>
+
+            <div class="co danger reveal">
+                <svg class="ci" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+                <div><b>Login Failed — “Cannot reach server — is the API running?”</b>
+                Almost always one of these three. Fix them in this order:</div>
+            </div>
+
+            <div class="steps">
+                <div class="step reveal">
+                    <div class="rail"><div class="sn">1</div><div class="ln"></div></div>
+                    <div class="sb">
+                        <h3>Bind the API to all interfaces</h3>
+                        <div class="cb"><div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">apps/api</span></div>
+<pre>python manage.py runserver 0.0.0.0:8000
+<span class="cm"># ✗ python manage.py runserver      → 127.0.0.1 only → phone refused</span>
+<span class="cm"># ✓ 0.0.0.0:8000                    → reachable on your LAN IP</span></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="step reveal">
+                    <div class="rail"><div class="sn">2</div><div class="ln"></div></div>
+                    <div class="sb">
+                        <h3>Point the app at your PC's LAN IP</h3>
+                        <p>Find the IP with <code class="ic">ipconfig</code> (Wi-Fi adapter → IPv4, e.g. <code class="ic">192.168.1.4</code>).</p>
+                        <div class="cb"><div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">env — apps/mobile/.env</span></div>
+<pre>EXPO_PUBLIC_API_URL=http://192.168.1.4:8000/api/v1</pre>
+                        </div>
+                        <p class="sub" style="font-size:13.4px">Restart Metro with a clean cache so the variable is inlined: <code class="ic">npx expo start -c</code>.</p>
+                    </div>
+                </div>
+                <div class="step reveal">
+                    <div class="rail"><div class="sn">3</div><div class="ln"></div></div>
+                    <div class="sb">
+                        <h3>Open the firewall (elevated PowerShell)</h3>
+                        <div class="cb"><div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">run as Administrator</span></div>
+<pre>netsh advfirewall firewall add rule name=<span class="st">"O3L API 8000"</span> dir=in action=allow protocol=TCP localport=8000</pre>
+                        </div>
+                        <p class="sub" style="font-size:13.4px">Phone and PC must be on the <b>same Wi-Fi</b>. Disable hotspot/client isolation and any VPN on either side.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt">Quick reachability check (from the PC)</div>
+            <div class="cb reveal"><div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">powershell</span></div>
+<pre>Invoke-WebRequest http://192.168.1.4:8000/api/v1/auth/login/ -Method POST `
+  -ContentType <span class="st">'application/json'</span> -Body <span class="st">'{"username":"x@y.com","password":"nope"}'</span>
+<span class="cm"># 401 Unauthorized = server reachable, credentials just wrong  ✓</span>
+<span class="cm"># timeout / refused = bind address or firewall problem         ✗</span></pre>
+            </div>
+
+            <div class="co tip reveal">
+                <svg class="ci" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M21 12a9 9 0 11-6.2-8.6"/></svg>
+                <div><b>USB alternative (Android)</b>With the phone on USB debugging, run <code class="ic">adb reverse tcp:8000 tcp:8000</code> and set <code class="ic">EXPO_PUBLIC_API_URL=http://localhost:8000/api/v1</code> — the phone's localhost is then tunnelled to your PC.</div>
+            </div>
+        </section>
+
+        <!-- 7. TROUBLESHOOTING -->
+        <section class="sec" id="fix">
+            <div class="sec-h reveal">
+                <div class="sec-i r"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 015.8 1c0 2-3 3-3 3M12 17h.01"/></svg></div>
+                <div><div class="eb">07 · Support</div><h2>Troubleshooting</h2><p class="sub">The errors new developers hit most, and the fix that works.</p></div>
+            </div>
+            <div class="rule reveal"></div>
+
+            <div class="acc reveal">
+                <details class="ai" open>
+                    <summary><span class="aq">+</span> “Cannot reach server” in Expo Go<span class="aa">&#9662;</span></summary>
+                    <div class="ab"><p>See the <a href="#mobile">Expo Go section</a> above. Checklist: API on <code class="ic">0.0.0.0:8000</code>, <code class="ic">EXPO_PUBLIC_API_URL</code> uses the PC's LAN IP, firewall allows TCP 8000, same Wi-Fi network. Restart Metro with <code class="ic">npx expo start -c</code> after changing <code class="ic">.env</code>.</p></div>
+                </details>
+                <details class="ai">
+                    <summary><span class="aq">+</span> GDAL / GEOS DLL load error on Windows<span class="aa">&#9662;</span></summary>
+                    <div class="ab"><p>Update <code class="ic">GDAL_LIBRARY_PATH</code> / <code class="ic">GEOS_LIBRARY_PATH</code> in <code class="ic">apps/api/o3l/settings/development.py</code> to the actual DLL names inside your PostgreSQL <code class="ic">bin</code> folder (the suffix, e.g. <code class="ic">libgdal-35.dll</code>, changes per version). On macOS/Linux install <code class="ic">gdal-bin libgdal-dev libgeos-dev</code>.</p></div>
+                </details>
+                <details class="ai">
+                    <summary><span class="aq">+</span> <code class="ic">type "geography" does not exist</code> during migrate<span class="aa">&#9662;</span></summary>
+                    <div class="ab"><p>PostGIS is not installed in the database. Run <code class="ic">CREATE EXTENSION IF NOT EXISTS postgis;</code> in <code class="ic">o3l_dev</code>, then re-run <code class="ic">python manage.py migrate</code>.</p></div>
+                </details>
+                <details class="ai">
+                    <summary><span class="aq">+</span> Port already in use (8000 / 3000 / 5432)<span class="aa">&#9662;</span></summary>
+                    <div class="ab"><div class="cb"><div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">powershell</span></div><pre>Get-NetTCPConnection -LocalPort 8000 -State Listen |
+  Select-Object OwningProcess, @{n=<span class="st">'P'</span>;e={(Get-Process -Id $_.OwningProcess).Name}}
+Stop-Process -Id &lt;PID&gt; -Force
+
+<span class="cm"># or use another port</span>
+python manage.py runserver 0.0.0.0:8001</pre></div></div>
+                </details>
+                <details class="ai">
+                    <summary><span class="aq">+</span> <code class="ic">Activate.ps1</code> blocked by execution policy<span class="aa">&#9662;</span></summary>
+                    <div class="ab"><p>Run <code class="ic">Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</code>, or use Git Bash with <code class="ic">source venv/Scripts/activate</code>.</p></div>
+                </details>
+                <details class="ai">
+                    <summary><span class="aq">+</span> Redis connection refused / Celery won't start<span class="aa">&#9662;</span></summary>
+                    <div class="ab"><p>Start Redis: Windows → Memurai (<code class="ic">winget install Memurai.MemuraiDeveloper</code>) or Redis in WSL2; macOS → <code class="ic">brew services start redis</code>; Linux → <code class="ic">sudo systemctl start redis-server</code>. Verify with <code class="ic">redis-cli ping</code> → PONG.</p></div>
+                </details>
+                <details class="ai">
+                    <summary><span class="aq">+</span> CORS / 401 when the web app calls the API<span class="aa">&#9662;</span></summary>
+                    <div class="ab"><p>Set <code class="ic">CORS_ALLOWED_ORIGINS=http://localhost:3000,http://localhost:8081</code> in <code class="ic">apps/api/.env</code>, restart Django, and confirm the web app uses <code class="ic">NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1</code>.</p></div>
+                </details>
+                <details class="ai">
+                    <summary><span class="aq">+</span> Next.js build fails or shows stale UI<span class="aa">&#9662;</span></summary>
+                    <div class="ab"><div class="cb"><div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">bash — apps/web</span></div><pre>rm -rf .next node_modules &amp;&amp; npm ci &amp;&amp; npm run dev</pre></div></div>
+                </details>
+            </div>
+        </section>
+
+        <!-- 8. CHEAT SHEET -->
+        <section class="sec" id="sheet">
+            <div class="sec-h reveal">
+                <div class="sec-i o"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 17l6-5-6-5M12 19h8"/></svg></div>
+                <div><div class="eb">08 · Quick Reference</div><h2>Daily Command Sheet</h2><p class="sub">Copy-paste for the everyday loop.</p></div>
+            </div>
+            <div class="rule reveal"></div>
+
+            <div class="two">
+                <div class="reveal">
+                    <div class="mt" style="margin-top:0">Start services</div>
+                    <div class="cb"><div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">4 terminals</span></div>
+<pre><span class="cm"># 1 API</span>
+<span class="kw">cd</span> apps/api &amp;&amp; .\venv\Scripts\Activate.ps1
+python manage.py runserver 0.0.0.0:8000
+
+<span class="cm"># 2 Web</span>
+<span class="kw">cd</span> apps/web &amp;&amp; npm run dev
+
+<span class="cm"># 3 Workers</span>
+<span class="kw">cd</span> apps/api &amp;&amp; celery -A o3l worker -l info
+
+<span class="cm"># 4 Mobile</span>
+<span class="kw">cd</span> apps/mobile &amp;&amp; npx expo start -c</pre>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <div class="mt" style="margin-top:0">Data operations</div>
+                    <div class="cb"><div class="ch"><div class="dots3"><i></i><i></i><i></i></div><span class="ct">apps/api · bash</span></div>
+<pre>python manage.py migrate
+python manage.py seed_zones &amp;&amp; python manage.py seed_cms
+python manage.py createsuperuser
+python manage.py shell
+
+<span class="cm"># backup</span>
+pg_dump -U o3l_user -d o3l_dev --clean --if-exists \
+  --no-owner --no-privileges -f backup.sql
+
+<span class="cm"># restore</span>
+psql -U o3l_user -d o3l_dev -w -v ON_ERROR_STOP=1 -f backup.sql</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="strip reveal">
+                <div>
+                    <h4>Sharing this with the team?</h4>
+                    <p>Send this file plus <code class="ic" style="background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.2);color:#bae6fd">docs/database-backup.sql</code>. That is all a new developer needs to be running in under an hour.</p>
+                </div>
+                <div class="sa">
+                    <button class="sb2" id="copyAll">Copy all commands</button>
+                    <a class="sb2 o" href="environment-setup.html">Full guide (Docker + Live)</a>
+                    <a class="sb2 o" href="#top">Back to top</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<footer>
+    <img src="O3L-logo.png" alt="O3L">
+    <h3>O3L — Local Environment Setup</h3>
+    <p>Developer quick-start for running the One Ocean One Life platform on a local machine.</p>
+    <div class="fl">
+        <a href="index.html">Platform Home</a>
+        <a href="environment-setup.html">Full Setup Guide</a>
+        <a href="technical-document.html">Technical Doc</a>
+        <a href="database-backup.sql">Database Backup</a>
+    </div>
+    <div class="fb"><span>&copy; 2026 O3L - One Ocean One Life</span><span>docs/local-environment-setup.html</span></div>
+</footer>
+
+<button class="totop" id="totop" aria-label="Back to top"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg></button>
+
+<script>
+(function(){
+    /* particles */
+    var box=document.getElementById('dots');
+    for(var i=0;i<26;i++){var p=document.createElement('div');p.className='dotp';var s=Math.random()*5+2;p.style.width=s+'px';p.style.height=s+'px';p.style.left=Math.random()*100+'%';p.style.animationDuration=(Math.random()*14+9)+'s';p.style.animationDelay=(Math.random()*12)+'s';box.appendChild(p);}
+
+    /* progress + topbar + totop */
+    var prog=document.getElementById('prog'),tb=document.getElementById('topbar'),tt=document.getElementById('totop');
+    window.addEventListener('scroll',function(){
+        var h=document.documentElement.scrollHeight-window.innerHeight;
+        prog.style.width=(h>0?(window.scrollY/h)*100:0)+'%';
+        tb.classList.toggle('scrolled',window.scrollY>30);
+        tt.classList.toggle('show',window.scrollY>480);
+    },{passive:true});
+    tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    document.getElementById('printBtn').addEventListener('click',function(){window.print();});
+
+    /* mobile menu */
+    var side=document.getElementById('side');
+    document.getElementById('burger').addEventListener('click',function(){side.classList.toggle('open');});
+    side.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){side.classList.remove('open');});});
+
+    /* reveal */
+    if(!('IntersectionObserver' in window)){document.querySelectorAll('.reveal').forEach(function(e){e.classList.add('on');});}
+    else{
+        var ro=new IntersectionObserver(function(en){en.forEach(function(e,i){if(e.isIntersecting){setTimeout(function(){e.target.classList.add('on');},i*50);ro.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+        document.querySelectorAll('.reveal').forEach(function(e){ro.observe(e);});
+    }
+
+    /* scrollspy */
+    var secs=[].slice.call(document.querySelectorAll('main .sec[id]'));
+    var sl=[].slice.call(document.querySelectorAll('.sl')),nl=[].slice.call(document.querySelectorAll('.nav a'));
+    function setActive(id){sl.forEach(function(l){l.classList.toggle('active',l.dataset.s===id);});nl.forEach(function(l){l.classList.toggle('active',l.dataset.n===id);});}
+    if('IntersectionObserver' in window){
+        var sp=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting)setActive(e.target.id);});},{rootMargin:'-25% 0px -65% 0px',threshold:0});
+        secs.forEach(function(s){sp.observe(s);});
+    }
+
+    /* copy buttons */
+    document.querySelectorAll('.cb').forEach(function(block){
+        var head=block.querySelector('.ch'),pre=block.querySelector('pre');
+        if(!head||!pre)return;
+        var b=document.createElement('button');b.className='cpy';b.innerHTML='&#x1F4CB; Copy';
+        b.addEventListener('click',async function(){
+            var t=pre.innerText.replace(/\u00A0/g,' ');
+            try{await navigator.clipboard.writeText(t);}
+            catch(err){var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);}
+            b.classList.add('done');b.innerHTML='&#10003; Copied';
+            setTimeout(function(){b.classList.remove('done');b.innerHTML='&#x1F4CB; Copy';},1700);
+        });
+        head.appendChild(b);
+    });
+
+    /* copy everything */
+    var ca=document.getElementById('copyAll');
+    if(ca)ca.addEventListener('click',async function(){
+        var out=[];
+        document.querySelectorAll('.cb pre').forEach(function(p,i){out.push('### '+(i+1)+'\n'+p.innerText.replace(/\u00A0/g,' '));});
+        var t=out.join('\n\n');
+        try{await navigator.clipboard.writeText(t);}
+        catch(err){var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);}
+        ca.textContent='Copied '+document.querySelectorAll('.cb pre').length+' blocks';
+        setTimeout(function(){ca.textContent='Copy all commands';},2200);
+    });
+})();
+</script>
+</body>
+</html>

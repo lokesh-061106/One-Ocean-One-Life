@@ -1,0 +1,200 @@
+[
+  {
+    "model": "locations.zone",
+    "pk": "11111111-1111-1111-1111-111111111101",
+    "fields": {
+      "name": "North Coast",
+      "slug": "north-coast",
+      "zone_number": 1,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "locations.zone",
+    "pk": "11111111-1111-1111-1111-111111111102",
+    "fields": {
+      "name": "North-Central Coast",
+      "slug": "north-central-coast",
+      "zone_number": 2,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "locations.zone",
+    "pk": "11111111-1111-1111-1111-111111111103",
+    "fields": {
+      "name": "Cauvery Delta",
+      "slug": "cauvery-delta",
+      "zone_number": 3,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "locations.zone",
+    "pk": "11111111-1111-1111-1111-111111111104",
+    "fields": {
+      "name": "Gulf of Mannar",
+      "slug": "gulf-of-mannar",
+      "zone_number": 4,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "locations.zone",
+    "pk": "11111111-1111-1111-1111-111111111105",
+    "fields": {
+      "name": "Southern Cape",
+      "slug": "southern-cape",
+      "zone_number": 5,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "locations.district",
+    "pk": "22222222-2222-2222-2222-222222222201",
+    "fields": {
+      "name": "Nagapattinam",
+      "zone": "11111111-1111-1111-1111-111111111103",
+      "state": "Tamil Nadu",
+      "population": 1616450,
+      "area": 2715.82,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "locations.district",
+    "pk": "22222222-2222-2222-2222-222222222202",
+    "fields": {
+      "name": "Mayiladuthurai",
+      "zone": "11111111-1111-1111-1111-111111111103",
+      "state": "Tamil Nadu",
+      "population": 918821,
+      "area": 1172.33,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "locations.district",
+    "pk": "22222222-2222-2222-2222-222222222203",
+    "fields": {
+      "name": "Ramanathapuram",
+      "zone": "11111111-1111-1111-1111-111111111104",
+      "state": "Tamil Nadu",
+      "population": 1337560,
+      "area": 4123.00,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "locations.district",
+    "pk": "22222222-2222-2222-2222-222222222204",
+    "fields": {
+      "name": "Thoothukudi",
+      "zone": "11111111-1111-1111-1111-111111111104",
+      "state": "Tamil Nadu",
+      "population": 1750176,
+      "area": 4621.38,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "locations.district",
+    "pk": "22222222-2222-2222-2222-222222222205",
+    "fields": {
+      "name": "Kanyakumari",
+      "zone": "11111111-1111-1111-1111-111111111105",
+      "state": "Tamil Nadu",
+      "population": 1870374,
+      "area": 1683.68,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "locations.village",
+    "pk": "33333333-3333-3333-3333-333333333301",
+    "fields": {
+      "name": "Nagapattinam",
+      "district": "22222222-2222-2222-2222-222222222201",
+      "is_coastal": true,
+      "lat": 10.7667,
+      "lng": 79.8417,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "locations.village",
+    "pk": "33333333-3333-3333-3333-333333333302",
+    "fields": {
+      "name": "Poompuhar",
+      "district": "22222222-2222-2222-2222-222222222202",
+      "is_coastal": true,
+      "lat": 11.1447,
+      "lng": 79.8500,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "locations.village",
+    "pk": "33333333-3333-3333-3333-333333333303",
+    "fields": {
+      "name": "Ramanathapuram",
+      "district": "22222222-2222-2222-2222-222222222203",
+      "is_coastal": true,
+      "lat": 9.3667,
+      "lng": 78.8333,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "locations.village",
+    "pk": "33333333-3333-3333-3333-333333333304",
+    "fields": {
+      "name": "Thoothukudi",
+      "district": "22222222-2222-2222-2222-222222222204",
+      "is_coastal": true,
+      "lat": 8.7642,
+      "lng": 78.1348,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "locations.village",
+    "pk": "33333333-3333-3333-3333-333333333305",
+    "fields": {
+      "name": "Kanyakumari",
+      "district": "22222222-2222-2222-2222-222222222205",
+      "is_coastal": true,
+      "lat": 8.0833,
+      "lng": 77.5500,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "locations.village",
+    "pk": "33333333-3333-3333-3333-333333333306",
+    "fields": {
+      "name": "Chennai",
+      "district": "22222222-2222-2222-2222-222222222201",
+      "is_coastal": true,
+      "lat": 13.0827,
+      "lng": 80.2707,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  }
+]

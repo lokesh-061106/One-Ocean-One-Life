@@ -1,0 +1,83 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+venv/
+.venv/
+env/
+
+# Python tooling caches
+.ruff_cache/
+
+# Environment
+.env
+.env.local
+.env.production
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Django
+*.log
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+
+# Mobile
+apps/mobile/.expo/
+apps/mobile/ios/
+apps/mobile/android/
+apps/mobile/web-build/
+
+# Web
+apps/web/.next/
+apps/web/out/
+apps/web/.turbo
+
+# Marine GIS data preparation cache (downloaded source datasets)
+apps/web/scripts/.cache/
+
+# Docker
+docker-compose.override.yml
+
+# PostgreSQL
+pg_data/
+
+# Redis
+dump.rdb
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+
+# Testing
+.pytest_cache/
+.mypy_cache/
+.tox/
+
+# Logs
+*.log
+*.log.err
+*.err
+logs/
+log.txt
+
+# Database dumps (contain real user data — keep out of git)
+docs/database-backup.sql

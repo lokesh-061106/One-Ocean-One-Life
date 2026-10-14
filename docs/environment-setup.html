@@ -1,0 +1,2244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<title>O3L - One Ocean One Life | Environment Setup Guide</title>
+<meta name="description" content="Complete local, Docker and live production environment setup guide for the O3L platform.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   O3L ENVIRONMENT SETUP GUIDE - CORPORATE DOC STYLESHEET
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --deep-ocean: #063B4C;
+    --ocean-blue: #087EA4;
+    --sea-green: #16A085;
+    --coral: #FF7660;
+    --sand: #F5E9D5;
+    --foam: #F8FCFC;
+    --deep-navy: #082A38;
+    --abyss: #041B24;
+    --light-blue: #E8F4F8;
+    --light-green: #ECFDF5;
+    --text-primary: #1E293B;
+    --text-secondary: #64748B;
+    --border: #E2E8F0;
+    --surface: #FFFFFF;
+    --bg: #F6FAFB;
+    --code-bg: #0B2430;
+    --warning: #F59E0B;
+    --danger: #EF4444;
+    --success: #10B981;
+    --info: #3B82F6;
+    --topbar-h: 64px;
+    --sidebar-w: 274px;
+    --radius: 14px;
+    --shadow-sm: 0 1px 3px rgba(6, 59, 76, .07), 0 1px 2px rgba(6, 59, 76, .05);
+    --shadow-md: 0 6px 24px rgba(6, 59, 76, .09);
+    --shadow-lg: 0 20px 50px rgba(6, 59, 76, .14);
+    --ease: cubic-bezier(.4, 0, .2, 1);
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--topbar-h) + 24px); }
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.65;
+    overflow-x: hidden;
+}
+
+::selection { background: rgba(8, 126, 164, .22); color: #04212c; }
+
+/* ─── SCROLL PROGRESS ─── */
+.progress-bar {
+    position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+    background: linear-gradient(90deg, var(--ocean-blue), var(--sea-green), var(--coral));
+    z-index: 2000; transition: width .1s linear;
+    box-shadow: 0 0 12px rgba(22, 160, 133, .6);
+}
+
+/* ─── TOPBAR ─── */
+.topbar {
+    position: fixed; top: 0; left: 0; right: 0; height: var(--topbar-h); z-index: 1500;
+    background: rgba(6, 59, 76, .94);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+    display: flex; align-items: center; gap: 18px; padding: 0 22px;
+    transition: box-shadow .3s ease, background .3s ease;
+}
+.topbar.scrolled { background: rgba(4, 27, 36, .98); box-shadow: 0 6px 28px rgba(0, 0, 0, .28); }
+.topbar::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
+    background: linear-gradient(90deg, var(--ocean-blue), var(--sea-green) 45%, var(--coral));
+    opacity: .8;
+}
+.brand { display: flex; align-items: center; gap: 11px; text-decoration: none; flex-shrink: 0; }
+.brand-logo {
+    height: 40px; width: 40px; object-fit: contain; background: #fff;
+    border-radius: 10px; padding: 3px; box-shadow: 0 4px 14px rgba(0, 0, 0, .3);
+    transition: transform .25s var(--ease);
+}
+.brand:hover .brand-logo { transform: rotate(-4deg) scale(1.05); }
+.brand-name { color: #fff; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 15.5px; letter-spacing: -.2px; line-height: 1.15; }
+.brand-sub { color: rgba(255, 255, 255, .5); font-size: 9.5px; font-weight: 600; letter-spacing: 1.4px; text-transform: uppercase; }
+.topnav { display: flex; align-items: center; gap: 2px; margin-left: 6px; }
+.topnav a {
+    color: rgba(255, 255, 255, .72); text-decoration: none; font-size: 13px; font-weight: 500;
+    padding: 7px 12px; border-radius: 8px; transition: .2s ease; white-space: nowrap;
+}
+.topnav a:hover { color: #fff; background: rgba(255, 255, 255, .09); }
+.topnav a.active { color: #fff; background: rgba(22, 160, 133, .25); box-shadow: inset 0 0 0 1px rgba(45, 212, 191, .35); }
+.topbar-right { margin-left: auto; display: flex; align-items: center; gap: 9px; }
+.chip {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700;
+    letter-spacing: .06em; text-transform: uppercase; padding: 5px 12px; border-radius: 999px;
+    background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .16); color: #bae6fd;
+}
+.chip.live { color: #86efac; border-color: rgba(134, 239, 172, .35); background: rgba(16, 185, 129, .14); }
+.chip .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: pulse 1.8s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.72); } }
+.btn-ghost {
+    display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 600;
+    color: #e2e8f0; background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .16);
+    padding: 7px 14px; border-radius: 9px; cursor: pointer; transition: .2s ease; font-family: inherit;
+}
+.btn-ghost:hover { background: rgba(255, 255, 255, .18); color: #fff; transform: translateY(-1px); }
+.menu-toggle { display: none; background: none; border: 1px solid rgba(255,255,255,.16); border-radius: 9px; width: 38px; height: 36px; cursor: pointer; }
+.menu-toggle span { display: block; width: 17px; height: 2px; background: #fff; margin: 3.5px auto; border-radius: 2px; transition: .3s; }
+
+/* ─── HERO ─── */
+.hero {
+    position: relative; min-height: 620px; padding: calc(var(--topbar-h) + 76px) 24px 90px;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+    background: linear-gradient(155deg, #02151d 0%, var(--deep-ocean) 30%, var(--deep-navy) 55%, #0a4f63 80%, var(--ocean-blue) 100%);
+}
+.hero::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+        radial-gradient(ellipse 850px 620px at 12% 40%, rgba(8, 126, 164, .34) 0%, transparent 68%),
+        radial-gradient(ellipse 700px 560px at 88% 22%, rgba(22, 160, 133, .26) 0%, transparent 68%),
+        radial-gradient(ellipse 480px 460px at 72% 88%, rgba(255, 118, 96, .14) 0%, transparent 70%);
+}
+.hero-grid {
+    position: absolute; inset: 0; opacity: .05;
+    background-image: linear-gradient(rgba(255,255,255,.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.6) 1px, transparent 1px);
+    background-size: 58px 58px;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 40%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 40%, transparent 100%);
+}
+.particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.particle {
+    position: absolute; bottom: -12px; border-radius: 50%;
+    background: rgba(255, 255, 255, .14); animation: rise linear infinite;
+}
+@keyframes rise {
+    0% { transform: translateY(0) scale(.4); opacity: 0; }
+    12% { opacity: .9; }
+    88% { opacity: .9; }
+    100% { transform: translateY(-680px) scale(1.15); opacity: 0; }
+}
+.hero-inner { position: relative; z-index: 3; max-width: 1060px; text-align: center; }
+.hero-badges { display: flex; flex-wrap: wrap; gap: 9px; justify-content: center; margin-bottom: 26px; animation: fadeDown .8s var(--ease) both; }
+.hero-badge {
+    display: inline-flex; align-items: center; gap: 8px; padding: 7px 17px; border-radius: 999px;
+    background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .14);
+    color: rgba(255, 255, 255, .82); font-size: 11.5px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase;
+}
+.hero-badge i { width: 7px; height: 7px; border-radius: 50%; background: var(--sea-green); box-shadow: 0 0 10px var(--sea-green); }
+.hero-badge.b2 i { background: var(--ocean-blue); box-shadow: 0 0 10px var(--ocean-blue); }
+.hero-badge.b3 i { background: var(--coral); box-shadow: 0 0 10px var(--coral); }
+.hero h1 {
+    font-family: 'Space Grotesk', sans-serif; color: #fff; font-weight: 700;
+    font-size: clamp(38px, 6vw, 68px); line-height: 1.06; letter-spacing: -1.8px;
+    margin-bottom: 20px; animation: fadeUp .9s .1s var(--ease) both;
+}
+.hero h1 .grad {
+    background: linear-gradient(100deg, #7dd3fc 0%, #2DD4BF 45%, #FF9A85 100%);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-lead {
+    color: rgba(226, 240, 244, .82); font-size: clamp(15px, 1.6vw, 18.5px); max-width: 780px;
+    margin: 0 auto 34px; font-weight: 400; animation: fadeUp .9s .22s var(--ease) both;
+}
+.hero-cta { display: flex; flex-wrap: wrap; gap: 13px; justify-content: center; animation: fadeUp .9s .34s var(--ease) both; }
+.btn {
+    display: inline-flex; align-items: center; gap: 9px; padding: 14px 28px; border-radius: 12px;
+    font-size: 14.5px; font-weight: 700; text-decoration: none; cursor: pointer; border: none;
+    font-family: inherit; transition: all .25s var(--ease);
+}
+.btn-primary { background: linear-gradient(135deg, var(--sea-green), #2DD4BF); color: #04212c; box-shadow: 0 10px 30px rgba(22, 160, 133, .38); }
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 16px 38px rgba(22, 160, 133, .5); }
+.btn-outline { background: rgba(255, 255, 255, .06); color: #fff; border: 1.5px solid rgba(255, 255, 255, .28); }
+.btn-outline:hover { background: rgba(255, 255, 255, .14); transform: translateY(-3px); border-color: rgba(255, 255, 255, .5); }
+.hero-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; max-width: 860px;
+    margin: 54px auto 0; animation: fadeUp .9s .46s var(--ease) both;
+}
+.stat {
+    background: rgba(255, 255, 255, .055); border: 1px solid rgba(255, 255, 255, .11);
+    border-radius: 14px; padding: 18px 12px; backdrop-filter: blur(8px);
+    transition: transform .3s var(--ease), background .3s;
+}
+.stat:hover { transform: translateY(-5px); background: rgba(255, 255, 255, .1); }
+.stat-num { font-family: 'Space Grotesk', sans-serif; font-size: 30px; font-weight: 700; color: #fff; line-height: 1; letter-spacing: -1px; }
+.stat-num span { color: #5eead4; }
+.stat-label { font-size: 11px; font-weight: 600; letter-spacing: 1.1px; text-transform: uppercase; color: rgba(255, 255, 255, .55); margin-top: 8px; }
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-18px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ─── LAYOUT ─── */
+.layout { display: flex; align-items: flex-start; max-width: 1560px; margin: 0 auto; }
+
+/* ─── SIDEBAR ─── */
+.sidebar {
+    position: sticky; top: var(--topbar-h); width: var(--sidebar-w); flex: 0 0 var(--sidebar-w);
+    height: calc(100vh - var(--topbar-h)); overflow-y: auto; padding: 22px 14px 40px;
+    background: var(--surface); border-right: 1px solid var(--border);
+    scrollbar-width: thin; z-index: 900;
+    animation: slideIn .6s .2s var(--ease) both;
+}
+@keyframes slideIn { from { opacity: 0; transform: translateX(-22px); } to { opacity: 1; transform: translateX(0); } }
+.sidebar::-webkit-scrollbar { width: 7px; }
+.sidebar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; }
+.sidebar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+.side-search {
+    width: 100%; padding: 10px 14px 10px 36px; border: 1px solid var(--border); border-radius: 11px;
+    font-size: 13px; font-family: inherit; background: var(--bg); color: var(--text-primary);
+    outline: none; transition: .2s; margin-bottom: 16px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M21 21l-4.3-4.3'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: 13px center;
+}
+.side-search:focus { border-color: var(--ocean-blue); background-color: #fff; box-shadow: 0 0 0 3px rgba(8, 126, 164, .12); }
+.side-group { font-size: 10.5px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; color: #94a3b8; margin: 16px 8px 7px; display: flex; align-items: center; gap: 8px; }
+.side-group::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent); }
+.side-link {
+    display: flex; align-items: center; gap: 10px; padding: 8px 11px; margin: 2px 0;
+    color: var(--text-secondary); text-decoration: none; font-size: 13.4px; font-weight: 500;
+    border-radius: 9px; transition: all .18s var(--ease); position: relative;
+}
+.side-link .ico { width: 16px; height: 16px; flex: 0 0 16px; opacity: .62; transition: .18s; }
+.side-link:hover { background: #f1f5f9; color: var(--ocean-blue); transform: translateX(3px); }
+.side-link:hover .ico { opacity: 1; }
+.side-link.active {
+    background: linear-gradient(90deg, rgba(8, 126, 164, .13), rgba(22, 160, 133, .07));
+    color: var(--deep-ocean); font-weight: 700;
+    box-shadow: inset 3px 0 0 var(--ocean-blue);
+}
+.side-link.active .ico { opacity: 1; color: var(--ocean-blue); }
+.side-badge {
+    margin-left: auto; font-size: 9.5px; font-weight: 800; padding: 2px 7px; border-radius: 6px;
+    background: rgba(8, 126, 164, .12); color: var(--ocean-blue); letter-spacing: .04em;
+}
+.side-badge.g { background: rgba(22, 160, 133, .14); color: var(--sea-green); }
+.side-badge.o { background: rgba(245, 158, 11, .16); color: #b45309; }
+.side-note {
+    margin-top: 22px; padding: 15px; border-radius: 13px; font-size: 12.2px; line-height: 1.55;
+    background: linear-gradient(150deg, #063B4C, #087EA4); color: rgba(255, 255, 255, .84);
+}
+.side-note b { color: #fff; display: block; margin-bottom: 5px; font-size: 12.5px; }
+.side-note a { color: #7dd3fc; font-weight: 600; text-decoration: none; }
+.side-note a:hover { text-decoration: underline; }
+
+/* ─── MAIN ─── */
+.main { flex: 1; min-width: 0; padding: 40px clamp(20px, 3.6vw, 54px) 80px; }
+
+.section { margin-bottom: 64px; scroll-margin-top: calc(var(--topbar-h) + 22px); }
+.sec-head { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 12px; }
+.sec-icon {
+    width: 46px; height: 46px; flex: 0 0 46px; border-radius: 13px; display: grid; place-items: center;
+    background: linear-gradient(135deg, var(--deep-ocean), var(--ocean-blue)); color: #fff;
+    box-shadow: 0 8px 20px rgba(8, 126, 164, .3);
+}
+.sec-icon.g { background: linear-gradient(135deg, #0f766e, var(--sea-green)); box-shadow: 0 8px 20px rgba(22, 160, 133, .3); }
+.sec-icon.o { background: linear-gradient(135deg, #b45309, #f59e0b); box-shadow: 0 8px 20px rgba(245, 158, 11, .28); }
+.sec-icon.r { background: linear-gradient(135deg, #9f1239, var(--coral)); box-shadow: 0 8px 20px rgba(255, 118, 96, .3); }
+.sec-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 1.7px; text-transform: uppercase; color: var(--ocean-blue); }
+.sec-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(25px, 3vw, 33px); font-weight: 700; color: var(--deep-navy); letter-spacing: -.9px; line-height: 1.18; }
+.sec-sub { color: var(--text-secondary); font-size: 15.3px; max-width: 760px; margin-top: 7px; }
+.rule { height: 3px; width: 64px; border-radius: 3px; background: linear-gradient(90deg, var(--ocean-blue), var(--sea-green)); margin: 18px 0 30px; }
+
+/* reveal */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── CARDS ─── */
+.grid { display: grid; gap: 18px; }
+.grid.c2 { grid-template-columns: repeat(2, 1fr); }
+.grid.c3 { grid-template-columns: repeat(3, 1fr); }
+.grid.c4 { grid-template-columns: repeat(4, 1fr); }
+.card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 22px; box-shadow: var(--shadow-sm); transition: all .3s var(--ease); position: relative; overflow: hidden;
+}
+.card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--ocean-blue), var(--sea-green));
+    transform: scaleX(0); transform-origin: left; transition: transform .4s var(--ease);
+}
+.card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: #cfe3ea; }
+.card:hover::before { transform: scaleX(1); }
+.card h4 { font-size: 15.5px; font-weight: 700; color: var(--deep-navy); margin-bottom: 7px; display: flex; align-items: center; gap: 9px; }
+.card p { font-size: 13.6px; color: var(--text-secondary); line-height: 1.6; }
+.card .mini { font-size: 12.4px; margin-top: 10px; color: var(--text-secondary); }
+.card-icon {
+    width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; margin-bottom: 14px;
+    background: linear-gradient(135deg, rgba(8, 126, 164, .14), rgba(22, 160, 133, .14)); color: var(--ocean-blue);
+}
+.card-icon.o { background: linear-gradient(135deg, rgba(245, 158, 11, .16), rgba(255, 118, 96, .16)); color: #b45309; }
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 13px; }
+.tag {
+    font-size: 11px; font-weight: 600; padding: 3.5px 9px; border-radius: 7px;
+    background: #f1f5f9; color: #475569; border: 1px solid var(--border);
+}
+.tag.blue { background: rgba(8, 126, 164, .1); color: var(--ocean-blue); border-color: rgba(8, 126, 164, .2); }
+.tag.green { background: rgba(22, 160, 133, .1); color: #0f766e; border-color: rgba(22, 160, 133, .22); }
+.tag.amber { background: rgba(245, 158, 11, .12); color: #b45309; border-color: rgba(245, 158, 11, .25); }
+
+/* ─── CALLOUTS ─── */
+.callout {
+    display: flex; gap: 14px; padding: 17px 19px; border-radius: 13px; margin: 20px 0;
+    border: 1px solid; font-size: 14px; line-height: 1.62;
+}
+.callout .c-ico { flex: 0 0 22px; height: 22px; margin-top: 1px; }
+.callout b { display: block; margin-bottom: 3px; font-size: 14.3px; }
+.callout code { font-size: 12.6px; }
+.callout.info { background: #EFF6FF; border-color: #BFDBFE; color: #1e3a5f; }
+.callout.info .c-ico { color: var(--info); }
+.callout.tip { background: var(--light-green); border-color: #A7F3D0; color: #14532d; }
+.callout.tip .c-ico { color: var(--success); }
+.callout.warn { background: #FFFBEB; border-color: #FDE68A; color: #78350f; }
+.callout.warn .c-ico { color: var(--warning); }
+.callout.danger { background: #FEF2F2; border-color: #FECACA; color: #7f1d1d; }
+.callout.danger .c-ico { color: var(--danger); }
+
+/* ─── CODE BLOCKS ─── */
+.codeblock {
+    background: var(--code-bg); border-radius: 13px; overflow: hidden; margin: 18px 0;
+    box-shadow: 0 10px 30px rgba(4, 27, 36, .18); border: 1px solid rgba(255, 255, 255, .07);
+    position: relative;
+}
+.code-head {
+    display: flex; align-items: center; gap: 9px; padding: 9px 15px;
+    background: rgba(255, 255, 255, .045); border-bottom: 1px solid rgba(255, 255, 255, .07);
+}
+.code-dots { display: flex; gap: 6px; }
+.code-dots i { width: 10px; height: 10px; border-radius: 50%; display: block; }
+.code-dots i:nth-child(1) { background: #ff5f57; }
+.code-dots i:nth-child(2) { background: #febc2e; }
+.code-dots i:nth-child(3) { background: #28c840; }
+.code-title { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: rgba(255, 255, 255, .5); letter-spacing: .04em; margin-left: 4px; }
+.copy-btn {
+    margin-left: auto; display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .14);
+    color: rgba(255, 255, 255, .72); font-size: 11.5px; font-weight: 600; font-family: inherit;
+    padding: 5px 11px; border-radius: 7px; cursor: pointer; transition: .2s;
+}
+.copy-btn:hover { background: rgba(255, 255, 255, .18); color: #fff; }
+.copy-btn.done { background: rgba(16, 185, 129, .22); border-color: rgba(16, 185, 129, .5); color: #86efac; }
+.codeblock pre {
+    padding: 17px 19px; overflow-x: auto; font-family: 'JetBrains Mono', monospace;
+    font-size: 12.9px; line-height: 1.72; color: #d6e9ef; tab-size: 4;
+}
+.codeblock pre::-webkit-scrollbar { height: 8px; }
+.codeblock pre::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, .18); border-radius: 8px; }
+.codeblock .cm { color: #6d97a8; font-style: italic; }
+.codeblock .pr { color: #7dd3fc; }
+.codeblock .st { color: #86efac; }
+.codeblock .kw { color: #fbbf24; }
+.codeblock .vn { color: #f0abfc; }
+.inline-code {
+    font-family: 'JetBrains Mono', monospace; font-size: .875em; background: #EEF4F7;
+    color: #0b5d75; padding: 2px 7px; border-radius: 6px; border: 1px solid #dbe7ec; font-weight: 500;
+    white-space: nowrap;
+}
+
+/* ─── STEPS / TIMELINE ─── */
+.steps { position: relative; margin-top: 8px; }
+.step { display: flex; gap: 20px; position: relative; padding-bottom: 34px; }
+.step:last-child { padding-bottom: 0; }
+.step-rail { flex: 0 0 46px; display: flex; flex-direction: column; align-items: center; }
+.step-num {
+    width: 46px; height: 46px; flex: 0 0 46px; border-radius: 14px; display: grid; place-items: center;
+    background: #fff; border: 2px solid var(--ocean-blue); color: var(--ocean-blue);
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17px;
+    box-shadow: 0 6px 16px rgba(8, 126, 164, .18); transition: all .3s var(--ease); z-index: 2;
+}
+.step:hover .step-num { background: var(--ocean-blue); color: #fff; transform: scale(1.08) rotate(-4deg); }
+.step-line { flex: 1; width: 2px; margin-top: 8px; background: repeating-linear-gradient(to bottom, var(--border) 0 7px, transparent 7px 14px); border-radius: 2px; }
+.step:last-child .step-line { display: none; }
+.step-body { flex: 1; min-width: 0; padding-top: 3px; }
+.step-body h3 { font-size: 18.5px; font-weight: 700; color: var(--deep-navy); margin-bottom: 5px; letter-spacing: -.3px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.step-body > p { color: var(--text-secondary); font-size: 14.4px; margin-bottom: 6px; }
+.pill {
+    font-size: 10.5px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 6px; background: rgba(22, 160, 133, .13); color: #0f766e;
+}
+.pill.amber { background: rgba(245, 158, 11, .16); color: #b45309; }
+.pill.red { background: rgba(239, 68, 68, .13); color: #b91c1c; }
+.pill.blue { background: rgba(8, 126, 164, .13); color: var(--ocean-blue); }
+
+/* ─── TABS ─── */
+.tabs { display: flex; gap: 6px; background: #E9F1F4; padding: 5px; border-radius: 12px; width: fit-content; max-width: 100%; flex-wrap: wrap; margin-bottom: 22px; border: 1px solid var(--border); }
+.tab-btn {
+    border: none; background: transparent; font-family: inherit; font-size: 13.4px; font-weight: 600;
+    color: var(--text-secondary); padding: 9px 19px; border-radius: 9px; cursor: pointer;
+    transition: all .25s var(--ease); display: inline-flex; align-items: center; gap: 8px;
+}
+.tab-btn:hover { color: var(--deep-ocean); background: rgba(255, 255, 255, .7); }
+.tab-btn.active { background: #fff; color: var(--deep-ocean); box-shadow: var(--shadow-sm); }
+.tab-panel { display: none; animation: fadeUp .45s var(--ease) both; }
+.tab-panel.active { display: block; }
+
+/* ─── TABLES ─── */
+.tbl-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 13px; background: #fff; box-shadow: var(--shadow-sm); margin: 18px 0; }
+table.tbl { width: 100%; border-collapse: collapse; font-size: 13.7px; min-width: 540px; }
+table.tbl th {
+    background: linear-gradient(135deg, var(--deep-ocean), #0a5269); color: #fff; text-align: left;
+    padding: 13px 16px; font-size: 11.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase;
+    white-space: nowrap;
+}
+table.tbl td { padding: 12px 16px; border-bottom: 1px solid #EDF2F5; color: #334155; vertical-align: top; }
+table.tbl tr:last-child td { border-bottom: none; }
+table.tbl tbody tr { transition: background .18s; }
+table.tbl tbody tr:hover { background: #F7FBFC; }
+table.tbl td code, table.tbl td .inline-code { white-space: nowrap; }
+.tbl-mono { font-family: 'JetBrains Mono', monospace; font-size: 12.6px; color: #0b5d75; }
+.status-ok { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: #0f766e; font-size: 12.5px; }
+.status-ok::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--success); box-shadow: 0 0 7px rgba(16,185,129,.7); }
+
+/* ─── ACCORDION ─── */
+.acc { display: flex; flex-direction: column; gap: 11px; }
+details.acc-item {
+    background: #fff; border: 1px solid var(--border); border-radius: 13px; overflow: hidden;
+    transition: all .28s var(--ease); box-shadow: var(--shadow-sm);
+}
+details.acc-item[open] { border-color: #bfe0ea; box-shadow: var(--shadow-md); }
+details.acc-item summary {
+    list-style: none; cursor: pointer; padding: 17px 20px; font-weight: 650; font-size: 15px;
+    color: var(--deep-navy); display: flex; align-items: center; gap: 13px; transition: .2s;
+}
+details.acc-item summary::-webkit-details-marker { display: none; }
+details.acc-item summary:hover { background: #F7FBFC; }
+.acc-q {
+    width: 27px; height: 27px; flex: 0 0 27px; border-radius: 8px; display: grid; place-items: center;
+    background: rgba(8, 126, 164, .12); color: var(--ocean-blue); font-size: 13px; font-weight: 800;
+    transition: all .3s var(--ease);
+}
+details[open] .acc-q { background: var(--ocean-blue); color: #fff; transform: rotate(45deg); }
+.acc-arrow { margin-left: auto; color: #94a3b8; transition: transform .3s var(--ease); flex: 0 0 auto; }
+details[open] .acc-arrow { transform: rotate(180deg); color: var(--ocean-blue); }
+.acc-body { padding: 0 20px 19px 60px; color: var(--text-secondary); font-size: 14.2px; animation: fadeUp .35s var(--ease) both; }
+.acc-body p { margin-bottom: 10px; }
+.acc-body ul { margin: 8px 0 8px 18px; }
+.acc-body li { margin-bottom: 6px; }
+
+/* ─── CHECKLIST ─── */
+.check { display: grid; gap: 10px; }
+.check li {
+    list-style: none; display: flex; align-items: flex-start; gap: 12px; padding: 12px 15px;
+    background: #fff; border: 1px solid var(--border); border-radius: 11px; font-size: 14px;
+    transition: all .25s var(--ease);
+}
+.check li:hover { border-color: #A7F3D0; background: #F4FDFA; transform: translateX(4px); }
+.check .tick {
+    width: 21px; height: 21px; flex: 0 0 21px; border-radius: 50%; display: grid; place-items: center;
+    background: linear-gradient(135deg, var(--sea-green), #2DD4BF); color: #fff; font-size: 11.5px; font-weight: 900;
+    box-shadow: 0 3px 8px rgba(22, 160, 133, .35); margin-top: 1px;
+}
+
+/* ─── TREE / ASCII ─── */
+.tree {
+    background: #0B2430; color: #cfe7ee; font-family: 'JetBrains Mono', monospace; font-size: 12.7px;
+    line-height: 1.78; padding: 19px 21px; border-radius: 13px; overflow-x: auto; border: 1px solid rgba(255,255,255,.07);
+}
+.tree .d { color: #7dd3fc; font-weight: 600; }
+.tree .f { color: #a5f3d0; }
+.tree .c { color: #6d97a8; font-style: italic; }
+
+/* ─── FLOW / PATH CARDS ─── */
+.paths { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 6px; }
+.path-card {
+    position: relative; border-radius: 16px; padding: 26px 22px 24px; overflow: hidden; color: #fff;
+    text-decoration: none; display: block; transition: all .35s var(--ease);
+    box-shadow: 0 12px 32px rgba(6, 59, 76, .16);
+}
+.path-card.p1 { background: linear-gradient(150deg, #063B4C 0%, #087EA4 100%); }
+.path-card.p2 { background: linear-gradient(150deg, #0f766e 0%, #16A085 100%); }
+.path-card.p3 { background: linear-gradient(150deg, #7c2d12 0%, #EA580C 100%); }
+.path-card::after {
+    content: ''; position: absolute; right: -40px; top: -40px; width: 150px; height: 150px;
+    border-radius: 50%; background: rgba(255, 255, 255, .09); transition: transform .45s var(--ease);
+}
+.path-card:hover { transform: translateY(-7px); box-shadow: 0 22px 46px rgba(6, 59, 76, .3); }
+.path-card:hover::after { transform: scale(1.6); }
+.path-card .p-num { font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 2px; opacity: .7; }
+.path-card h4 { font-size: 21px; font-weight: 700; margin: 9px 0 8px; font-family: 'Space Grotesk', sans-serif; letter-spacing: -.4px; position: relative; z-index: 2; }
+.path-card p { font-size: 13.4px; opacity: .88; line-height: 1.55; position: relative; z-index: 2; }
+.path-card .p-go { display: inline-flex; align-items: center; gap: 7px; margin-top: 16px; font-size: 13px; font-weight: 700; position: relative; z-index: 2; }
+.path-card .p-go svg { transition: transform .3s var(--ease); }
+.path-card:hover .p-go svg { transform: translateX(5px); }
+
+/* ─── MISC ─── */
+.note-strip {
+    display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between;
+    background: linear-gradient(120deg, #063B4C, #0A5A73); color: #fff; border-radius: 16px;
+    padding: 24px 28px; margin: 26px 0; box-shadow: var(--shadow-md); position: relative; overflow: hidden;
+}
+.note-strip::before { content: ''; position: absolute; right: -60px; top: -60px; width: 200px; height: 200px; border-radius: 50%; background: rgba(45, 212, 191, .16); }
+.note-strip h4 { font-size: 17px; font-weight: 700; margin-bottom: 4px; font-family: 'Space Grotesk', sans-serif; }
+.note-strip p { font-size: 13.7px; color: rgba(255, 255, 255, .78); max-width: 620px; }
+.note-strip .ns-act { position: relative; z-index: 2; display: flex; gap: 10px; flex-wrap: wrap; }
+.ns-btn {
+    background: rgba(255, 255, 255, .12); border: 1px solid rgba(255, 255, 255, .26); color: #fff;
+    font-size: 13px; font-weight: 600; padding: 10px 18px; border-radius: 10px; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px; transition: .25s var(--ease); font-family: inherit; cursor: pointer;
+}
+.ns-btn:hover { background: rgba(255, 255, 255, .24); transform: translateY(-2px); }
+.ns-btn.solid { background: linear-gradient(135deg, var(--sea-green), #2DD4BF); color: #04212c; border: none; font-weight: 700; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.mini-title { font-size: 12px; font-weight: 800; letter-spacing: 1.3px; text-transform: uppercase; color: var(--ocean-blue); margin: 26px 0 10px; display: flex; align-items: center; gap: 9px; }
+.mini-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent); }
+
+ul.bul { margin: 10px 0 10px 4px; list-style: none; }
+ul.bul li { position: relative; padding-left: 24px; margin-bottom: 9px; font-size: 14.3px; color: #334155; }
+ul.bul li::before {
+    content: ''; position: absolute; left: 4px; top: 8.5px; width: 8px; height: 8px; border-radius: 3px;
+    background: linear-gradient(135deg, var(--ocean-blue), var(--sea-green));
+}
+ul.bul li b { color: var(--deep-navy); }
+
+.kbd {
+    font-family: 'JetBrains Mono', monospace; font-size: 11.5px; background: #fff; border: 1px solid var(--border);
+    border-bottom-width: 2.5px; border-radius: 6px; padding: 2.5px 7px; color: #334155; font-weight: 600;
+}
+
+/* ─── FOOTER ─── */
+.doc-footer {
+    background: linear-gradient(160deg, #041B24 0%, var(--deep-ocean) 60%, #0a4f63 100%);
+    color: rgba(255, 255, 255, .72); padding: 52px 24px 30px; text-align: center; position: relative; overflow: hidden;
+}
+.doc-footer::before {
+    content: ''; position: absolute; inset: 0; opacity: .05;
+    background-image: linear-gradient(rgba(255,255,255,.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.6) 1px, transparent 1px);
+    background-size: 50px 50px;
+}
+.footer-inner { position: relative; z-index: 2; max-width: 1100px; margin: 0 auto; }
+.footer-logo { height: 66px; background: #fff; border-radius: 15px; padding: 7px; box-shadow: 0 10px 34px rgba(0, 0, 0, .4); margin-bottom: 18px; }
+.doc-footer h3 { font-family: 'Space Grotesk', sans-serif; color: #fff; font-size: 22px; letter-spacing: -.5px; margin-bottom: 8px; }
+.doc-footer p { font-size: 13.7px; max-width: 640px; margin: 0 auto; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 24px 0 26px; }
+.footer-links a {
+    color: #bae6fd; text-decoration: none; font-size: 13px; font-weight: 600; padding: 8px 16px;
+    border: 1px solid rgba(186, 230, 253, .24); border-radius: 9px; transition: .22s var(--ease);
+}
+.footer-links a:hover { background: rgba(186, 230, 253, .14); color: #fff; transform: translateY(-2px); }
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, .1); padding-top: 20px; margin-top: 8px;
+    display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; align-items: center;
+    font-size: 12.4px; color: rgba(255, 255, 255, .5);
+}
+
+/* ─── SCROLL TOP ─── */
+.scroll-top {
+    position: fixed; right: 26px; bottom: 26px; width: 48px; height: 48px; border-radius: 14px;
+    background: linear-gradient(135deg, var(--deep-ocean), var(--ocean-blue)); color: #fff; border: none;
+    display: grid; place-items: center; cursor: pointer; z-index: 1200;
+    box-shadow: 0 10px 26px rgba(8, 126, 164, .42); opacity: 0; transform: translateY(18px) scale(.85);
+    pointer-events: none; transition: all .32s var(--ease);
+}
+.scroll-top.show { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+.scroll-top:hover { transform: translateY(-4px) scale(1.06); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1240px) {
+    .topnav { display: none; }
+    .grid.c4 { grid-template-columns: repeat(2, 1fr); }
+    .paths { grid-template-columns: 1fr; }
+}
+@media (max-width: 1080px) {
+    .sidebar {
+        position: fixed; top: var(--topbar-h); left: 0; transform: translateX(-102%);
+        box-shadow: var(--shadow-lg); animation: none; transition: transform .35s var(--ease);
+        background: #fff;
+    }
+    .sidebar.open { transform: translateX(0); }
+    .menu-toggle { display: block; }
+    .main { padding: 32px 20px 70px; }
+    .grid.c3 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 760px) {
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .grid.c2, .grid.c3, .grid.c4, .two-col { grid-template-columns: 1fr; }
+    .step { gap: 14px; }
+    .topbar { padding: 0 14px; gap: 10px; }
+    .brand-name { font-size: 14px; }
+    .topbar-right .chip { display: none; }
+    .btn-ghost span { display: none; }
+    .acc-body { padding-left: 20px; }
+    .footer-bottom { justify-content: center; text-align: center; }
+}
+
+@media print {
+    .topbar, .sidebar, .scroll-top, .progress-bar, .copy-btn, .hero-cta, .tabs { display: none !important; }
+    .hero { min-height: auto; padding: 40px 20px; background: #063B4C !important; -webkit-print-color-adjust: exact; }
+    .main { padding: 20px; }
+    .section { page-break-inside: avoid; margin-bottom: 34px; }
+    .tab-panel { display: block !important; margin-bottom: 22px; }
+    .card, .codeblock, .tbl-wrap { box-shadow: none; break-inside: avoid; }
+    .reveal { opacity: 1 !important; transform: none !important; }
+    details.acc-item { page-break-inside: avoid; }
+    details.acc-item .acc-body { display: block !important; }
+}
+</style>
+<noscript><style>.reveal{opacity:1!important;transform:none!important}.tab-panel{display:block!important;margin-bottom:20px}</style></noscript>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- ══════════ TOPBAR ══════════ -->
+<header class="topbar" id="topbar">
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+    </button>
+    <a class="brand" href="#top">
+        <img class="brand-logo" src="O3L-logo.png" alt="O3L Logo">
+        <span>
+            <span class="brand-name">O3L Environment Setup</span><br>
+            <span class="brand-sub">Local &middot; Docker &middot; Live</span>
+        </span>
+    </a>
+    <nav class="topnav" id="topnav">
+        <a href="#overview" data-nav="overview">Overview</a>
+        <a href="#prerequisites" data-nav="prerequisites">Prerequisites</a>
+        <a href="#local-setup" data-nav="local-setup">Local Setup</a>
+        <a href="#docker-setup" data-nav="docker-setup">Docker</a>
+        <a href="#database" data-nav="database">Database</a>
+        <a href="#live-setup" data-nav="live-setup">Live Deploy</a>
+        <a href="#configuration" data-nav="configuration">Config</a>
+        <a href="#troubleshooting" data-nav="troubleshooting">Help</a>
+    </nav>
+    <div class="topbar-right">
+        <span class="chip live"><span class="dot"></span> Verified</span>
+        <span class="chip">v1.0 &middot; 2026</span>
+        <button class="btn-ghost" id="printBtn" title="Print / Export PDF">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z"/></svg>
+            <span>Export PDF</span>
+        </button>
+    </div>
+</header>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero" id="top">
+    <div class="hero-grid"></div>
+    <div class="particles" id="particles"></div>
+    <div class="hero-inner">
+        <div class="hero-badges">
+            <span class="hero-badge"><i></i> Local Machine</span>
+            <span class="hero-badge b2"><i></i> Docker Compose</span>
+            <span class="hero-badge b3"><i></i> Live Production</span>
+        </div>
+        <h1>Environment <span class="grad">Setup Guide</span><br>for a New Machine</h1>
+        <p class="hero-lead">
+            Everything required to run the <b>One Ocean One Life</b> platform from scratch &mdash; backend API,
+            web dashboard, mobile app, geospatial database and production deployment &mdash; with animated,
+            step-by-step instructions and a ready-to-restore database backup.
+        </p>
+        <div class="hero-cta">
+            <a class="btn btn-primary" href="#local-setup">
+                Start Local Setup
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="btn btn-outline" href="#database">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
+                Restore Database
+            </a>
+            <a class="btn btn-outline" href="#live-setup">Go Live &rarr;</a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat"><div class="stat-num" data-count="105"><span>0</span></div><div class="stat-label">DB Tables</div></div>
+            <div class="stat"><div class="stat-num" data-count="102"><span>0</span></div><div class="stat-label">Migrations</div></div>
+            <div class="stat"><div class="stat-num" data-count="37"><span>0</span> MB</div><div class="stat-label">Backup Size</div></div>
+            <div class="stat"><div class="stat-num" data-count="3"><span>0</span></div><div class="stat-label">Apps &middot; API Web Mobile</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════ LAYOUT ══════════ -->
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <input class="side-search" id="sideSearch" type="text" placeholder="Filter sections..." aria-label="Filter sections">
+
+        <div class="side-group">Getting Started</div>
+        <a class="side-link" href="#overview" data-side="overview">
+            <svg class="ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+            Platform Overview
+        </a>
+        <a class="side-link" href="#prerequisites" data-side="prerequisites">
+            <svg class="ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3 6 6 .9-4.5 4.3 1.1 6.3L12 17l-5.6 2.5 1.1-6.3L3 8.9 9 8z"/></svg>
+            Prerequisites
+            <span class="side-badge">Tools</span>
+        </a>
+
+        <div class="side-group">Installation Paths</div>
+        <a class="side-link" href="#local-setup" data-side="local-setup">
+            <svg class="ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            Local Machine Setup
+            <span class="side-badge g">Core</span>
+        </a>
+        <a class="side-link" href="#docker-setup" data-side="docker-setup">
+            <svg class="ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 15h18v3a3 3 0 01-3 3H6a3 3 0 01-3-3z"/><path d="M5 15V9h3v6M9 15V6h3v9M13 15V9h3v6"/></svg>
+            Docker Setup
+            <span class="side-badge">1-Cmd</span>
+        </a>
+        <a class="side-link" href="#database" data-side="database">
+            <svg class="ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
+            Database Backup
+            <span class="side-badge o">SQL</span>
+        </a>
+        <a class="side-link" href="#live-setup" data-side="live-setup">
+            <svg class="ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9S14.5 18.3 12 21c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg>
+            Live / Production
+            <span class="side-badge">VPS</span>
+        </a>
+
+        <div class="side-group">Reference</div>
+        <a class="side-link" href="#configuration" data-side="configuration">
+            <svg class="ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.6 1.6 0 00-1.8-.3 1.6 1.6 0 00-1 1.5V21a2 2 0 11-4 0v-.1A1.6 1.6 0 008 19.4a1.6 1.6 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.6 1.6 0 00.3-1.8 1.6 1.6 0 00-1.5-1H2a2 2 0 110-4h.1A1.6 1.6 0 004.6 8a1.6 1.6 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.6 1.6 0 001.8.3H9a1.6 1.6 0 001-1.5V2a2 2 0 114 0v.1a1.6 1.6 0 001 1.5 1.6 1.6 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.6 1.6 0 00-.3 1.8V9a1.6 1.6 0 001.5 1H22a2 2 0 110 4h-.1a1.6 1.6 0 00-1.5 1z"/></svg>
+            Configuration
+        </a>
+        <a class="side-link" href="#verification" data-side="verification">
+            <svg class="ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M21 12a9 9 0 11-6.2-8.6"/></svg>
+            Verification
+        </a>
+        <a class="side-link" href="#troubleshooting" data-side="troubleshooting">
+            <svg class="ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 015.8 1c0 2-3 3-3 3M12 17h.01"/></svg>
+            Troubleshooting
+        </a>
+        <a class="side-link" href="#cheatsheet" data-side="cheatsheet">
+            <svg class="ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 17l6-5-6-5M12 19h8"/></svg>
+            Command Sheet
+        </a>
+
+        <div class="side-note">
+            <b>Need the data too?</b>
+            A full PostgreSQL dump ships with this guide at
+            <a href="database-backup.sql">docs/database-backup.sql</a>
+            &mdash; restore it in step&nbsp;4 of the local setup.
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <!-- ══════════════════ 1. OVERVIEW ══════════════════ -->
+        <section class="section" id="overview">
+            <div class="sec-head reveal">
+                <div class="sec-icon">
+                    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+                </div>
+                <div>
+                    <div class="sec-eyebrow">01 &middot; Orientation</div>
+                    <h2 class="sec-title">Platform Overview &amp; Setup Paths</h2>
+                    <p class="sec-sub">O3L is a monorepo with three applications and a geospatial data tier. Pick the path that matches the machine you are provisioning.</p>
+                </div>
+            </div>
+            <div class="rule reveal"></div>
+
+            <div class="paths reveal">
+                <a class="path-card p1" href="#local-setup">
+                    <div class="p-num">PATH 01</div>
+                    <h4>Local Machine</h4>
+                    <p>Manual install on Windows / macOS / Linux &mdash; Python venv, native PostgreSQL 17+ with PostGIS, Redis, Next.js dev server and Expo.</p>
+                    <span class="p-go">Recommended for developers
+                        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    </span>
+                </a>
+                <a class="path-card p2" href="#docker-setup">
+                    <div class="p-num">PATH 02</div>
+                    <h4>Docker Compose</h4>
+                    <p>One command spins up PostgreSQL+PostGIS, Redis, Django API, Celery worker, Celery beat, Next.js and Nginx with health checks.</p>
+                    <span class="p-go">Fastest bootstrap
+                        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    </span>
+                </a>
+                <a class="path-card p3" href="#live-setup">
+                    <div class="p-num">PATH 03</div>
+                    <h4>Live Production</h4>
+                    <p>Ubuntu VPS deployment with Gunicorn, PM2, Nginx reverse proxy, Let's Encrypt SSL, systemd services and scheduled backups.</p>
+                    <span class="p-go">Hostinger / any Ubuntu VPS
+                        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    </span>
+                </a>
+            </div>
+
+            <div class="mini-title">Technology Stack</div>
+            <div class="grid c3 reveal">
+                <div class="card">
+                    <div class="card-icon">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+                    </div>
+                    <h4>Backend API</h4>
+                    <p>Django 5.2 + Django REST Framework, SimpleJWT auth, mobile OTP, Celery background jobs.</p>
+                    <div class="tag-row"><span class="tag blue">Python 3.12+</span><span class="tag">DRF</span><span class="tag">JWT</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
+                    </div>
+                    <h4>Geospatial DB</h4>
+                    <p>PostgreSQL 17/18 with PostGIS 3.6 for coastal zones, hotspots, observations and maps.</p>
+                    <div class="tag-row"><span class="tag green">PostGIS</span><span class="tag">105 tables</span><span class="tag">37 MB</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>
+                    </div>
+                    <h4>Cache &amp; Queue</h4>
+                    <p>Redis 7 for caching/sessions, Celery worker + Celery beat for scheduled tasks and notifications.</p>
+                    <div class="tag-row"><span class="tag amber">Redis 7</span><span class="tag">Celery</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/></svg>
+                    </div>
+                    <h4>Web Dashboard</h4>
+                    <p>Next.js 16 App Router with Tailwind CSS 4, Radix UI, MapLibre GL maps and TanStack Query.</p>
+                    <div class="tag-row"><span class="tag blue">Next 16</span><span class="tag">React 19</span><span class="tag">Tailwind 4</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>
+                    </div>
+                    <h4>Mobile App</h4>
+                    <p>React Native 0.86 + Expo SDK 57, Zustand state, offline-first SQLite sync, push notifications.</p>
+                    <div class="tag-row"><span class="tag green">Expo 57</span><span class="tag">Offline</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 15h18v3a3 3 0 01-3 3H6a3 3 0 01-3-3z"/><path d="M5 15V9h3v6M9 15V6h3v9M13 15V9h3v6"/></svg>
+                    </div>
+                    <h4>Infrastructure</h4>
+                    <p>Docker Compose for dev/prod, Nginx reverse proxy, GitHub Actions CI, systemd + PM2 on servers.</p>
+                    <div class="tag-row"><span class="tag amber">Docker</span><span class="tag">Nginx</span><span class="tag">CI/CD</span></div>
+                </div>
+            </div>
+
+            <div class="two-col" style="margin-top:22px">
+                <div class="reveal">
+                    <div class="mini-title">Repository Layout</div>
+                    <div class="tree"><span class="c">oneoceanonelife/</span>
+├── <span class="d">apps/</span>
+│   ├── <span class="d">api/</span>        <span class="c"># Django project (manage.py, o3l/, */apps)</span>
+│   ├── <span class="d">web/</span>        <span class="c"># Next.js dashboard</span>
+│   └── <span class="d">mobile/</span>     <span class="c"># Expo / React Native app</span>
+├── <span class="d">docs/</span>          <span class="c"># This guide + technical docs + SQL backup</span>
+├── <span class="d">deploy/hostinger/</span> <span class="c"># VPS setup.sh + deploy.sh</span>
+├── <span class="d">nginx/</span>         <span class="c"># nginx.conf (dev) / nginx.prod.conf</span>
+├── <span class="f">docker-compose.yml</span>       <span class="c"># dev stack</span>
+├── <span class="f">docker-compose.prod.yml</span>  <span class="c"># production stack</span>
+├── <span class="f">.env.example</span>    <span class="c"># environment template</span>
+└── <span class="f">setup.sh</span>        <span class="c"># Windows/Git-Bash bootstrap</span></div>
+                </div>
+                <div class="reveal">
+                    <div class="mini-title">Default Service Ports</div>
+                    <div class="tbl-wrap">
+                        <table class="tbl">
+                            <thead><tr><th>Service</th><th>Port</th><th>URL / Endpoint</th></tr></thead>
+                            <tbody>
+                                <tr><td>Django API</td><td class="tbl-mono">8000</td><td><span class="inline-code">http://localhost:8000/api/v1/</span></td></tr>
+                                <tr><td>Django Admin</td><td class="tbl-mono">8000</td><td><span class="inline-code">http://localhost:8000/admin/</span></td></tr>
+                                <tr><td>Next.js Web</td><td class="tbl-mono">3000</td><td><span class="inline-code">http://localhost:3000</span></td></tr>
+                                <tr><td>PostgreSQL</td><td class="tbl-mono">5432</td><td>db <span class="inline-code">o3l_dev</span></td></tr>
+                                <tr><td>Redis</td><td class="tbl-mono">6379</td><td><span class="inline-code">redis://localhost:6379/0</span></td></tr>
+                                <tr><td>Expo Dev Server</td><td class="tbl-mono">8081</td><td>LAN URL from <span class="inline-code">expo start</span></td></tr>
+                                <tr><td>Nginx (compose)</td><td class="tbl-mono">80</td><td><span class="inline-code">http://localhost</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════════════ 2. PREREQUISITES ══════════════════ -->
+        <section class="section" id="prerequisites">
+            <div class="sec-head reveal">
+                <div class="sec-icon g">
+                    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3 6 6 .9-4.5 4.3 1.1 6.3L12 17l-5.6 2.5 1.1-6.3L3 8.9 9 8z"/></svg>
+                </div>
+                <div>
+                    <div class="sec-eyebrow">02 &middot; Before You Start</div>
+                    <h2 class="sec-title">Prerequisites &amp; Tooling</h2>
+                    <p class="sec-sub">Install these once per machine. Version numbers matter &mdash; the platform targets Python 3.12+, Node 20+ and PostgreSQL 17 or newer.</p>
+                </div>
+            </div>
+            <div class="rule reveal"></div>
+
+            <div class="callout warn reveal">
+                <svg class="c-ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg>
+                <div><b>PostgreSQL version is critical</b>
+                The shipped backup <span class="inline-code">docs/database-backup.sql</span> was produced by <strong>pg_dump 18.6</strong>.
+                Restore it into <strong>PostgreSQL 17 or 18</strong> (both include the required <span class="inline-code">transaction_timeout</span> GUC and <span class="inline-code">\restrict</span> psql command).
+                Older servers (16 and below) will fail on restore.</div>
+            </div>
+
+            <div data-tabs>
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="tab-win">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5l7.5-1v7H3v-6zM11.5 4.3L21 3v8.5h-9.5v-7.2zM3 12.5h7.5v7L3 18.5v-6zM11.5 12.5H21V21l-9.5-1.3v-7.2z"/></svg>
+                        Windows 10/11
+                    </button>
+                    <button class="tab-btn" data-tab="tab-mac">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.9c0-2.4 2-3.6 2.1-3.6-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.6.9s-1.9-.9-3.1-.8c-1.6 0-3.1.9-3.9 2.4-1.7 2.9-.4 7.2 1.2 9.5.8 1.1 1.7 2.4 3 2.4 1.2 0 1.7-.8 3.1-.8s1.9.8 3.1.7c1.3 0 2.1-1.1 2.9-2.3.9-1.3 1.3-2.6 1.3-2.7 0 0-2.6-1-2.6-3.8zM14 5.9c.7-.8 1.1-2 1-3.1-1 0-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.9-1.4z"/></svg>
+                        macOS
+                    </button>
+                    <button class="tab-btn" data-tab="tab-linux">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c-2.5 0-4 2.1-4 4.7 0 1.6.3 2.6.3 3.9 0 1.4-1.6 3-2.7 4.9-1 1.8-1.6 3.6-1.6 5 0 .8.5 1.4 1.3 1.4 1 0 1.7-.7 2.4-1.4.5 1 1.4 1.7 2.6 1.7h2c1.2 0 2.1-.7 2.6-1.7.7.7 1.4 1.4 2.4 1.4.8 0 1.3-.6 1.3-1.4 0-1.4-.6-3.2-1.6-5-1.1-1.9-2.7-3.5-2.7-4.9 0-1.3.3-2.3.3-3.9C16 4.1 14.5 2 12 2z"/></svg>
+                        Linux
+                    </button>
+                </div>
+
+                <!-- WINDOWS -->
+                <div class="tab-panel active" id="tab-win">
+                    <div class="tbl-wrap">
+                        <table class="tbl">
+                            <thead><tr><th>Tool</th><th>Version</th><th>Download / Install</th><th>Required</th></tr></thead>
+                            <tbody>
+                                <tr><td><b>Git</b></td><td>2.40+</td><td><span class="inline-code">winget install Git.Git</span></td><td><span class="status-ok">Yes</span></td></tr>
+                                <tr><td><b>Python</b></td><td>3.12 / 3.13</td><td><span class="inline-code">winget install Python.Python.3.12</span> &mdash; tick <i>Add to PATH</i></td><td><span class="status-ok">Yes</span></td></tr>
+                                <tr><td><b>Node.js + npm</b></td><td>20 LTS / 22</td><td><span class="inline-code">winget install OpenJS.NodeJS.LTS</span></td><td><span class="status-ok">Yes</span></td></tr>
+                                <tr><td><b>PostgreSQL + PostGIS</b></td><td>17.x or 18.x</td><td>EDB installer &rarr; <i>Stack Builder &rarr; PostGIS 3.6</i></td><td><span class="status-ok">Yes</span></td></tr>
+                                <tr><td><b>Redis</b></td><td>7.x</td><td>Memurai Developer, or Redis via WSL2</td><td><span class="status-ok">Yes</span></td></tr>
+                                <tr><td><b>Docker Desktop</b></td><td>4.x</td><td><span class="inline-code">winget install Docker.DockerDesktop</span> (optional path)</td><td>Optional</td></tr>
+                                <tr><td><b>VS Code</b></td><td>latest</td><td><span class="inline-code">winget install Microsoft.VisualStudioCode</span></td><td>Recommended</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="codeblock">
+                        <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">powershell — verify toolchain</span></div>
+<pre><span class="cm"># Run in PowerShell after installing everything</span>
+git --version
+python --version
+node --version
+npm --version
+psql --version
+
+<span class="cm"># Redis check (Memurai / WSL)</span>
+redis-cli ping      <span class="cm"># expect: PONG</span></pre>
+                    </div>
+                </div>
+
+                <!-- MACOS -->
+                <div class="tab-panel" id="tab-mac">
+                    <div class="codeblock">
+                        <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">zsh — Homebrew bootstrap</span></div>
+<pre><span class="cm"># 1. Homebrew (skip if already installed)</span>
+/bin/bash -c <span class="st">"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</span>
+
+<span class="cm"># 2. Core toolchain</span>
+brew install git python@3.12 node@20 postgresql@17 redis postgis
+
+<span class="cm"># 3. Start services</span>
+brew services start postgresql@17
+brew services start redis
+
+<span class="cm"># 4. Verify</span>
+python3.12 --version; node -v; psql --version; redis-cli ping</pre>
+                    </div>
+                    <div class="callout tip">
+                        <svg class="c-ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M21 12a9 9 0 11-6.2-8.6"/></svg>
+                        <div><b>GeoDjango on macOS</b>Homebrew's <span class="inline-code">postgis</span> ships the GDAL/GEOS libraries GeoDjango needs. If Django still cannot load them, export <span class="inline-code">GDAL_LIBRARY_PATH</span> and <span class="inline-code">GEOS_LIBRARY_PATH</span> (see Local Setup, Step 3).</div>
+                    </div>
+                </div>
+
+                <!-- LINUX -->
+                <div class="tab-panel" id="tab-linux">
+                    <div class="codeblock">
+                        <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">bash — Ubuntu 22.04 / 24.04</span></div>
+<pre><span class="kw">sudo</span> apt update &amp;&amp; <span class="kw">sudo</span> apt upgrade -y
+
+<span class="cm"># Toolchain</span>
+<span class="kw">sudo</span> apt install -y curl git build-essential software-properties-common
+<span class="kw">sudo</span> add-apt-repository ppa:deadsnakes/ppa -y
+<span class="kw">sudo</span> apt install -y python3.12 python3.12-venv python3.12-dev
+
+curl -fsSL https://deb.nodesource.com/setup_20.x | <span class="kw">sudo</span> -E bash -
+<span class="kw">sudo</span> apt install -y nodejs
+
+<span class="cm"># PostgreSQL 17 + PostGIS + Redis</span>
+<span class="kw">sudo</span> apt install -y postgresql-17 postgis postgresql-17-postgis-3 redis-server
+<span class="kw">sudo</span> systemctl enable --now postgresql redis-server
+
+<span class="cm"># GDAL / GEOS for GeoDjango</span>
+<span class="kw">sudo</span> apt install -y gdal-bin libgdal-dev libgeos-dev libproj-dev</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mini-title">Optional External Services</div>
+            <p class="sec-sub" style="margin-bottom:14px">The platform runs without these in development &mdash; leave them blank in <span class="inline-code">.env</span> and the related features simply stay disabled.</p>
+            <div class="grid c4 reveal">
+                <div class="card"><h4>Twilio</h4><p>Mobile OTP login over SMS.</p></div>
+                <div class="card"><h4>Google / Apple</h4><p>OAuth social sign-in.</p></div>
+                <div class="card"><h4>Firebase</h4><p>Push notifications &amp; auth.</p></div>
+                <div class="card"><h4>Razorpay / Stripe</h4><p>Marketplace payments.</p></div>
+                <div class="card"><h4>Cloudflare R2</h4><p>Media &amp; file storage.</p></div>
+                <div class="card"><h4>SendGrid</h4><p>Transactional email.</p></div>
+                <div class="card"><h4>Sentry</h4><p>Error tracking / APM.</p></div>
+                <div class="card"><h4>OpenWeatherMap</h4><p>Weather data feeds.</p></div>
+            </div>
+        </section>
+
+        <!-- ══════════════════ 3. LOCAL SETUP ══════════════════ -->
+        <section class="section" id="local-setup">
+            <div class="sec-head reveal">
+                <div class="sec-icon">
+                    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                </div>
+                <div>
+                    <div class="sec-eyebrow">03 &middot; Path 01</div>
+                    <h2 class="sec-title">Local Machine Setup (Manual)</h2>
+                    <p class="sec-sub">The exact sequence used to bring this project up on a fresh Windows workstation with native PostgreSQL &mdash; the same commands work on macOS and Linux with shell differences noted.</p>
+                </div>
+            </div>
+            <div class="rule reveal"></div>
+
+            <div class="steps">
+
+                <!-- STEP 1 -->
+                <div class="step reveal">
+                    <div class="step-rail"><div class="step-num">1</div><div class="step-line"></div></div>
+                    <div class="step-body">
+                        <h3>Copy the project onto the machine <span class="pill">5 min</span></h3>
+                        <p>Transfer the whole <span class="inline-code">oneoceanonelife/</span> folder (zip, LAN share or Git). Exclude bulky generated folders if you want a lighter copy.</p>
+                        <div class="codeblock">
+                            <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">powershell — clone or copy</span></div>
+<pre><span class="cm"># Option A — from Git</span>
+git clone &lt;your-repo-url&gt;.git oneoceanonelife
+cd oneoceanonelife
+
+<span class="cm"># Option B — copy an existing working folder (exclude junk)</span>
+robocopy I:\xampp8212\htdocs\oneoceanonelife C:\projects\oneoceanonelife `
+        /XD node_modules .next venv __pycache__ .ruff_cache /MIR /NFL /NDL</pre>
+                        </div>
+                        <div class="callout info">
+                            <svg class="c-ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+                            <div><b>XAMPP is not used</b>Even though the project lives under <span class="inline-code">htdocs</span>, O3L does <strong>not</strong> run on Apache/MySQL. The web server is Django's dev server (or Nginx) and the database is PostgreSQL + PostGIS. XAMPP can stay installed and untouched.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 2 -->
+                <div class="step reveal">
+                    <div class="step-rail"><div class="step-num">2</div><div class="step-line"></div></div>
+                    <div class="step-body">
+                        <h3>Install PostgreSQL + PostGIS &amp; create the database <span class="pill">15 min</span></h3>
+                        <p>Install PostgreSQL 17/18 from the <a href="https://www.enterprisedb.com/downloads/postgres-postgresql-downloads" target="_blank" rel="noopener">EDB installer</a>, then add <b>PostGIS 3.6</b> through Stack Builder (or <span class="inline-code">apt install postgis</span> on Linux).</p>
+                        <div class="codeblock">
+                            <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">sql — run as the postgres superuser</span></div>
+<pre><span class="cm">-- Connect: psql -U postgres</span>
+<span class="kw">CREATE ROLE</span> o3l_user <span class="kw">WITH LOGIN PASSWORD</span> <span class="st">'o3l_password'</span> <span class="kw">SUPERUSER CREATEDB</span>;
+<span class="kw">CREATE DATABASE</span> o3l_dev <span class="kw">OWNER</span> o3l_user;
+
+<span class="kw">\c</span> o3l_dev
+<span class="kw">CREATE EXTENSION IF NOT EXISTS</span> postgis;
+<span class="kw">CREATE EXTENSION IF NOT EXISTS</span> postgis_topology;
+<span class="kw">CREATE EXTENSION IF NOT EXISTS</span> fuzzystrmatch;
+<span class="kw">\dx</span>          <span class="cm">-- must list postgis, postgis_topology, fuzzystrmatch</span></pre>
+                        </div>
+                        <div class="callout tip">
+                            <svg class="c-ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M21 12a9 9 0 11-6.2-8.6"/></svg>
+                            <div><b>Keep the credentials consistent</b>Dev defaults used everywhere in this project: database <span class="inline-code">o3l_dev</span>, user <span class="inline-code">o3l_user</span>, password <span class="inline-code">o3l_password</span>, host <span class="inline-code">localhost:5432</span>. If you choose different values, update <span class="inline-code">apps/api/.env</span> accordingly.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 3 -->
+                <div class="step reveal">
+                    <div class="step-rail"><div class="step-num">3</div><div class="step-line"></div></div>
+                    <div class="step-body">
+                        <h3>Configure GDAL / GEOS for GeoDjango <span class="pill amber">Windows only</span></h3>
+                        <p>GeoDjango loads spatial libraries from DLLs at runtime. On Windows these live in the PostgreSQL <span class="inline-code">bin</span> folder (installed with PostGIS). Set the paths in <span class="inline-code">apps/api/o3l/settings/development.py</span> or via environment variables.</p>
+                        <div class="codeblock">
+                            <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">python — apps/api/o3l/settings/development.py</span></div>
+<pre><span class="cm"># Point these at YOUR PostgreSQL installation directory</span>
+GDAL_LIBRARY_PATH = os.environ.get(<span class="st">'GDAL_LIBRARY_PATH'</span>, r<span class="st">'C:\PostgreSQL\18\bin\libgdal-35.dll'</span>)
+GEOS_LIBRARY_PATH = os.environ.get(<span class="st">'GEOS_LIBRARY_PATH'</span>, r<span class="st">'C:\PostgreSQL\18\bin\libgeos_c.dll'</span>)</pre>
+                        </div>
+                        <div class="codeblock">
+                            <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">powershell — alternative: set user environment variables</span></div>
+<pre>[Environment]::SetEnvironmentVariable(<span class="st">'GDAL_LIBRARY_PATH'</span>, <span class="st">'C:\PostgreSQL\18\bin\libgdal-35.dll'</span>, <span class="st">'User'</span>)
+[Environment]::SetEnvironmentVariable(<span class="st">'GEOS_LIBRARY_PATH'</span>, <span class="st">'C:\PostgreSQL\18\bin\libgeos_c.dll'</span>, <span class="st">'User'</span>)</pre>
+                        </div>
+                        <div class="callout warn">
+                            <svg class="c-ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg>
+                            <div><b>Wrong DLL path = startup crash</b>If you see <span class="inline-code">OSError: ...</span> or <span class="inline-code">Could not find the GDAL library</span>, the path/version suffix (<span class="inline-code">libgdal-35.dll</span>) does not match your install. Check what <span class="inline-code">libgdal-*.dll</span> and <span class="inline-code">libgeos_c.dll</span> actually exist in your PostgreSQL <span class="inline-code">bin</span> folder.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 4 -->
+                <div class="step reveal">
+                    <div class="step-rail"><div class="step-num">4</div><div class="step-line"></div></div>
+                    <div class="step-body">
+                        <h3>Restore the database backup <span class="pill blue">recommended</span></h3>
+                        <p>Instead of seeding from zero, load the shipped dump so you start with real zones, CMS pages, guide species and demo users. Full details in the <a href="#database">Database Backup</a> section.</p>
+                        <div class="codeblock">
+                            <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">powershell — restore docs/database-backup.sql</span></div>
+<pre><span class="kw">cd</span> oneoceanonelife
+$env:PGPASSWORD=<span class="st">'o3l_password'</span>
+psql -U o3l_user -d o3l_dev -w -v ON_ERROR_STOP=1 -f docs\database-backup.sql
+
+<span class="cm"># Quick sanity check</span>
+psql -U o3l_user -d o3l_dev -w -c <span class="st">"SELECT count(*) FROM django_migrations;"</span>   <span class="cm"># 102</span>
+psql -U o3l_user -d o3l_dev -w -c <span class="st">"SELECT count(*) FROM users;"</span>               <span class="cm"># 319</span></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 5 -->
+                <div class="step reveal">
+                    <div class="step-rail"><div class="step-num">5</div><div class="step-line"></div></div>
+                    <div class="step-body">
+                        <h3>Backend — virtualenv &amp; dependencies <span class="pill">10 min</span></h3>
+                        <p>Create an isolated Python environment inside <span class="inline-code">apps/api</span> and install the requirements (Django, DRF, Psycopg, Celery, Geo stack bindings, payments, Firebase, etc.).</p>
+                        <div class="codeblock">
+                            <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">powershell — backend bootstrap</span></div>
+<pre><span class="kw">cd</span> apps\api
+
+<span class="cm"># Create + activate virtualenv</span>
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+<span class="cm"># (Git Bash: source venv/Scripts/activate)</span>
+
+<span class="cm"># Install dependencies</span>
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+
+<span class="cm"># Verify Django can start &amp; reach the database</span>
+python manage.py check
+python manage.py showmigrations | <span class="kw">Select-Object</span> -Last 5</pre>
+                        </div>
+                        <div class="callout info">
+                            <svg class="c-ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+                            <div><b>Shortcut</b>From the repository root you can run <span class="inline-code">bash setup.sh</span> in Git Bash &mdash; it creates the virtualenv and installs all Python packages for you, then prints the remaining manual steps.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 6 -->
+                <div class="step reveal">
+                    <div class="step-rail"><div class="step-num">6</div><div class="step-line"></div></div>
+                    <div class="step-body">
+                        <h3>Environment file (.env) <span class="pill">5 min</span></h3>
+                        <p>The API reads <span class="inline-code">apps/api/.env</span>; the repo root <span class="inline-code">.env</span> documents every available key. Copy the template and keep the development defaults.</p>
+                        <div class="codeblock">
+                            <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">env — apps/api/.env (minimum working set)</span></div>
+<pre>DEBUG=True
+SECRET_KEY=dev-secret-key-not-for-production-change-in-production
+ALLOWED_HOSTS=localhost,127.0.0.1
+DJANGO_SETTINGS_MODULE=o3l.settings.development
+
+<span class="cm"># Database (PostgreSQL + PostGIS)</span>
+DB_NAME=o3l_dev
+DB_USER=o3l_user
+DB_PASSWORD=o3l_password
+DB_HOST=localhost
+DB_PORT=5432
+
+<span class="cm"># Redis</span>
+REDIS_URL=redis://localhost:6379/0
+
+<span class="cm"># Auth / CORS</span>
+JWT_ACCESS_TOKEN_LIFETIME=60
+JWT_REFRESH_TOKEN_LIFETIME=7
+CORS_ALLOWED_ORIGINS=http://localhost:3000,http://localhost:8081
+
+<span class="cm"># Media</span>
+MEDIA_ROOT=media/
+MEDIA_URL=/media/</pre>
+                        </div>
+                        <p class="mini">Web app: create <span class="inline-code">apps/web/.env.local</span> with <span class="inline-code">NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1</span> if it is not already injected by Docker/CI.</p>
+                    </div>
+                </div>
+
+                <!-- STEP 7 -->
+                <div class="step reveal">
+                    <div class="step-rail"><div class="step-num">7</div><div class="step-line"></div></div>
+                    <div class="step-body">
+                        <h3>Migrate, seed &amp; create the admin <span class="pill">10 min</span></h3>
+                        <p>Apply all 102 migrations, then load reference data. Skip the seeds if you already restored the SQL backup (they are idempotent, so re-running is safe).</p>
+                        <div class="codeblock">
+                            <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">powershell — from apps/api (venv active)</span></div>
+<pre><span class="kw">cd</span> apps\api
+
+python manage.py migrate
+python manage.py seed_zones              <span class="cm"># coastal regions / districts / villages</span>
+python manage.py seed_cms                <span class="cm"># about, privacy, terms, contact pages</span>
+python manage.py seed_data               <span class="cm"># roles, sample content, demo data</span>
+python manage.py seed_guide_categories   <span class="cm"># species guide taxonomy</span>
+python manage.py seed_news_events        <span class="cm"># news &amp; events</span>
+python manage.py createsuperuser         <span class="cm"># admin credentials for /admin/</span>
+
+<span class="cm"># Optional extras</span>
+python manage.py seed_ecotourism_revamp
+python manage.py seed_shg
+python manage.py generate_hotspots
+python manage.py refresh_scoreboard</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 8 -->
+                <div class="step reveal">
+                    <div class="step-rail"><div class="step-num">8</div><div class="step-line"></div></div>
+                    <div class="step-body">
+                        <h3>Run the API, workers &amp; web dashboard <span class="pill">15 min</span></h3>
+                        <p>Open <b>three terminals</b> (all with the virtualenv / correct folders) and start each service. Keep them running while developing.</p>
+                        <div class="two-col">
+                            <div>
+                                <div class="mini-title">Terminal 1 — Django API</div>
+                                <div class="codeblock">
+                                    <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">apps/api</span></div>
+<pre>.\venv\Scripts\Activate.ps1
+python manage.py runserver 0.0.0.0:8000
+<span class="cm"># 0.0.0.0 also exposes the LAN IP so a phone/Expo Go can reach it</span>
+<span class="cm"># → http://localhost:8000 · http://192.168.1.4:8000</span></pre>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="mini-title">Terminal 2 — Next.js Web</div>
+                                <div class="codeblock">
+                                    <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">apps/web</span></div>
+<pre><span class="kw">cd</span> apps\web
+npm install
+npm run dev
+<span class="cm"># → http://localhost:3000</span></pre>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="two-col">
+                            <div>
+                                <div class="mini-title">Terminal 3 — Celery (background jobs)</div>
+                                <div class="codeblock">
+                                    <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">apps/api</span></div>
+<pre>.\venv\Scripts\Activate.ps1
+celery -A o3l worker -l info
+<span class="cm"># second window: celery -A o3l beat -l info</span></pre>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="mini-title">Optional — Mobile (Expo)</div>
+                                <div class="codeblock">
+                                    <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">apps/mobile</span></div>
+<pre><span class="kw">cd</span> apps\mobile
+npm install
+npx expo start
+<span class="cm"># scan QR with Expo Go (port 8081)</span></pre>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="callout warn">
+                            <svg class="c-ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg>
+                            <div><b>Testing on a real phone (Expo Go)?</b>
+                            A phone cannot use <span class="inline-code">localhost</span> &mdash; that is the phone itself. Three things must line up:
+                            <ul style="margin:8px 0 0 18px">
+                                <li>Run the API as <span class="inline-code">python manage.py runserver 0.0.0.0:8000</span> &mdash; plain <span class="inline-code">runserver</span> binds only <span class="inline-code">127.0.0.1</span> and the app fails with <i>&ldquo;Cannot reach server &mdash; is the API running?&rdquo;</i></li>
+                                <li>Point the app at your PC's LAN IP: <span class="inline-code">EXPO_PUBLIC_API_URL=http://192.168.1.x:8000/api/v1</span> in <span class="inline-code">apps/mobile/.env</span> (find the IP with <span class="inline-code">ipconfig</span>)</li>
+                                <li>Allow Python through the firewall (elevated shell): <span class="inline-code">netsh advfirewall firewall add rule name="O3L API 8000" dir=in action=allow protocol=TCP localport=8000</span></li>
+                            </ul>
+                            Phone and PC must share the same Wi-Fi (disable hotspot/AP isolation). Quick check: open <span class="inline-code">http://192.168.1.x:8000/api/v1/auth/login/</span> in the phone browser &mdash; you should get a JSON error, not a timeout.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 9 -->
+                <div class="step reveal">
+                    <div class="step-rail"><div class="step-num">9</div><div class="step-line"></div></div>
+                    <div class="step-body">
+                        <h3>Redis &amp; Windows notes <span class="pill amber">easy to miss</span></h3>
+                        <ul class="bul">
+                            <li><b>Redis is required</b> for Celery and caching. On Windows install <b>Memurai Developer</b> (<span class="inline-code">winget install Memurai.MemuraiDeveloper</span>) or run Redis inside WSL2.</li>
+                            <li><b>Execution policy</b> blocks <span class="inline-code">Activate.ps1</span> &mdash; fix with <span class="inline-code">Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</span>.</li>
+                            <li><b>Port already in use</b> &mdash; stop other dev servers, or run <span class="inline-code">python manage.py runserver 8001</span> and update <span class="inline-code">NEXT_PUBLIC_API_URL</span>.</li>
+                            <li><b>PostGIS must exist</b> before migrations run, otherwise spatial fields fail with <span class="inline-code">OperationalError: type "geography" does not exist</span>.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- STEP 10 -->
+                <div class="step reveal">
+                    <div class="step-rail"><div class="step-num">10</div><div class="step-line"></div></div>
+                    <div class="step-body">
+                        <h3>Smoke test the stack <span class="pill blue">done</span></h3>
+                        <div class="check">
+                            <li><span class="tick">&#10003;</span><span><b>API root</b> &mdash; <span class="inline-code">http://localhost:8000/api/v1/</span> responds with JSON (no traceback).</span></li>
+                            <li><span class="tick">&#10003;</span><span><b>Admin</b> &mdash; <span class="inline-code">http://localhost:8000/admin/</span> loads and your superuser can sign in.</span></li>
+                            <li><span class="tick">&#10003;</span><span><b>Web</b> &mdash; <span class="inline-code">http://localhost:3000</span> renders the O3L landing page with no console errors.</span></li>
+                            <li><span class="tick">&#10003;</span><span><b>Login API</b> &mdash; <span class="inline-code">POST /api/v1/accounts/login/</span> returns a JWT for a seeded user.</span></li>
+                            <li><span class="tick">&#10003;</span><span><b>Database</b> &mdash; 105 tables, 102 applied migrations, PostGIS extension listed by <span class="inline-code">\dx</span>.</span></li>
+                            <li><span class="tick">&#10003;</span><span><b>Redis</b> &mdash; <span class="inline-code">redis-cli ping</span> returns <span class="inline-code">PONG</span> and the Celery worker logs boot confirmation.</span></li>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ══════════════════ 4. DOCKER SETUP ══════════════════ -->
+        <section class="section" id="docker-setup">
+            <div class="sec-head reveal">
+                <div class="sec-icon g">
+                    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 15h18v3a3 3 0 01-3 3H6a3 3 0 01-3-3z"/><path d="M5 15V9h3v6M9 15V6h3v9M13 15V9h3v6"/></svg>
+                </div>
+                <div>
+                    <div class="sec-eyebrow">04 &middot; Path 02</div>
+                    <h2 class="sec-title">Docker Compose Setup</h2>
+                    <p class="sec-sub">No local Python, Node or PostgreSQL required. Docker builds and wires the entire stack — ideal for a clean second machine or for confirming behaviour matches production.</p>
+                </div>
+            </div>
+            <div class="rule reveal"></div>
+
+            <div class="callout info reveal">
+                <svg class="c-ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+                <div><b>What gets started</b>
+                <span class="inline-code">o3l_db</span> (PostGIS 17-3.6) &middot; <span class="inline-code">o3l_redis</span> &middot; <span class="inline-code">o3l_api</span> (Django) &middot; <span class="inline-code">o3l_celery</span> &middot; <span class="inline-code">o3l_celery_beat</span> &middot; <span class="inline-code">o3l_web</span> (Next.js) &middot; <span class="inline-code">o3l_nginx</span> — all with health checks and automatic dependency ordering.</div>
+            </div>
+
+            <div class="steps">
+                <div class="step reveal">
+                    <div class="step-rail"><div class="step-num">1</div><div class="step-line"></div></div>
+                    <div class="step-body">
+                        <h3>Install Docker Desktop <span class="pill">once per machine</span></h3>
+                        <p>Docker Desktop 4.x with at least <b>6 GB RAM</b> allocated (Settings &rarr; Resources). WSL2 backend recommended on Windows. Verify:</p>
+                        <div class="codeblock">
+                            <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">powershell</span></div>
+<pre>docker --version
+docker compose version
+docker run --rm hello-world</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step reveal">
+                    <div class="step-rail"><div class="step-num">2</div><div class="step-line"></div></div>
+                    <div class="step-body">
+                        <h3>Create the environment file</h3>
+                        <div class="codeblock">
+                            <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">powershell — repository root</span></div>
+<pre><span class="kw">cd</span> oneoceanonelife
+Copy-Item .env.example .env
+<span class="cm"># edit .env only if you need non-default secrets</span></pre>
+                        </div>
+                        <p class="mini">The dev compose file injects database credentials directly, so an empty <span class="inline-code">.env</span> still works for local development.</p>
+                    </div>
+                </div>
+
+                <div class="step reveal">
+                    <div class="step-rail"><div class="step-num">3</div><div class="step-line"></div></div>
+                    <div class="step-body">
+                        <h3>Launch the stack <span class="pill blue">first run ≈ 5–10 min</span></h3>
+                        <div class="codeblock">
+                            <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">powershell — build &amp; start</span></div>
+<pre>docker-compose up -d --build
+
+<span class="cm"># Watch health checks turn healthy</span>
+docker-compose ps
+
+<span class="cm"># Live logs (API / web / db)</span>
+docker-compose logs -f api
+docker-compose logs -f web</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step reveal">
+                    <div class="step-rail"><div class="step-num">4</div><div class="step-line"></div></div>
+                    <div class="step-body">
+                        <h3>Migrate, seed, create the admin</h3>
+                        <div class="codeblock">
+                            <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">powershell — inside the api container</span></div>
+<pre>docker-compose exec api python manage.py migrate
+docker-compose exec api python manage.py seed_zones
+docker-compose exec api python manage.py seed_cms
+docker-compose exec api python manage.py seed_data
+docker-compose exec api python manage.py createsuperuser
+
+<span class="cm"># Or restore the shipped SQL backup instead of seeding (see next section)</span>
+docker-compose exec -T db psql -U o3l_user -d o3l_dev &lt; docs\database-backup.sql</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step reveal">
+                    <div class="step-rail"><div class="step-num">5</div><div class="step-line"></div></div>
+                    <div class="step-body">
+                        <h3>Open the applications</h3>
+                        <div class="check">
+                            <li><span class="tick">&#10003;</span><span><b>API</b> &mdash; <span class="inline-code">http://localhost:8000/api/v1/</span></span></li>
+                            <li><span class="tick">&#10003;</span><span><b>Admin</b> &mdash; <span class="inline-code">http://localhost:8000/admin/</span></span></li>
+                            <li><span class="tick">&#10003;</span><span><b>Web</b> &mdash; <span class="inline-code">http://localhost:3000</span> (or <span class="inline-code">http://localhost</span> through Nginx)</span></li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mini-title">Everyday Docker Commands</div>
+            <div class="tbl-wrap reveal">
+                <table class="tbl">
+                    <thead><tr><th>Action</th><th>Command</th></tr></thead>
+                    <tbody>
+                        <tr><td>Start stack</td><td><span class="inline-code">docker-compose up -d</span></td></tr>
+                        <tr><td>Stop stack (keep data)</td><td><span class="inline-code">docker-compose down</span></td></tr>
+                        <tr><td>Stop &amp; wipe database</td><td><span class="inline-code">docker-compose down -v</span> <b>(destroys data!)</b></td></tr>
+                        <tr><td>Rebuild one service</td><td><span class="inline-code">docker-compose up -d --build api</span></td></tr>
+                        <tr><td>Django shell</td><td><span class="inline-code">docker-compose exec api python manage.py shell</span></td></tr>
+                        <tr><td>Psql inside container</td><td><span class="inline-code">docker-compose exec db psql -U o3l_user -d o3l_dev</span></td></tr>
+                        <tr><td>Redis CLI</td><td><span class="inline-code">docker-compose exec redis redis-cli</span></td></tr>
+                        <tr><td>Full reset</td><td><span class="inline-code">docker-compose down -v &amp;&amp; docker-compose up -d --build</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout tip reveal">
+                <svg class="c-ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M21 12a9 9 0 11-6.2-8.6"/></svg>
+                <div><b>Production compose</b><span class="inline-code">docker-compose.prod.yml</span> switches to Gunicorn + <span class="inline-code">npm start</span>, disables debug, binds API/Web to <span class="inline-code">127.0.0.1</span>, adds SSL volumes and persistent <span class="inline-code">postgres_data</span> / <span class="inline-code">static_data</span> volumes. Run it with <span class="inline-code">docker-compose -f docker-compose.prod.yml up -d --build</span> after setting <span class="inline-code">SECRET_KEY</span>, <span class="inline-code">DB_PASS</span>, <span class="inline-code">DOMAIN</span> and <span class="inline-code">ALLOWED_HOSTS</span>.</div>
+            </div>
+        </section>
+
+        <!-- ══════════════════ 5. DATABASE BACKUP ══════════════════ -->
+        <section class="section" id="database">
+            <div class="sec-head reveal">
+                <div class="sec-icon o">
+                    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
+                </div>
+                <div>
+                    <div class="sec-eyebrow">05 &middot; Data</div>
+                    <h2 class="sec-title">Database Backup &amp; Restore</h2>
+                    <p class="sec-sub">A verified, human-readable PostgreSQL plain-SQL dump ships with this guide so a new machine starts with real content instead of an empty schema.</p>
+                </div>
+            </div>
+            <div class="rule reveal"></div>
+
+            <div class="grid c4 reveal">
+                <div class="card"><h4>File</h4><p><span class="inline-code">docs/database-backup.sql</span></p><div class="tag-row"><span class="tag blue">Plain SQL</span></div></div>
+                <div class="card"><h4>Size</h4><p>≈ <b>2.2 MB</b> (uncompressed dump of a 37 MB database)</p><div class="tag-row"><span class="tag">10,899 lines</span></div></div>
+                <div class="card"><h4>Source</h4><p><span class="inline-code">o3l_dev</span> on PostgreSQL <b>18.6</b> + PostGIS 3.6</p><div class="tag-row"><span class="tag green">pg_dump 18.6</span></div></div>
+                <div class="card"><h4>Contents</h4><p>105 tables · 102 migrations · ~1,900 rows · extensions</p><div class="tag-row"><span class="tag amber">Schema + Data</span></div></div>
+            </div>
+
+            <div class="mini-title">What Is Inside The Dump</div>
+            <div class="two-col reveal">
+                <div>
+                    <ul class="bul">
+                        <li><b>Schema</b> — all 105 tables, indexes, sequences, constraints, views and functions.</li>
+                        <li><b>Data</b> — seeded coastal zones, districts, villages, guide species, CMS pages, education content, demo users, events and marketplace records.</li>
+                        <li><b>Extensions</b> — <span class="inline-code">postgis</span>, <span class="inline-code">postgis_topology</span>, <span class="inline-code">fuzzystrmatch</span>, <span class="inline-code">plpgsql</span>.</li>
+                        <li><b>Ownership stripped</b> — dumped with <span class="inline-code">--no-owner --no-privileges</span> so it restores cleanly under any role.</li>
+                        <li><b>Clean restore enabled</b> — <span class="inline-code">--clean --if-exists</span> means you can re-run the restore safely.</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="codeblock">
+                        <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">bash — how this backup was produced</span></div>
+<pre>pg_dump -U o3l_user -d o3l_dev \
+  --clean --if-exists \
+  --no-owner --no-privileges \
+  --encoding=UTF8 \
+  -f docs/database-backup.sql</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mini-title">Restore — Option A: Native PostgreSQL (local machine)</div>
+            <div class="steps">
+                <div class="step reveal">
+                    <div class="step-rail"><div class="step-num">1</div><div class="step-line"></div></div>
+                    <div class="step-body">
+                        <h3>Create a superuser-owned empty database</h3>
+                        <div class="codeblock">
+                            <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">powershell / bash</span></div>
+<pre>psql -U postgres -c <span class="st">"CREATE ROLE o3l_user WITH LOGIN PASSWORD 'o3l_password' SUPERUSER CREATEDB;"</span>
+psql -U postgres -c <span class="st">"CREATE DATABASE o3l_dev OWNER o3l_user;"</span></pre>
+                        </div>
+                        <p class="mini">The restore itself creates the extensions, so the role must be allowed to create them (superuser, or a trusted-extension capable role).</p>
+                    </div>
+                </div>
+                <div class="step reveal">
+                    <div class="step-rail"><div class="step-num">2</div><div class="step-line"></div></div>
+                    <div class="step-body">
+                        <h3>Load the dump</h3>
+                        <div class="codeblock">
+                            <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">powershell — Windows (run from repo root)</span></div>
+<pre>$env:PGPASSWORD=<span class="st">'o3l_password'</span>
+psql -U o3l_user -d o3l_dev -w -v ON_ERROR_STOP=1 -f docs\database-backup.sql
+<span class="cm"># exit code 0 = success</span></pre>
+                        </div>
+                        <div class="codeblock">
+                            <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">bash — macOS / Linux</span></div>
+<pre>PGPASSWORD=<span class="st">'o3l_password'</span> psql -U o3l_user -d o3l_dev -w -v ON_ERROR_STOP=1 \
+  -f docs/database-backup.sql</pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="step reveal">
+                    <div class="step-rail"><div class="step-num">3</div><div class="step-line"></div></div>
+                    <div class="step-body">
+                        <h3>Verify the restore</h3>
+                        <div class="codeblock">
+                            <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">sql — sanity queries</span></div>
+<pre><span class="kw">SELECT</span> count(*) <span class="kw">FROM</span> pg_tables <span class="kw">WHERE</span> schemaname=<span class="st">'public'</span>;   <span class="cm">-- 105</span>
+<span class="kw">SELECT</span> count(*) <span class="kw">FROM</span> django_migrations;                 <span class="cm">-- 102</span>
+<span class="kw">SELECT</span> count(*) <span class="kw">FROM</span> users;                              <span class="cm">-- 319</span>
+<span class="kw">SELECT</span> extname <span class="kw">FROM</span> pg_extension <span class="kw">ORDER BY</span> 1;             <span class="cm">-- postgis ...</span>
+<span class="kw">SELECT</span> postgis_version();                                <span class="cm">-- works = OK</span></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mini-title">Restore — Option B: Inside Docker Compose</div>
+            <div class="codeblock reveal">
+                <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">powershell — stream the dump into the o3l_db container</span></div>
+<pre><span class="cm"># stack must be running (docker-compose up -d) with db healthy</span>
+Get-Content docs\database-backup.sql -Raw | docker-compose exec -T db psql -U o3l_user -d o3l_dev -w
+
+<span class="cm"># alternative: copy the file in first, then restore</span>
+docker cp docs\database-backup.sql o3l_db:/tmp/backup.sql
+docker exec -i o3l_db psql -U o3l_user -d o3l_dev -w -v ON_ERROR_STOP=1 -f /tmp/backup.sql</pre>
+            </div>
+
+            <div class="mini-title">Restore — Option C: Production VPS</div>
+            <div class="codeblock reveal">
+                <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">bash — Ubuntu server</span></div>
+<pre><span class="kw">scp</span> docs/database-backup.sql root@YOUR_VPS_IP:/tmp/
+<span class="kw">ssh</span> root@YOUR_VPS_IP
+
+<span class="cm"># as the postgres superuser</span>
+sudo -u postgres psql -c <span class="st">"CREATE DATABASE o3l_prod OWNER o3l_user;"</span>
+sudo -u postgres psql o3l_prod &lt; /tmp/database-backup.sql</pre>
+            </div>
+
+            <div class="mini-title">Taking A Fresh Backup Later</div>
+            <div class="two-col reveal">
+                <div class="codeblock">
+                    <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">bash — local / server</span></div>
+<pre>pg_dump -U o3l_user -d o3l_dev --clean --if-exists \
+  --no-owner --no-privileges --encoding=UTF8 \
+  -f docs/database-backup-$(date +%Y%m%d).sql
+
+<span class="cm"># compressed variant (smaller, needs pg_restore)</span>
+pg_dump -U o3l_user -d o3l_dev -Fc -f o3l_dev.dump</pre>
+                </div>
+                <div class="codeblock">
+                    <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">bash — production cron (already installed by deploy.sh)</span></div>
+<pre><span class="cm"># daily at 02:00 → /var/backups/o3l/</span>
+o3l-backup
+
+<span class="cm"># manual restore</span>
+sudo -u postgres psql o3l_prod &lt; /var/backups/o3l/db_20261014_020000.sql</pre>
+                </div>
+            </div>
+
+            <div class="callout warn reveal">
+                <svg class="c-ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg>
+                <div><b>Restore troubleshooting</b>
+                <ul style="margin:6px 0 0 18px">
+                    <li><span class="inline-code">unrecognized configuration parameter "transaction_timeout"</span> → server is PostgreSQL 16 or older; upgrade to 17/18.</li>
+                    <li><span class="inline-code">permission denied to create extension "postgis"</span> → restore as the <span class="inline-code">postgres</span> superuser, or grant the role superuser for the import.</li>
+                    <li><span class="inline-code">database "o3l_dev" already exists</span> messages → harmless: the dump uses <span class="inline-code">--clean --if-exists</span> and drops objects before recreating them.</li>
+                    <li><span class="inline-code">invalid byte sequence</span> → make sure you restore with UTF8 (the dump header sets it automatically) and do not re-save the file in another encoding.</li>
+                </ul></div>
+            </div>
+        </section>
+
+                <!-- ══════════════════ 6. LIVE SETUP ══════════════════ -->
+        <section class="section" id="live-setup">
+            <div class="sec-head reveal">
+                <div class="sec-icon r">
+                    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9S14.5 18.3 12 21c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg>
+                </div>
+                <div>
+                    <div class="sec-eyebrow">06 &middot; Path 03</div>
+                    <h2 class="sec-title">Live / Production Deployment</h2>
+                    <p class="sec-sub">Bare-metal Ubuntu VPS deployment with Gunicorn, systemd, PM2, Nginx, Let's Encrypt SSL and automated backups. Scripts live in <span class="inline-code">deploy/hostinger/</span> and work on any Ubuntu 22.04/24.04 server.</p>
+                </div>
+            </div>
+            <div class="rule reveal"></div>
+
+            <div class="grid c3 reveal">
+                <div class="card">
+                    <div class="card-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="7" rx="2"/><rect x="2" y="14" width="20" height="6" rx="2"/><path d="M6 7.5h.01M6 17h.01"/></svg></div>
+                    <h4>Server Sizing</h4>
+                    <p>Hostinger <b>VPS KVM 2</b> or higher: 4 GB RAM, 2 vCPU, 50 GB storage. Ubuntu 22.04/24.04 LTS with root SSH access.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/><path d="M2 12h20M12 2c3 3.5 4.5 7 4.5 10S15 19 12 22c-3-3-4.5-6.5-4.5-10S9 5.5 12 2z"/></svg></div>
+                    <h4>DNS</h4>
+                    <p>Point the domain at the VPS: <span class="inline-code">A&nbsp;&nbsp;@&nbsp;→&nbsp;VPS_IP</span> and <span class="inline-code">A&nbsp;&nbsp;www&nbsp;→&nbsp;VPS_IP</span>. DNS must resolve before SSL issuance.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg></div>
+                    <h4>Access</h4>
+                    <p>SSH key authentication, non-root <span class="inline-code">o3l</span> deploy user, UFW firewall (22/80/443) and Fail2Ban enabled by the setup script.</p>
+                </div>
+            </div>
+
+            <div class="steps" style="margin-top:26px">
+                <div class="step reveal">
+                    <div class="step-rail"><div class="step-num">1</div><div class="step-line"></div></div>
+                    <div class="step-body">
+                        <h3>Base server provisioning <span class="pill">setup.sh</span></h3>
+                        <p>Uploads and runs the VPS bootstrap: system updates, Python 3.12, Node.js 20, PostgreSQL 17 + PostGIS, Redis, Nginx, Certbot, PM2, UFW, Fail2Ban and the <span class="inline-code">o3l</span> system user.</p>
+                        <div class="codeblock">
+                            <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">bash — from your local machine, then on the server</span></div>
+<pre><span class="cm"># local: ship the deploy scripts</span>
+<span class="kw">scp</span> -r deploy/hostinger/ root@YOUR_VPS_IP:/tmp/
+
+<span class="cm"># server: run the bootstrap</span>
+<span class="kw">ssh</span> root@YOUR_VPS_IP
+<span class="kw">cd</span> /tmp/hostinger &amp;&amp; chmod +x setup.sh &amp;&amp; bash setup.sh
+<span class="cm"># → prompts for domain (e.g. o3l.org) and SSL email</span></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step reveal">
+                    <div class="step-rail"><div class="step-num">2</div><div class="step-line"></div></div>
+                    <div class="step-body">
+                        <h3>Upload the application code</h3>
+                        <div class="codeblock">
+                            <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">bash — local machine</span></div>
+<pre><span class="cm"># Option A — rsync (fast, excludes build junk)</span>
+rsync -avz --exclude <span class="st">'node_modules'</span> --exclude <span class="st">'.next'</span> --exclude <span class="st">'__pycache__'</span> \
+      --exclude <span class="st">'venv'</span> ./ root@YOUR_VPS_IP:/var/www/o3l/
+
+<span class="cm"># Option B — git</span>
+<span class="kw">ssh</span> root@YOUR_VPS_IP
+<span class="kw">cd</span> /var/www/o3l &amp;&amp; git clone &lt;repo-url&gt; .</pre>
+                        </div>
+                        <p class="mini">Also copy <span class="inline-code">docs/database-backup.sql</span> if you intend to seed production from the shipped dump.</p>
+                    </div>
+                </div>
+
+                <div class="step reveal">
+                    <div class="step-rail"><div class="step-num">3</div><div class="step-line"></div></div>
+                    <div class="step-body">
+                        <h3>Configure production environment</h3>
+                        <div class="codeblock">
+                            <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">env — /var/www/o3l/.env (key values)</span></div>
+<pre>DEBUG=False
+SECRET_KEY=&lt;generated-random-64-chars&gt;
+ALLOWED_HOSTS=yourdomain.com,www.yourdomain.com
+DATABASE_URL=postgres://o3l_user:&lt;password&gt;@localhost:5432/o3l_prod
+REDIS_URL=redis://localhost:6379/0
+CORS_ALLOWED_ORIGINS=https://yourdomain.com,https://www.yourdomain.com
+CSRF_TRUSTED_ORIGINS=https://yourdomain.com,https://www.yourdomain.com
+MEDIA_URL=https://yourdomain.com/media/
+STATIC_URL=https://yourdomain.com/static/
+
+<span class="cm"># External services (fill in for live features)</span>
+TWILIO_ACCOUNT_SID= / TWILIO_AUTH_TOKEN= / TWILIO_PHONE_NUMBER=
+GOOGLE_CLIENT_ID= / GOOGLE_CLIENT_SECRET=
+FIREBASE_CREDENTIALS_PATH=/var/www/o3l/firebase-credentials.json
+RAZORPAY_KEY_ID= / RAZORPAY_KEY_SECRET=
+STRIPE_SECRET_KEY= / STRIPE_WEBHOOK_SECRET=
+R2_ACCOUNT_ID= / R2_ACCESS_KEY_ID= / R2_SECRET_ACCESS_KEY= / R2_BUCKET_NAME=</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step reveal">
+                    <div class="step-rail"><div class="step-num">4</div><div class="step-line"></div></div>
+                    <div class="step-body">
+                        <h3>Run the deployment script <span class="pill red">destructive — read first</span></h3>
+                        <p>Creates the <span class="inline-code">o3l_prod</span> database, builds the Python venv, runs migrations, installs Gunicorn + Celery systemd units, builds Next.js, configures Nginx, issues SSL and schedules backups.</p>
+                        <div class="codeblock">
+                            <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">bash — on the server</span></div>
+<pre><span class="kw">ssh</span> o3l@YOUR_VPS_IP
+<span class="kw">cd</span> /var/www/o3l
+<span class="kw">sudo</span> bash deploy/hostinger/deploy.sh
+<span class="cm"># prompts: domain · database name [o3l_prod] · db user [o3l_user] · db password · SSL email</span></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step reveal">
+                    <div class="step-rail"><div class="step-num">5</div><div class="step-line"></div></div>
+                    <div class="step-body">
+                        <h3>Post-deployment — data &amp; admin</h3>
+                        <div class="codeblock">
+                            <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">bash — on the server</span></div>
+<pre><span class="kw">cd</span> /var/www/o3l/apps/api
+<span class="kw">source</span> /var/www/o3l/venv/bin/activate
+
+python manage.py createsuperuser
+python manage.py seed_zones
+python manage.py seed_cms
+python manage.py seed_data
+
+<span class="cm"># OR load the shipped backup instead of seeding</span>
+sudo -u postgres psql o3l_prod &lt; /var/www/o3l/docs/database-backup.sql
+
+<span class="cm"># health check</span>
+o3l-status</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step reveal">
+                    <div class="step-rail"><div class="step-num">6</div><div class="step-line"></div></div>
+                    <div class="step-body">
+                        <h3>Verify the live site</h3>
+                        <div class="check">
+                            <li><span class="tick">&#10003;</span><span><b>HTTPS</b> — <span class="inline-code">https://yourdomain.com</span> loads with a valid Let's Encrypt certificate.</span></li>
+                            <li><span class="tick">&#10003;</span><span><b>API</b> — <span class="inline-code">https://yourdomain.com/api/v1/</span> returns JSON.</span></li>
+                            <li><span class="tick">&#10003;</span><span><b>Admin</b> — <span class="inline-code">https://yourdomain.com/admin/</span> reachable with your superuser.</span></li>
+                            <li><span class="tick">&#10003;</span><span><b>Services</b> — <span class="inline-code">o3l-status</span> reports api, celery, web and nginx as running.</span></li>
+                            <li><span class="tick">&#10003;</span><span><b>Backups</b> — files appearing daily in <span class="inline-code">/var/backups/o3l/</span>.</span></li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mini-title">Service Operations</div>
+            <div class="tbl-wrap reveal">
+                <table class="tbl">
+                    <thead><tr><th>Area</th><th>Command</th></tr></thead>
+                    <tbody>
+                        <tr><td>Status of everything</td><td><span class="inline-code">o3l-status</span></td></tr>
+                        <tr><td>Restart API</td><td><span class="inline-code">sudo systemctl restart o3l-api.socket</span></td></tr>
+                        <tr><td>Restart workers</td><td><span class="inline-code">sudo systemctl restart o3l-celery o3l-celerybeat</span></td></tr>
+                        <tr><td>Restart web</td><td><span class="inline-code">pm2 restart o3l-web</span></td></tr>
+                        <tr><td>Restart proxy</td><td><span class="inline-code">sudo systemctl restart nginx &amp;&amp; nginx -t</span></td></tr>
+                        <tr><td>Follow worker logs</td><td><span class="inline-code">journalctl -u o3l-celery -f</span></td></tr>
+                        <tr><td>Web logs</td><td><span class="inline-code">pm2 logs o3l-web</span></td></tr>
+                        <tr><td>Access logs</td><td><span class="inline-code">sudo tail -f /var/log/nginx/access.log</span></td></tr>
+                        <tr><td>Database backup now</td><td><span class="inline-code">o3l-backup</span></td></tr>
+                        <tr><td>SSL renewal check</td><td><span class="inline-code">sudo certbot renew --dry-run</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mini-title">Updating A Live Deployment</div>
+            <div class="codeblock reveal">
+                <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">bash — zero-drama update flow</span></div>
+<pre><span class="kw">cd</span> /var/www/o3l
+o3l-backup                                   <span class="cm"># always back up first</span>
+git pull
+
+<span class="kw">source</span> venv/bin/activate
+pip install -r apps/api/requirements.txt
+<span class="kw">cd</span> apps/api &amp;&amp; python manage.py migrate &amp;&amp; python manage.py collectstatic --noinput
+
+<span class="kw">cd</span> ../web &amp;&amp; npm ci &amp;&amp; npm run build
+
+pm2 restart o3l-web
+sudo systemctl restart o3l-celery o3l-celerybeat o3l-api.socket
+o3l-status</pre>
+            </div>
+
+            <div class="mini-title">Security Checklist</div>
+            <div class="check reveal">
+                <li><span class="tick">&#10003;</span><span>SSH key authentication enabled, password + root login disabled after setup.</span></li>
+                <li><span class="tick">&#10003;</span><span>UFW firewall allowing only 22 (SSH), 80 and 443.</span></li>
+                <li><span class="tick">&#10003;</span><span>Fail2Ban running with nginx/http-auth jails.</span></li>
+                <li><span class="tick">&#10003;</span><span>Let's Encrypt SSL installed and enforced in Nginx (HTTP → HTTPS redirect).</span></li>
+                <li><span class="tick">&#10003;</span><span><span class="inline-code">DEBUG=False</span>, strong <span class="inline-code">SECRET_KEY</span>, no secrets committed to Git.</span></li>
+                <li><span class="tick">&#10003;</span><span>API keys stored only in <span class="inline-code">/var/www/o3l/.env</span> (chmod 600).</span></li>
+                <li><span class="tick">&#10003;</span><span>Daily database + media backups with 7-day retention, stored off-box.</span></li>
+                <li><span class="tick">&#10003;</span><span>Nginx rate limiting and security headers enabled in <span class="inline-code">nginx.prod.conf</span>.</span></li>
+            </div>
+
+            <div class="callout info reveal">
+                <svg class="c-ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+                <div><b>Prefer containers in production?</b>Use <span class="inline-code">docker-compose.prod.yml</span> instead: <span class="inline-code">docker compose -f docker-compose.prod.yml up -d --build</span>. It runs Gunicorn, both Celery processes, Next.js and Nginx with restart policies, health checks and persistent volumes — the same topology as the manual VPS path.</div>
+            </div>
+        </section>
+
+        <!-- ══════════════════ 7. CONFIGURATION ══════════════════ -->
+        <section class="section" id="configuration">
+            <div class="sec-head reveal">
+                <div class="sec-icon">
+                    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.6 1.6 0 00-1.8-.3 1.6 1.6 0 00-1 1.5V21a2 2 0 11-4 0v-.1A1.6 1.6 0 008 19.4a1.6 1.6 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.6 1.6 0 00.3-1.8 1.6 1.6 0 00-1.5-1H2a2 2 0 110-4h.1A1.6 1.6 0 004.6 8a1.6 1.6 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.6 1.6 0 001.8.3H9a1.6 1.6 0 001-1.5V2a2 2 0 114 0v.1a1.6 1.6 0 001 1.5 1.6 1.6 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.6 1.6 0 00-.3 1.8V9a1.6 1.6 0 001.5 1H22a2 2 0 110 4h-.1a1.6 1.6 0 00-1.5 1z"/></svg>
+                </div>
+                <div>
+                    <div class="sec-eyebrow">07 &middot; Reference</div>
+                    <h2 class="sec-title">Configuration Reference</h2>
+                    <p class="sec-sub">Every environment variable the platform reads, grouped by concern. Development defaults are shown; production must override secrets.</p>
+                </div>
+            </div>
+            <div class="rule reveal"></div>
+
+            <div class="tbl-wrap reveal">
+                <table class="tbl">
+                    <thead><tr><th>Group</th><th>Variable</th><th>Development Value</th><th>Purpose</th></tr></thead>
+                    <tbody>
+                        <tr><td rowspan="4">Core</td><td class="tbl-mono">DEBUG</td><td class="tbl-mono">True</td><td>Debug mode — must be <b>False</b> in production</td></tr>
+                        <tr><td class="tbl-mono">SECRET_KEY</td><td class="tbl-mono">dev-secret-…</td><td>Django signing key — generate a random 50+ char value</td></tr>
+                        <tr><td class="tbl-mono">ALLOWED_HOSTS</td><td class="tbl-mono">localhost,127.0.0.1</td><td>Comma-separated hostnames (add your domain live)</td></tr>
+                        <tr><td class="tbl-mono">DJANGO_SETTINGS_MODULE</td><td class="tbl-mono">o3l.settings.development</td><td>Switch to <span class="inline-code">o3l.settings.production</span> on servers</td></tr>
+                        <tr><td rowspan="5">Database</td><td class="tbl-mono">DB_NAME</td><td class="tbl-mono">o3l_dev</td><td>PostgreSQL database name (<span class="inline-code">o3l_prod</span> live)</td></tr>
+                        <tr><td class="tbl-mono">DB_USER</td><td class="tbl-mono">o3l_user</td><td>Database role</td></tr>
+                        <tr><td class="tbl-mono">DB_PASSWORD</td><td class="tbl-mono">o3l_password</td><td>Database password</td></tr>
+                        <tr><td class="tbl-mono">DB_HOST / DB_PORT</td><td class="tbl-mono">localhost / 5432</td><td>PostgreSQL connection endpoint</td></tr>
+                        <tr><td class="tbl-mono">DATABASE_URL</td><td class="tbl-mono">postgis://…</td><td>Alternate URL form used by Docker compose</td></tr>
+                        <tr><td rowspan="2">Cache / Queue</td><td class="tbl-mono">REDIS_URL</td><td class="tbl-mono">redis://localhost:6379/0</td><td>Cache, sessions and Celery broker</td></tr>
+                        <tr><td class="tbl-mono">CELERY_* </td><td class="tbl-mono">defaults</td><td>Worker concurrency and beat schedule</td></tr>
+                        <tr><td rowspan="2">Auth</td><td class="tbl-mono">JWT_ACCESS_TOKEN_LIFETIME</td><td class="tbl-mono">60</td><td>Access token lifetime (minutes)</td></tr>
+                        <tr><td class="tbl-mono">JWT_REFRESH_TOKEN_LIFETIME</td><td class="tbl-mono">7</td><td>Refresh token lifetime (days)</td></tr>
+                        <tr><td rowspan="2">CORS</td><td class="tbl-mono">CORS_ALLOWED_ORIGINS</td><td class="tbl-mono">localhost:3000, :8081</td><td>Web + Expo dev origins</td></tr>
+                        <tr><td class="tbl-mono">CSRF_TRUSTED_ORIGINS</td><td class="tbl-mono">—</td><td>Required in production (https://domain)</td></tr>
+                        <tr><td rowspan="3">Geo (Windows)</td><td class="tbl-mono">GDAL_LIBRARY_PATH</td><td class="tbl-mono">…\libgdal-35.dll</td><td>GDAL shared library for GeoDjango</td></tr>
+                        <tr><td class="tbl-mono">GEOS_LIBRARY_PATH</td><td class="tbl-mono">…\libgeos_c.dll</td><td>GEOS shared library for spatial ops</td></tr>
+                        <tr><td class="tbl-mono">PROJ_LIB</td><td class="tbl-mono">auto</td><td>PROJ datum grids (usually auto-detected)</td></tr>
+                        <tr><td rowspan="3">SMS / OAuth</td><td class="tbl-mono">TWILIO_ACCOUNT_SID / AUTH_TOKEN / PHONE_NUMBER</td><td class="tbl-mono">empty</td><td>Mobile OTP delivery</td></tr>
+                        <tr><td class="tbl-mono">GOOGLE_CLIENT_ID / SECRET</td><td class="tbl-mono">empty</td><td>Google sign-in</td></tr>
+                        <tr><td class="tbl-mono">APPLE_CLIENT_ID / TEAM_ID / KEY_ID</td><td class="tbl-mono">empty</td><td>Apple Sign-In</td></tr>
+                        <tr><td rowspan="3">Storage / Mail</td><td class="tbl-mono">R2_ACCOUNT_ID / ACCESS_KEY_ID / SECRET_ACCESS_KEY / BUCKET_NAME / PUBLIC_URL</td><td class="tbl-mono">empty</td><td>Cloudflare R2 media storage</td></tr>
+                        <tr><td class="tbl-mono">MEDIA_ROOT / MEDIA_URL</td><td class="tbl-mono">media/ · /media/</td><td>Local media uploads</td></tr>
+                        <tr><td class="tbl-mono">SENDGRID_API_KEY / FROM_EMAIL</td><td class="tbl-mono">empty</td><td>Transactional email</td></tr>
+                        <tr><td rowspan="3">Payments</td><td class="tbl-mono">RAZORPAY_KEY_ID / KEY_SECRET</td><td class="tbl-mono">empty</td><td>India payments</td></tr>
+                        <tr><td class="tbl-mono">STRIPE_SECRET_KEY / PUBLISHABLE_KEY / WEBHOOK_SECRET</td><td class="tbl-mono">empty</td><td>International payments</td></tr>
+                        <tr><td class="tbl-mono">FIREBASE_PROJECT_ID / PRIVATE_KEY / CLIENT_EMAIL / FCM_SERVER_KEY</td><td class="tbl-mono">empty</td><td>Push notifications</td></tr>
+                        <tr><td rowspan="2">Observability</td><td class="tbl-mono">SENTRY_DSN</td><td class="tbl-mono">empty</td><td>Error tracking</td></tr>
+                        <tr><td class="tbl-mono">PLAUSIBLE_DOMAIN / OPENWEATHERMAP_API_KEY</td><td class="tbl-mono">empty</td><td>Analytics / weather data</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mini-title">User Roles (RBAC)</div>
+            <div class="tbl-wrap reveal">
+                <table class="tbl">
+                    <thead><tr><th>Role</th><th>Access Level</th><th>Role</th><th>Access Level</th></tr></thead>
+                    <tbody>
+                        <tr><td><b>SUPER_ADMIN</b></td><td>Full system access</td><td><b>VENDOR</b></td><td>Marketplace selling</td></tr>
+                        <tr><td><b>ADMIN</b></td><td>Administrative access</td><td><b>TOURISM_PROVIDER</b></td><td>Ecotourism features</td></tr>
+                        <tr><td><b>MODERATOR</b></td><td>Content moderation</td><td><b>EDUCATOR</b></td><td>Educational content</td></tr>
+                        <tr><td><b>SCIENTIFIC_VALIDATOR</b></td><td>Data verification</td><td><b>VOLUNTEER</b></td><td>Volunteer features</td></tr>
+                        <tr><td><b>RESEARCHER</b></td><td>Research access</td><td><b>FISHERMAN</b></td><td>Fishermen features</td></tr>
+                        <tr><td><b>NGO</b> / <b>COMMUNITY_ORGANIZATION</b></td><td>NGO &amp; community tools</td><td><b>COMMUNITY_MEMBER</b> / <b>GUEST</b></td><td>Basic member / public read-only</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ══════════════════ 8. VERIFICATION ══════════════════ -->
+        <section class="section" id="verification">
+            <div class="sec-head reveal">
+                <div class="sec-icon g">
+                    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M21 12a9 9 0 11-6.2-8.6"/></svg>
+                </div>
+                <div>
+                    <div class="sec-eyebrow">08 &middot; Acceptance</div>
+                    <h2 class="sec-title">Verification Checklist</h2>
+                    <p class="sec-sub">Run this once after any fresh setup. Every item must pass before you hand the environment to someone else.</p>
+                </div>
+            </div>
+            <div class="rule reveal"></div>
+
+            <div class="two-col">
+                <div class="reveal">
+                    <div class="mini-title">Infrastructure</div>
+                    <div class="check">
+                        <li><span class="tick">&#10003;</span><span><span class="inline-code">psql --version</span> reports 17.x or 18.x</span></li>
+                        <li><span class="tick">&#10003;</span><span><span class="inline-code">\dx</span> lists <b>postgis</b>, <b>postgis_topology</b>, <b>fuzzystrmatch</b></span></li>
+                        <li><span class="tick">&#10003;</span><span><span class="inline-code">redis-cli ping</span> → <span class="inline-code">PONG</span></span></li>
+                        <li><span class="tick">&#10003;</span><span><span class="inline-code">python --version</span> ≥ 3.12 &amp;&amp; <span class="inline-code">node -v</span> ≥ 20</span></li>
+                        <li><span class="tick">&#10003;</span><span><span class="inline-code">python manage.py check</span> outputs no issues</span></li>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <div class="mini-title">Application</div>
+                    <div class="check">
+                        <li><span class="tick">&#10003;</span><span>API <span class="inline-code">http://localhost:8000/api/v1/</span> responds</span></li>
+                        <li><span class="tick">&#10003;</span><span>Admin <span class="inline-code">http://localhost:8000/admin/</span> sign-in works</span></li>
+                        <li><span class="tick">&#10003;</span><span>Web <span class="inline-code">http://localhost:3000</span> renders clean</span></li>
+                        <li><span class="tick">&#10003;</span><span>JWT login returns access + refresh tokens</span></li>
+                        <li><span class="tick">&#10003;</span><span>Celery worker logs <span class="inline-code">ready</span></span></li>
+                    </div>
+                </div>
+            </div>
+
+            <div class="codeblock reveal">
+                <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">powershell — one-shot automated smoke test</span></div>
+<pre>$api  = <span class="st">'http://localhost:8000/api/v1/'</span>
+$web  = <span class="st">'http://localhost:3000'</span>
+
+<span class="kw">foreach</span> ($u <span class="kw">in</span> @($api, $web)) {
+  <span class="kw">try</span> { $r = Invoke-WebRequest -Uri $u -UseBasicParsing -TimeoutSec 8
+        <span class="kw">Write-Host</span> <span class="st">"OK  $($r.StatusCode)  $u"</span> -ForegroundColor Green }
+  <span class="kw">catch</span> { <span class="kw">Write-Host</span> <span class="st">"FAIL       $u"</span> -ForegroundColor Red }
+}
+
+<span class="cm"># Database checks</span>
+$env:PGPASSWORD=<span class="st">'o3l_password'</span>
+psql -U o3l_user -d o3l_dev -w -t -c <span class="st">"SELECT count(*) FROM django_migrations;"</span>
+psql -U o3l_user -d o3l_dev -w -t -c <span class="st">"SELECT postgis_version();"</span></pre>
+            </div>
+        </section>
+
+        <!-- ══════════════════ 9. TROUBLESHOOTING ══════════════════ -->
+        <section class="section" id="troubleshooting">
+            <div class="sec-head reveal">
+                <div class="sec-icon r">
+                    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 015.8 1c0 2-3 3-3 3M12 17h.01"/></svg>
+                </div>
+                <div>
+                    <div class="sec-eyebrow">09 &middot; Support</div>
+                    <h2 class="sec-title">Troubleshooting</h2>
+                    <p class="sec-sub">The failures seen most often on a new machine, with the fix that actually works.</p>
+                </div>
+            </div>
+            <div class="rule reveal"></div>
+
+            <div class="acc reveal">
+                <details class="acc-item" open>
+                    <summary><span class="acc-q">+</span> Django crashes with a GDAL / GEOS / DLL load error<span class="acc-arrow">&#9662;</span></summary>
+                    <div class="acc-body">
+                        <p>GeoDjango cannot find its native libraries. On Windows these come from the PostGIS install, not from pip.</p>
+                        <ul>
+                            <li>Locate <span class="inline-code">libgdal-*.dll</span> and <span class="inline-code">libgeos_c.dll</span> inside your PostgreSQL <span class="inline-code">bin</span> directory (e.g. <span class="inline-code">C:\PostgreSQL\18\bin</span>).</li>
+                            <li>Update <span class="inline-code">GDAL_LIBRARY_PATH</span> / <span class="inline-code">GEOS_LIBRARY_PATH</span> in <span class="inline-code">apps/api/o3l/settings/development.py</span> — note the version suffix in the DLL name changes per release.</li>
+                            <li>On Linux/macOS install <span class="inline-code">gdal-bin libgdal-dev libgeos-dev</span> instead.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="acc-item">
+                    <summary><span class="acc-q">+</span> <span class="inline-code">type "geography" does not exist</span> during migrate<span class="acc-arrow">&#9662;</span></summary>
+                    <div class="acc-body">
+                        <p>The PostGIS extension is missing in the target database. Create it, then re-run migrations:</p>
+                        <div class="codeblock"><div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">sql</span></div><pre><span class="kw">\c</span> o3l_dev
+<span class="kw">CREATE EXTENSION IF NOT EXISTS</span> postgis;
+<span class="kw">CREATE EXTENSION IF NOT EXISTS</span> postgis_topology;</pre></div>
+                    </div>
+                </details>
+
+                <details class="acc-item">
+                    <summary><span class="acc-q">+</span> Expo Go login fails: &ldquo;Cannot reach server &mdash; is the API running?&rdquo;<span class="acc-arrow">&#9662;</span></summary>
+                    <div class="acc-body">
+                        <p>The phone reached the app (Metro on :8081) but cannot reach the Django API on :8000. In order of likelihood:</p>
+                        <ul>
+                            <li><b>API bound to loopback</b> &mdash; <span class="inline-code">python manage.py runserver</span> listens only on <span class="inline-code">127.0.0.1</span>. Restart it as <span class="inline-code">python manage.py runserver 0.0.0.0:8000</span>.</li>
+                            <li><b>Wrong URL in the app</b> &mdash; the phone cannot use <span class="inline-code">localhost</span>. Set <span class="inline-code">EXPO_PUBLIC_API_URL=http://&lt;PC-LAN-IP&gt;:8000/api/v1</span> in <span class="inline-code">apps/mobile/.env</span> (find the IP with <span class="inline-code">ipconfig</span>, e.g. <span class="inline-code">192.168.1.4</span>) and restart Expo with <span class="inline-code">npx expo start -c</span>.</li>
+                            <li><b>Windows Firewall</b> &mdash; allow inbound TCP 8000 from an elevated shell:<br><span class="inline-code">netsh advfirewall firewall add rule name="O3L API 8000" dir=in action=allow protocol=TCP localport=8000</span></li>
+                            <li><b>Network mismatch</b> &mdash; phone and PC must be on the same Wi-Fi; disable hotspot/client isolation and VPNs on either side.</li>
+                        </ul>
+                        <div class="codeblock"><div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">powershell — verify from the PC that the LAN path works</span></div><pre>Invoke-WebRequest http://192.168.1.4:8000/api/v1/auth/login/ -Method POST `
+  -ContentType <span class="st">'application/json'</span> -Body <span class="st">'{"username":"x@y.com","password":"nope"}'</span>
+<span class="cm"># 401 Unauthorized  = server reachable, credentials just wrong (good)</span>
+<span class="cm"># timeout / refused = bind address or firewall problem</span></pre></div>
+                    </div>
+                </details>
+
+                <details class="acc-item">
+                    <summary><span class="acc-q">+</span> Port already in use (8000 / 3000 / 5432)<span class="acc-arrow">&#9662;</span></summary>
+                    <div class="acc-body">
+                        <div class="codeblock"><div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">powershell — find &amp; free the port</span></div><pre>Get-NetTCPConnection -LocalPort 8000 -State Listen |
+  Select-Object OwningProcess, @{n=<span class="st">'Process'</span>;e={(Get-Process -Id $_.OwningProcess).Name}}
+Stop-Process -Id &lt;PID&gt; -Force
+
+<span class="cm"># or just run on another port</span>
+python manage.py runserver 8001</pre></div>
+                        <p>If you change the API port, update <span class="inline-code">NEXT_PUBLIC_API_URL</span> for the web app and <span class="inline-code">CORS_ALLOWED_ORIGINS</span> for the API.</p>
+                    </div>
+                </details>
+
+                <details class="acc-item">
+                    <summary><span class="acc-q">+</span> CORS / 401 errors from the web app<span class="acc-arrow">&#9662;</span></summary>
+                    <div class="acc-body">
+                        <p>The browser origin is not allowed by the API. Ensure <span class="inline-code">CORS_ALLOWED_ORIGINS</span> in <span class="inline-code">apps/api/.env</span> contains <span class="inline-code">http://localhost:3000</span> and <span class="inline-code">http://localhost:8081</span> (Expo), restart Django, and confirm <span class="inline-code">NEXT_PUBLIC_API_URL</span> points at <span class="inline-code">http://localhost:8000/api/v1</span>.</p>
+                    </div>
+                </details>
+
+                <details class="acc-item">
+                    <summary><span class="acc-q">+</span> <span class="inline-code">Activate.ps1</span> blocked by execution policy<span class="acc-arrow">&#9662;</span></summary>
+                    <div class="acc-body">
+                        <div class="codeblock"><div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">powershell (admin)</span></div><pre>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</pre></div>
+                        <p>Or use Git Bash: <span class="inline-code">source venv/Scripts/activate</span>.</p>
+                    </div>
+                </details>
+
+                <details class="acc-item">
+                    <summary><span class="acc-q">+</span> Redis connection refused (Celery won't start)<span class="acc-arrow">&#9662;</span></summary>
+                    <div class="acc-body">
+                        <p>Redis is not running. On Windows install Memurai (<span class="inline-code">winget install Memurai.MemuraiDeveloper</span>) or run Redis in WSL2; on Linux/macOS <span class="inline-code">sudo systemctl start redis-server</span> / <span class="inline-code">brew services start redis</span>. Verify with <span class="inline-code">redis-cli ping</span>.</p>
+                    </div>
+                </details>
+
+                <details class="acc-item">
+                    <summary><span class="acc-q">+</span> Database restore fails on an older PostgreSQL<span class="acc-arrow">&#9662;</span></summary>
+                    <div class="acc-body">
+                        <p>Errors such as <span class="inline-code">unrecognized configuration parameter "transaction_timeout"</span> or <span class="inline-code">invalid command \restrict</span> mean the server/psql is older than 17. Upgrade PostgreSQL to 17 or 18 — the shipped dump was produced by pg_dump 18.6 and older servers cannot read it.</p>
+                    </div>
+                </details>
+
+                <details class="acc-item">
+                    <summary><span class="acc-q">+</span> Next.js build fails or shows stale UI<span class="acc-arrow">&#9662;</span></summary>
+                    <div class="acc-body">
+                        <div class="codeblock"><div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">bash — clean rebuild</span></div><pre><span class="kw">cd</span> apps/web
+rm -rf .next node_modules
+npm ci
+npm run build   <span class="cm"># or: npm run dev</span></pre></div>
+                    </div>
+                </details>
+
+                <details class="acc-item">
+                    <summary><span class="acc-q">+</span> Live site returns 502 Bad Gateway<span class="acc-arrow">&#9662;</span></summary>
+                    <div class="acc-body">
+                        <ul>
+                            <li>Gunicorn socket down: <span class="inline-code">sudo systemctl status o3l-api.socket</span> and <span class="inline-code">ls -la /run/gunicorn/o3l.sock</span></li>
+                            <li>Nginx config broken: <span class="inline-code">sudo nginx -t</span></li>
+                            <li>Next.js not running: <span class="inline-code">pm2 status</span> &rarr; <span class="inline-code">pm2 restart o3l-web</span></li>
+                            <li>Inspect app errors: <span class="inline-code">sudo tail -f /var/log/o3l/error.log</span></li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <!-- ══════════════════ 10. CHEAT SHEET ══════════════════ -->
+        <section class="section" id="cheatsheet">
+            <div class="sec-head reveal">
+                <div class="sec-icon o">
+                    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 17l6-5-6-5M12 19h8"/></svg>
+                </div>
+                <div>
+                    <div class="sec-eyebrow">10 &middot; Quick Reference</div>
+                    <h2 class="sec-title">Command Cheat Sheet</h2>
+                    <p class="sec-sub">Copy-paste blocks for the daily loop — start, migrate, seed, test, reset.</p>
+                </div>
+            </div>
+            <div class="rule reveal"></div>
+
+            <div class="two-col">
+                <div class="reveal">
+                    <div class="mini-title">Daily Development (manual install)</div>
+                    <div class="codeblock">
+                        <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">terminal 1 — API</span></div>
+<pre><span class="kw">cd</span> apps/api
+.\venv\Scripts\Activate.ps1
+python manage.py runserver 0.0.0.0:8000   <span class="cm"># LAN reachable (Expo Go) :8000</span></pre>
+                    </div>
+                    <div class="codeblock">
+                        <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">terminal 2 — Web</span></div>
+<pre><span class="kw">cd</span> apps/web
+npm run dev                         <span class="cm"># http://localhost:3000</span></pre>
+                    </div>
+                    <div class="codeblock">
+                        <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">terminal 3 — Workers</span></div>
+<pre><span class="kw">cd</span> apps/api
+celery -A o3l worker -l info
+celery -A o3l beat -l info</pre>
+                    </div>
+                </div>
+
+                <div class="reveal">
+                    <div class="mini-title">Data Operations</div>
+                    <div class="codeblock">
+                        <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">bash — migrate / seed / reset</span></div>
+<pre><span class="kw">cd</span> apps/api &amp;&amp; source venv/Scripts/activate
+
+python manage.py migrate
+python manage.py seed_zones
+python manage.py seed_cms
+python manage.py seed_data
+python manage.py createsuperuser
+
+<span class="cm"># nuclear reset (drops &amp; rebuilds schema)</span>
+python manage.py flush --no-input
+python manage.py migrate</pre>
+                    </div>
+                    <div class="codeblock">
+                        <div class="code-head"><div class="code-dots"><i></i><i></i><i></i></div><span class="code-title">bash — backup &amp; restore</span></div>
+<pre><span class="cm"># dump</span>
+pg_dump -U o3l_user -d o3l_dev --clean --if-exists \
+  --no-owner --no-privileges -f backup.sql
+
+<span class="cm"># restore</span>
+psql -U o3l_user -d o3l_dev -w -v ON_ERROR_STOP=1 -f backup.sql</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-strip reveal">
+                <div>
+                    <h4>Ready-to-go assets for a new machine</h4>
+                    <p>This guide plus a verified PostgreSQL dump travel together in <span class="inline-code">docs/</span>. Copy the whole folder, follow Path 01, restore the database and you are running in minutes.</p>
+                </div>
+                <div class="ns-act">
+                    <a class="ns-btn solid" href="#local-setup">Start Local Setup</a>
+                    <a class="ns-btn" href="database-backup.sql">Open database-backup.sql</a>
+                    <a class="ns-btn" href="#database">Restore Instructions</a>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="doc-footer">
+    <div class="footer-inner">
+        <img class="footer-logo" src="O3L-logo.png" alt="O3L Logo">
+        <h3>One Ocean One Life &mdash; Environment Setup</h3>
+        <p>Internal engineering document for provisioning the O3L platform on developer machines, containers and production servers.</p>
+        <div class="footer-links">
+            <a href="index.html">Platform Home</a>
+            <a href="technical-document.html">Technical Document</a>
+            <a href="customer-demo-document.html">Customer Demo</a>
+            <a href="database-backup.sql">Database Backup</a>
+            <a href="#top">Back to Top</a>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 O3L - One Ocean One Life. All rights reserved.</span>
+            <span>Document: environment-setup.html &middot; Generated for local &amp; live provisioning</span>
+        </div>
+    </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+    <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
+<script>
+/* ─── particles ─── */
+(function () {
+    const box = document.getElementById('particles');
+    for (let i = 0; i < 34; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const s = Math.random() * 6 + 2;
+        p.style.width = s + 'px'; p.style.height = s + 'px';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.animationDuration = (Math.random() * 16 + 10) + 's';
+        p.style.animationDelay = (Math.random() * 14) + 's';
+        box.appendChild(p);
+    }
+})();
+
+/* ─── scroll progress + topbar ─── */
+const bar = document.getElementById('progressBar');
+const topbar = document.getElementById('topbar');
+const scrollTop = document.getElementById('scrollTop');
+window.addEventListener('scroll', () => {
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+    topbar.classList.toggle('scrolled', window.scrollY > 40);
+    scrollTop.classList.toggle('show', window.scrollY > 520);
+}, { passive: true });
+scrollTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+/* ─── mobile menu ─── */
+const sidebar = document.getElementById('sidebar');
+document.getElementById('menuToggle').addEventListener('click', () => sidebar.classList.toggle('open'));
+sidebar.querySelectorAll('a').forEach(a => a.addEventListener('click', () => sidebar.classList.remove('open')));
+
+/* ─── print ─── */
+document.getElementById('printBtn').addEventListener('click', () => window.print());
+
+/* ─── smooth anchors ─── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+        const id = a.getAttribute('href');
+        if (id.length > 1) {
+            const t = document.querySelector(id);
+            if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); history.replaceState(null, '', id); }
+        }
+    });
+});
+
+/* ─── reveal on scroll ─── */
+if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+} else {
+    const revealObs = new IntersectionObserver((entries) => {
+        entries.forEach((e, i) => {
+            if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 55); revealObs.unobserve(e.target); }
+        });
+    }, { threshold: .08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+}
+
+/* ─── hero counters ─── */
+const heroObs = new IntersectionObserver((en) => {
+    if (!en[0].isIntersecting) return;
+    document.querySelectorAll('[data-count]').forEach(el => {
+        const target = parseInt(el.dataset.count), dur = 1700, t0 = performance.now();
+        (function tick(now) {
+            const p = Math.min((now - t0) / dur, 1), e = 1 - Math.pow(1 - p, 3);
+            el.innerHTML = Math.floor(target * e).toLocaleString() + (el.innerHTML.includes('MB') ? ' <span>MB</span>' : '');
+            if (p < 1) requestAnimationFrame(tick);
+        })(performance.now());
+    });
+    heroObs.disconnect();
+}, { threshold: .3 });
+const hs = document.querySelector('.hero-stats'); if (hs) heroObs.observe(hs);
+
+/* ─── scrollspy ─── */
+const sections = [...document.querySelectorAll('main .section[id]')];
+const sideLinks = [...document.querySelectorAll('.side-link')];
+const navLinks = [...document.querySelectorAll('.topnav a')];
+function setActive(id) {
+    sideLinks.forEach(l => l.classList.toggle('active', l.dataset.side === id));
+    navLinks.forEach(l => l.classList.toggle('active', l.dataset.nav === id));
+}
+const spy = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
+}, { rootMargin: '-25% 0px -65% 0px', threshold: 0 });
+sections.forEach(s => spy.observe(s));
+
+/* ─── sidebar filter ─── */
+document.getElementById('sideSearch').addEventListener('input', function () {
+    const q = this.value.toLowerCase().trim();
+    sideLinks.forEach(l => { l.style.display = l.textContent.toLowerCase().includes(q) ? '' : 'none'; });
+});
+
+/* ─── tabs ─── */
+document.querySelectorAll('[data-tabs]').forEach(group => {
+    const btns = group.querySelectorAll('.tab-btn');
+    btns.forEach(btn => btn.addEventListener('click', () => {
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const scope = group;
+        scope.querySelectorAll(':scope > .tab-panel').forEach(p => p.classList.remove('active'));
+        scope.querySelector('#' + btn.dataset.tab)?.classList.add('active');
+    }));
+});
+
+/* ─── copy buttons on code blocks ─── */
+document.querySelectorAll('.codeblock').forEach(block => {
+    const head = block.querySelector('.code-head');
+    const pre = block.querySelector('pre');
+    if (!head || !pre) return;
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.innerHTML = '<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg> Copy';
+    btn.addEventListener('click', async () => {
+        const text = pre.innerText.replace(/\u00A0/g, ' ');
+        try { await navigator.clipboard.writeText(text); }
+        catch (err) {
+            const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta);
+            ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+        }
+        btn.classList.add('done'); btn.innerHTML = '&#10003; Copied';
+        setTimeout(() => { btn.classList.remove('done'); btn.innerHTML = '<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg> Copy'; }, 1800);
+    });
+    head.appendChild(btn);
+});
+</script>
+</body>
+</html>

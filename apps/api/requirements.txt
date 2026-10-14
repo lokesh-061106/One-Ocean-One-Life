@@ -1,0 +1,35 @@
+Django>=5.2,<5.3
+djangorestframework>=3.15,<3.16
+djangorestframework-simplejwt>=5.3,<6.0
+django-cors-headers>=4.3,<5.0
+django-filter>=24.3,<25.0
+psycopg[binary]>=3.1,<4.0
+dj-database-url>=2.2,<3.0
+redis>=5.0,<6.0
+celery>=5.4,<6.0
+Pillow>=11.0,<12.0
+python-decouple>=3.8,<4.0
+whitenoise>=6.7,<7.0
+gunicorn>=22.0,<23.0
+razorpay>=1.4,<2.0
+stripe>=10.0,<11.0
+
+# Authentication
+twilio>=9.0,<10.0
+google-auth>=2.28,<3.0
+python-jose[cryptography]>=3.3,<4.0
+
+# Push Notifications
+firebase-admin>=6.5,<7.0
+
+# Media Processing
+ffmpeg-python>=0.2.0
+
+# Error Tracking
+sentry-sdk>=1.40,<2.0
+
+# HTTP
+requests>=2.31,<3.0
+
+# Data Import
+openpyxl>=3.1,<4.0

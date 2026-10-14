@@ -1,0 +1,10 @@
+{% extends "admin/change_list.html" %}
+{% load i18n %}
+
+{% block content_title %}
+  <h1>Pending Reviews</h1>
+  <p style="margin-top:-8px;color:#666;">
+    Contributions awaiting a decision. <strong>Approve</strong> publishes the item to its module
+    (Sightings / Sounds / Education / Species Guides). <strong>Reject</strong> removes it from the queue.
+  </p>
+{% endblock %}

@@ -1,0 +1,102 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgis/postgis:17-3.6
+        env:
+          POSTGRES_DB: o3l_test
+          POSTGRES_USER: o3l_user
+          POSTGRES_PASSWORD: o3l_password
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+      redis:
+        image: redis:7-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+
+    env:
+      DATABASE_URL: postgis://o3l_user:o3l_password@localhost:5432/o3l_test
+      REDIS_URL: redis://localhost:6379/0
+      SECRET_KEY: test-secret-key
+      DEBUG: true
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          cd apps/api
+          pip install -r requirements.txt
+          pip install pytest pytest-django
+
+      - name: Run migrations
+        run: |
+          cd apps/api
+          python manage.py migrate
+
+      - name: Run tests
+        run: |
+          cd apps/api
+          python manage.py test --verbosity=2
+
+      - name: Run linting
+        run: |
+          cd apps/api
+          pip install ruff
+          ruff check .
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build API Docker image
+        run: |
+          docker build -t o3l-api ./apps/api
+
+      - name: Build Web Docker image
+        run: |
+          docker build -t o3l-web ./apps/web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to production
+        run: |
+          echo "Deploy to production server"
+          # Add your deployment commands here

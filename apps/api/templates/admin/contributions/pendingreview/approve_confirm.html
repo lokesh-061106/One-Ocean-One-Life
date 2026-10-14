@@ -1,0 +1,33 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block breadcrumbs %}<div class="breadcrumbs"><a href="{% url 'admin:index' %}">{% trans "Home" %}</a> &rsaquo; <a href="{% url 'admin:app_list' app_label='contributions' %}">Contributions</a> &rsaquo; <a href="{% url 'admin:contributions_pendingcontribution_changelist' %}">Pending Reviews</a> &rsaquo; Approve</div>{% endblock %}
+
+{% block content %}
+<div id="content-main">
+  <h1>Approve contribution</h1>
+
+  <div style="background:#f8f9fa;border:1px solid #ddd;border-radius:6px;padding:16px;margin:16px 0;">
+    <p><strong>Title:</strong> {{ object.title|default:object.get_type_display }}</p>
+    <p><strong>Type:</strong> {{ object.get_type_display }} &nbsp;|&nbsp; <strong>Contributor:</strong> {{ object.author|default:object.user }}</p>
+    {% if object.village %}<p><strong>Village:</strong> {{ object.village }}</p>{% endif %}
+    {% if object.notes %}<p><strong>Notes:</strong> {{ object.notes|truncatechars:300 }}</p>{% endif %}
+    <p style="margin-top:12px;">
+      <strong>On approval this will be published to:</strong>
+      <span style="background:#1565C0;color:white;padding:3px 10px;border-radius:12px;font-weight:600;">{{ destination }}</span>
+    </p>
+    {% if object.media.all %}
+    <p style="margin-top:8px;"><strong>Media:</strong>
+      {% for m in object.media.all %}{{ m.display_name }} ({{ m.kind }}){% if not forloop.last %}, {% endif %}{% endfor %}
+    </p>
+    {% endif %}
+  </div>
+
+  <form method="post">{% csrf_token %}
+    <div class="submit-row">
+      <input type="submit" value="Yes, approve &amp; publish to {{ destination }}" class="default" style="background:#2E7D32;border-color:#2E7D32">
+      <a href="{% url 'admin:contributions_pendingcontribution_changelist' %}" class="button cancel-link">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

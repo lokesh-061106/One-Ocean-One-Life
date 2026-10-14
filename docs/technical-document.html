@@ -1,0 +1,1973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<title>O3L - One Ocean One Life — Technical Requirements Document</title>
+<style>
+:root{--primary:#0a2540;--secondary:#0070f3;--ocean-blue:#0066cc;--deep-navy:#0a2540;--teal:#008080;--coral:#ff6b6b;--sand:#f5e6d3;--foam:#e8f4f8;--success:#10b981;--warning:#f59e0b;--danger:#ef4444;--info:#3b82f6;--bg:#f8fafc;--surface:#fff;--text:#1e293b;--text-sec:#64748b;--border:#e2e8f0;--sidebar-w:300px;--header-h:124px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:linear-gradient(95deg,#071e33 0%,#0a2540 45%,#0e3550 100%);color:#fff;display:flex;align-items:stretch;z-index:1000;box-shadow:0 6px 24px rgba(7,30,51,.35);border-bottom:1px solid rgba(255,255,255,.07);transition:transform .35s cubic-bezier(.4,0,.2,1),box-shadow .3s,border-color .3s}
+.header.hide{transform:translateY(-100%)}
+.header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,#0070f3,#00b8db 50%,#10b981);opacity:.85}
+.brand-zone{width:var(--sidebar-w);flex:0 0 var(--sidebar-w);display:flex;align-items:center;justify-content:center;background:#05172a;border-right:1px solid rgba(255,255,255,.09);padding:7px 16px;position:relative;z-index:2}
+.logo-card{height:100px;width:auto;max-width:100%;background:#fff;border-radius:14px;padding:5px;object-fit:contain;box-shadow:0 6px 20px rgba(0,0,0,.4);transition:transform .2s}
+.brand-zone:hover .logo-card{transform:scale(1.03)}
+.header-main{flex:1;display:flex;align-items:center;gap:14px;padding:0 20px;min-width:0}
+.hamburger{display:none;width:38px;height:38px;flex:0 0 38px;align-self:center;border-radius:10px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.07);color:#fff;align-items:center;justify-content:center;cursor:pointer;transition:.2s}
+.hamburger:hover{background:rgba(255,255,255,.16)}
+.doc-chip{font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#94a3b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-links{display:flex;gap:2px}
+.nav-links a{color:#cbd5e1;font-size:13px;font-weight:500;text-decoration:none;padding:8px 13px;border-radius:9px;transition:.18s;white-space:nowrap}
+.nav-links a:hover{background:rgba(255,255,255,.09);color:#fff}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.version{font-size:11.5px;font-weight:600;color:#7dd3fc;background:rgba(0,112,243,.18);border:1px solid rgba(125,211,252,.35);padding:5px 13px;border-radius:999px;white-space:nowrap}
+.btn-ghost{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:#e2e8f0;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);padding:7px 14px;border-radius:9px;cursor:pointer;transition:.2s}
+.btn-ghost:hover{background:rgba(255,255,255,.17);color:#fff;transform:translateY(-1px)}
+.sidebar{position:fixed;top:var(--header-h);left:0;width:var(--sidebar-w);height:calc(100vh - var(--header-h));background:var(--surface);border-right:1px solid var(--border);overflow-y:auto;z-index:960;padding:14px 14px 28px;scrollbar-width:thin;transition:transform .35s cubic-bezier(.4,0,.2,1),height .35s cubic-bezier(.4,0,.2,1)}
+.header.hide ~ .sidebar{transform:translateY(calc(-1 * var(--header-h)));height:100vh}
+.sidebar::-webkit-scrollbar{width:8px}
+.sidebar::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:8px}
+.sidebar::-webkit-scrollbar-thumb:hover{background:#94a3b8}
+.side-head{position:sticky;top:0;padding:8px 6px 12px;border-bottom:1px solid var(--border);margin-bottom:8px;background:var(--surface);z-index:5;box-shadow:0 6px 8px -8px rgba(15,23,42,.15)}
+.side-head .t{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--text-sec);display:flex;align-items:center;gap:8px}
+.side-head .t::before{content:"";width:8px;height:8px;border-radius:3px;background:linear-gradient(135deg,var(--secondary),var(--teal))}
+.side-filter{width:100%;margin-top:10px;padding:9px 13px;border:1px solid var(--border);border-radius:10px;font-size:13px;font-family:inherit;background:var(--bg);color:var(--text);outline:none;transition:.2s}
+.side-filter:focus{border-color:var(--secondary);background:#fff;box-shadow:0 0 0 3px rgba(0,112,243,.12)}
+.side-filter::placeholder{color:#94a3b8}
+.sidebar h3{padding:6px 8px 4px;font-size:10.5px;text-transform:uppercase;letter-spacing:.11em;color:#94a3b8;font-weight:800;margin-top:14px}
+.sidebar a{display:flex;align-items:center;gap:9px;padding:7px 10px;margin:1px 0;color:var(--text-sec);text-decoration:none;font-size:13px;border-radius:9px;border-left:none;transition:.15s}
+.sidebar a::before{content:"";width:5px;height:5px;flex:0 0 5px;border-radius:50%;background:#cbd5e1;transition:.15s}
+.sidebar a:hover{background:#f1f5f9;color:var(--secondary)}
+.sidebar a:hover::before{background:var(--secondary)}
+.sidebar a.active{background:rgba(0,112,243,.1);color:var(--secondary);font-weight:600}
+.sidebar a.active::before{background:var(--secondary);box-shadow:0 0 0 3px rgba(0,112,243,.18)}
+.overlay{display:none;position:fixed;inset:0;background:rgba(8,25,40,.55);backdrop-filter:blur(2px);z-index:950}
+.overlay.show{display:block}
+.main{margin-left:var(--sidebar-w);margin-top:var(--header-h);padding:32px 40px;max-width:960px}
+.section{margin-bottom:48px;scroll-margin-top:144px}
+.section-header{display:flex;align-items:center;cursor:pointer;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-bottom:16px;transition:all .2s}
+.section-header:hover{border-color:var(--secondary);box-shadow:0 2px 8px rgba(0,102,204,.1)}
+.section-header h2{font-size:18px;color:var(--primary);flex:1}
+.section-header .toggle{font-size:20px;color:var(--text-sec);transition:transform .3s}
+.section-header.open .toggle{transform:rotate(180deg)}
+.section-content{display:none;padding:0 4px}
+.section-content.open{display:block}
+.q-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:12px}
+.q-card .qh{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
+.q-card .qn{background:var(--primary);color:#fff;min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
+.q-card .qt{font-weight:600;color:var(--text);font-size:14px}
+.q-card .qm{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.q-card .qmi{font-size:12px;color:var(--text-sec)}
+.q-card .qmi strong{color:var(--text)}
+.abox{border-radius:8px;padding:12px 16px;margin-top:10px;font-size:13px}
+.abox.prefilled{background:#f0fdf4;border:1px solid #86efac}
+.abox.dreq{background:#fef3c7;border:1px solid #fcd34d}
+.abox.info{background:#eff6ff;border:1px solid #bae6fd}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;text-transform:uppercase}
+.badge.critical{background:#fef2f2;color:#dc2626}
+.badge.high{background:#fffbeb;color:#d97706}
+.badge.medium{background:#eff6ff;color:#2563eb}
+.badge.low{background:#f0fdf4;color:#16a34a}
+.badge.answered{background:#f0fdf4;color:#16a34a}
+.badge.na{background:#fef2f2;color:#dc2626}
+.badge.nd{background:#fffbeb;color:#d97706}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+table th{background:var(--primary);color:#fff;padding:10px 12px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
+table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+table tr:hover{background:var(--foam)}
+.arch{background:var(--deep-navy);color:#e2e8f0;padding:24px;border-radius:12px;font-family:'Cascadia Code','Fira Code',monospace;font-size:13px;line-height:1.5;overflow-x:auto;white-space:pre;margin:16px 0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin:16px 0}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center}
+.stat .n{font-size:28px;font-weight:700;color:var(--secondary)}
+.stat .l{font-size:12px;color:var(--text-sec);margin-top:4px}
+.ibox{background:#eff6ff;border-left:4px solid var(--info);padding:16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:13px}
+.wbox{background:#fffbeb;border-left:4px solid var(--warning);padding:16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:13px}
+@media(max-width:1100px){.nav-links{display:none}}
+@media(max-width:900px){
+:root{--header-h:84px}
+.sidebar{transform:translateX(-100%);transition:transform .25s ease;box-shadow:none}
+.sidebar.open{transform:translateX(0);box-shadow:8px 0 32px rgba(8,25,40,.25)}
+.header.hide ~ .sidebar{transform:translateX(-100%)}
+.header.hide ~ .sidebar.open{transform:translateX(0)}
+.main{margin-left:0;padding:20px 16px}
+.q-card .qm{grid-template-columns:1fr}
+.hamburger{display:flex}
+.doc-chip{display:none}
+.header-main{padding:0 12px;gap:10px}
+.brand-zone{width:auto;flex:0 0 auto;padding:5px 12px 5px 10px;border-right:none;background:transparent}
+.logo-card{height:62px;border-radius:10px;padding:3px;box-shadow:0 3px 12px rgba(0,0,0,.35)}
+}
+@media(max-width:560px){.version{display:none}.btn-ghost span{display:none}.btn-ghost{padding:7px 10px}.logo-card{height:52px}}
+@media print{.sidebar,.header,.overlay{display:none!important}.main{margin-left:0;margin-top:0}.section-content{display:block!important}}
+</style>
+</head>
+<body>
+<header class="header">
+<button class="hamburger" id="menuBtn" aria-label="Toggle navigation" aria-expanded="false">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</button>
+<div class="brand-zone">
+<a href="index.html"><img class="logo-card" src="O3L-logo.png" alt="O3L — One Ocean One Life" width="150" height="100"></a>
+</div>
+<div class="header-main">
+<span class="doc-chip">Technical Requirements Document</span>
+<nav class="nav-links">
+<a href="#overview">Overview</a>
+<a href="#arch">Architecture</a>
+<a href="#s1">Requirements</a>
+<a href="#s38">API</a>
+<a href="#s60">Roadmap</a>
+</nav>
+<div class="header-right">
+<span class="version">v1.1 · Oct 2026</span>
+<button class="btn-ghost" onclick="window.print()">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+<span>Print / PDF</span>
+</button>
+</div>
+</div>
+</header>
+<div class="sidebar" id="sidebar">
+<div class="side-head">
+<div class="t">Documentation</div>
+<input type="text" class="side-filter" id="sideFilter" placeholder="Filter sections…" autocomplete="off">
+</div>
+<h3>Executive</h3>
+<a href="#overview">Project Overview</a>
+<a href="#audit">Codebase Audit</a>
+<a href="#arch">System Architecture</a>
+<a href="#s60">MVP Definition</a>
+<a href="#decisions">Critical Decisions</a>
+<h3>Requirements (1-17)</h3>
+<a href="#s1">1. Project Overview</a>
+<a href="#s2">2. User Types &amp; Roles</a>
+<a href="#s3">3. Authentication</a>
+<a href="#s4">4. Profile System</a>
+<a href="#s5">5. Location &amp; GIS</a>
+<a href="#s6">6. Coastal Zones</a>
+<a href="#s7">7. Guide — Learn the Ocean</a>
+<a href="#s8">8. Educational Content</a>
+<a href="#s9">9. Ocean Sound</a>
+<a href="#s10">10. Marine Sightings</a>
+<a href="#s11">11. Circular Economy</a>
+<a href="#s12">12. Ecotourism</a>
+<a href="#s13">13. Community &amp; Diary</a>
+<a href="#s14">14. Events</a>
+<a href="#s15">15. Marketplace</a>
+<a href="#s16">16. Emergency</a>
+<a href="#s17">17. Offline-First</a>
+<h3>Requirements (18-29)</h3>
+<a href="#s18">18. Recognition</a>
+<a href="#s19">19. Non-Contributing Recognition</a>
+<a href="#s20">20. Contribution Score</a>
+<a href="#s21">21. Yearly Report</a>
+<a href="#s22">22. Research Data</a>
+<a href="#s23">23. Data Verification</a>
+<a href="#s24">24. Search</a>
+<a href="#s25">25. Notifications</a>
+<a href="#s26">26. Multilingual</a>
+<a href="#s27">27. Mobile App</a>
+<a href="#s28">28. Web App</a>
+<a href="#s29">29. Admin Panel</a>
+<h3>Infrastructure</h3>
+<a href="#s30">30. Database</a>
+<a href="#s31">31. Media Storage</a>
+<a href="#s32">32. AI Features</a>
+<a href="#s33">33. Security</a>
+<a href="#s34">34. Privacy</a>
+<a href="#s35">35. Minors</a>
+<a href="#s36">36. Payments</a>
+<a href="#s37">37. Contributor Payout</a>
+<a href="#s38">38. API</a>
+<a href="#s39">39. Third-Party</a>
+<a href="#s40">40. Weather Data</a>
+<a href="#s41">41. Maritime Safety</a>
+<h3>Quality</h3>
+<a href="#s42">42. Performance</a>
+<a href="#s43">43. Scalability</a>
+<a href="#s44">44-49. DevOps</a>
+<h3>UI/UX</h3>
+<a href="#s50">50-54. Design</a>
+<h3>Business</h3>
+<a href="#s55">55-59. Business Rules</a>
+<h3>Delivery</h3>
+<a href="#s60">60-65. Roadmap &amp; Testing</a>
+<h3>Decisions</h3>
+<a href="#dec-critical">Critical Decisions</a>
+<a href="#dec-high">High Priority</a>
+<a href="#dec-tech">Technical</a>
+<a href="#dec-biz">Business</a>
+<a href="#dec-legal">Legal</a>
+<a href="#dec-sec">Security</a>
+<a href="#dec-ux">UX</a>
+<a href="#dec-open">Open Questions</a>
+<a href="#dec-default">Recommended Defaults</a>
+<a href="#glossary">Glossary</a>
+</div>
+<div class="overlay" id="overlay"></div>
+<div class="main">
+<!-- EXECUTIVE SUMMARY -->
+<div class="section" id="overview">
+<div class="section-header open" onclick="toggleSection(this)">
+<h2>Executive Summary</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content open">
+<div class="ibox"><strong>O3L — One Ocean One Life</strong> is a cross-platform digital ocean and coastal community platform connecting fishermen, coastal communities, researchers, NGOs, educational institutions, vendors, tourism stakeholders, and government/emergency resources across Tamil Nadu's coastline.</div>
+<p style="margin:12px 0;font-size:14px">Core philosophy: <em>"One Ocean. One Life."</em> The platform enables: <strong>DETECT → LEARN → CONTRIBUTE → CONNECT → EARN → PROTECT → RECOGNIZE</strong></p>
+<div class="stats">
+<div class="stat"><div class="n">24</div><div class="l">Django Apps</div></div>
+<div class="stat"><div class="n">88</div><div class="l">DB Models</div></div>
+<div class="stat"><div class="n">14</div><div class="l">User Roles</div></div>
+<div class="stat"><div class="n">5+1</div><div class="l">Coastal Zones</div></div>
+<div class="stat"><div class="n">3</div><div class="l">Platform Apps</div></div>
+<div class="stat"><div class="n">45+</div><div class="l">Web Pages</div></div>
+<div class="stat"><div class="n">7</div><div class="l">Dev Phases</div></div>
+</div>
+<p style="margin:12px 0;font-size:14px;color:var(--text-sec)">This document is a comprehensive technical requirements questionnaire. Items marked <span class="badge na">[DECISION REQUIRED]</span> need explicit stakeholder confirmation before development proceeds.</p>
+</div>
+</div>
+
+<!-- CODEBASE AUDIT -->
+<div class="section" id="audit">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>Current Codebase Audit — What Exists Today</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="ibox">This section reflects the actual state of the codebase as of October 2026 (initial audit August 2026, refreshed after the September–October build cycle). It maps existing implementations against the requirements questionnaire.</div>
+<h3 style="margin:20px 0 12px">Tech Stack (Confirmed in Code)</h3>
+<table>
+<tr><th>Layer</th><th>Technology</th><th>Version</th><th>Status</th></tr>
+<tr><td>Backend</td><td>Django + DRF</td><td>5.2 / Python 3.12</td><td><span class="badge answered">Implemented</span></td></tr>
+<tr><td>Database</td><td>PostgreSQL + PostGIS</td><td>17–18 + 3.6</td><td><span class="badge answered">Implemented</span></td></tr>
+<tr><td>Cache/Queue</td><td>Redis</td><td>7</td><td><span class="badge answered">Implemented</span></td></tr>
+<tr><td>Task Queue</td><td>Celery + beat schedule</td><td>5</td><td><span class="badge answered">Implemented</span></td></tr>
+<tr><td>Auth</td><td>SimpleJWT</td><td>-</td><td><span class="badge answered">Implemented</span></td></tr>
+<tr><td>Web Frontend</td><td>Next.js</td><td>16.3 / Node 20</td><td><span class="badge answered">Implemented</span></td></tr>
+<tr><td>Mobile</td><td>React Native + Expo</td><td>0.86/SDK57</td><td><span class="badge answered">Implemented</span></td></tr>
+<tr><td>UI Web</td><td>Radix UI + Tailwind</td><td>4</td><td><span class="badge answered">Implemented</span></td></tr>
+<tr><td>Mapping</td><td>MapLibre GL</td><td>-</td><td><span class="badge answered">Implemented</span></td></tr>
+<tr><td>Payments</td><td>Razorpay + Stripe</td><td>-</td><td><span class="badge answered">Implemented (webhooks + split payouts)</span></td></tr>
+<tr><td>AI/ML</td><td>Species ID, voice, translate, search</td><td>-</td><td><span class="badge answered">APIs Implemented (weights optional)</span></td></tr>
+<tr><td>State (Web)</td><td>TanStack Query</td><td>-</td><td><span class="badge answered">Implemented</span></td></tr>
+<tr><td>State (Mobile)</td><td>Zustand</td><td>-</td><td><span class="badge answered">Implemented</span></td></tr>
+<tr><td>Offline DB</td><td>SQLite (mobile)</td><td>-</td><td><span class="badge answered">Implemented (sync queue + emergency cache)</span></td></tr>
+<tr><td>i18n</td><td>English + Tamil</td><td>-</td><td><span class="badge answered">Implemented</span></td></tr>
+</table>
+
+<h3 style="margin:20px 0 12px">Backend Apps &amp; Models Status (24 apps, 88 models)</h3>
+<table>
+<tr><th>App</th><th>Models</th><th>Phase</th><th>API</th><th>Web</th><th>Mobile</th></tr>
+<tr><td>accounts</td><td>User (14 roles), Profile, DeviceToken, Verification*</td><td>1</td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>core</td><td>BaseModel, AuditLog, UserConsent, DataExportRequest</td><td>1</td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>locations</td><td>Zone, CoastalRegion, District, Village, StateFisheriesProfile, StateLeanPeriod</td><td>1</td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>guides</td><td>GuideCategory, GuideSpecies</td><td>1</td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>education</td><td>EducationCategory, EducationPost, EducationImage</td><td>1</td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>contributions</td><td>ContributionType, Contribution, ContributionMedia, PendingContribution (+ publishing pipeline)</td><td>1-2</td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>ocean_sounds</td><td>OceanSound, SoundCategory, SoundItem</td><td>2</td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>sightings</td><td>MarineSighting, SightingCategory, SightingImage, SightingDocument</td><td>2</td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>catches</td><td>FishCatch</td><td>2</td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>observations</td><td>Observation</td><td>2</td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>community</td><td>Event, EventParticipant, EventDiary, CommunityPost</td><td>3</td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>maps</td><td>OceanHotspot, EmergencyContact</td><td>1-2</td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>recognition</td><td>RecognitionAward, ContributionScore (slug profiles), TierThreshold, BadgeDefinition</td><td>3</td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>outreach</td><td>AwarenessZone, OutreachCampaign, Ambassador, ConnectionRequest, Referral</td><td>3</td><td><span class="badge medium">Admin only</span></td><td><span class="badge medium">Partial</span></td><td><span class="badge na">Not Started</span></td></tr>
+<tr><td>emergency</td><td>EmergencyProfile</td><td>1</td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>search</td><td>(views/urls only)</td><td>1</td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>notifications</td><td>Notification</td><td>3</td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>media</td><td>(views/urls only)</td><td>1</td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>cms</td><td>Page, PageSection, PageFAQ, ContactInfo, SiteHeaderConfig</td><td>1</td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>marketplace</td><td>ProductCategory, Vendor, Product, Order, OrderItem, PaymentTransaction, DataListing, DataSale</td><td>4-5</td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>ecotourism</td><td>Experience, Package, Booking, BookingPayout, SplitRule, BeachProfile, BeachCleanupEvent, LocalBusiness + pay/verify</td><td>5</td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>livelihood</td><td>BusinessIdea, GovernmentScheme, Workshop + SHG module (ShgSection, RevenueItem, LoanScheme, FishProduct, Recipe)</td><td>4</td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>analytics</td><td>AnnualReport, MonthlyTrend (+ research export API)</td><td>6</td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>ai_services</td><td>SpeciesIdentification, VoiceObservation, TranslationLog, DataQualityReport</td><td>7</td><td><span class="badge answered">APIs Done</span></td><td><span class="badge answered">Done</span></td><td><span class="badge answered">Done</span></td></tr>
+</table>
+
+<h3 style="margin:20px 0 12px">Critical Gaps Identified</h3>
+<table>
+<tr><th>Gap</th><th>Impact</th><th>Priority</th><th>Status</th></tr>
+<tr><td>Web src/features/ and src/types/ empty</td><td>No feature-level components built in web app</td><td><span class="badge critical">Critical</span></td><td><span class="badge answered">Resolved</span></td></tr>
+<tr><td>Web Dockerfile missing</td><td>Docker Compose cannot build web service</td><td><span class="badge critical">Critical</span></td><td><span class="badge answered">Resolved</span></td></tr>
+<tr><td>No Celery task files</td><td>No background jobs (scoring, hotspots, notifications)</td><td><span class="badge critical">Critical</span></td><td><span class="badge answered">Resolved</span></td></tr>
+<tr><td>No offline sync strategy</td><td>SQLite sync_queue + emergency cache + offline recording now live; full bidirectional sync still open</td><td><span class="badge critical">Critical</span></td><td><span class="badge medium">Partial</span></td></tr>
+<tr><td>No push notification integration</td><td>Notification model exists but no FCM/APNs setup</td><td><span class="badge high">High</span></td><td><span class="badge answered">Resolved</span></td></tr>
+<tr><td>No payment webhook handlers</td><td>Razorpay + Stripe webhooks with signature verification live</td><td><span class="badge high">High</span></td><td><span class="badge answered">Resolved</span></td></tr>
+<tr><td>No media processing pipeline</td><td>Thumbnails, audio compress, video thumbs via Celery live</td><td><span class="badge high">High</span></td><td><span class="badge answered">Resolved</span></td></tr>
+<tr><td>No contribution scoring logic</td><td>7-factor scoring engine + publishing pipeline live</td><td><span class="badge high">High</span></td><td><span class="badge answered">Resolved</span></td></tr>
+<tr><td>No hotspot calculation logic</td><td>Daily Celery job generates OceanHotspot records</td><td><span class="badge high">High</span></td><td><span class="badge answered">Resolved</span></td></tr>
+<tr><td>AI services thin (heuristic fallbacks)</td><td>Species ID, voice→observation, translate, semantic search, quality scoring endpoints live; PyTorch weights optional</td><td><span class="badge medium">Medium</span></td><td><span class="badge answered">Resolved (APIs)</span></td></tr>
+</table>
+
+<h3 style="margin:20px 0 12px">Resolved Since Initial Audit (September 2026)</h3>
+<table>
+<tr><th>Item</th><th>What Was Done</th></tr>
+<tr><td>Web Dockerfile</td><td>Created <code>apps/web/Dockerfile</code> for production builds</td></tr>
+<tr><td>Celery Tasks</td><td>Created <code>contributions/tasks.py</code>, <code>notifications/tasks.py</code>, <code>media/tasks.py</code> with scoring, push, and processing tasks</td></tr>
+<tr><td>Push Notifications</td><td>Implemented <code>notifications/push.py</code> with Firebase Cloud Messaging integration</td></tr>
+<tr><td>Payment Webhooks</td><td>Implemented <code>marketplace/webhooks.py</code> with Razorpay + Stripe signature verification</td></tr>
+<tr><td>Media Processing</td><td>Implemented <code>media/processing.py</code> + <code>media/tasks.py</code> for thumbnail generation and video transcoding</td></tr>
+<tr><td>Contribution Scoring</td><td>Implemented <code>contributions/scoring_engine.py</code> with 7-factor weighted algorithm (quantity, quality, verification, community, environmental, knowledge, events)</td></tr>
+<tr><td>Contribution Verification</td><td>Implemented <code>contributions/verification.py</code> with 8-state pipeline (pending → photo_check → location_check → species_check → quality_check → scientific_review → approved/rejected)</td></tr>
+<tr><td>Deployment Scripts</td><td>Created <code>setup.sh</code>, <code>deploy.sh</code>, <code>deploy-local.sh</code>, <code>docker-compose.prod.yml</code>, <code>nginx.prod.conf</code> for Hostinger VPS deployment</td></tr>
+<tr><td>CI/CD Pipeline</td><td>Created <code>.github/workflows/ci.yml</code> for lint, test, build, deploy stages</td></tr>
+<tr><td>Mobile OTP Auth</td><td>Implemented <code>accounts/otp.py</code> with Twilio SMS OTP delivery</td></tr>
+<tr><td>Google/Apple OAuth</td><td>Implemented <code>accounts/oauth.py</code> with Google + Apple sign-in</td></tr>
+<tr><td>Privacy System</td><td>Implemented <code>accounts/privacy.py</code> with 6 GPS precision levels and profile filtering per viewer role</td></tr>
+<tr><td>Marketplace Product Slug</td><td>Added <code>slug</code> field to Product model with auto-generation; API supports slug-based lookup</td></tr>
+<tr><td>Marketplace Cart System</td><td>Implemented cart-context, cart-sidebar, cart page, checkout page with profile pre-fill</td></tr>
+<tr><td>Ecotourism Sample Data</td><td>Seeded 6 beaches, 6 tourism opportunities, 4 cleanups, 6 local businesses for Tamil Nadu</td></tr>
+<tr><td>Web Pages (30+)</td><td>Marketplace (list, product detail with lightbox, vendor profile, cart, checkout), Ecotourism, Events (list + detail), Profile (corporate styled), Guides, Education, Sightings, Sounds, Community Members, Recognition, Emergency, Map, Dashboard (contributions, events, content, guides, settings, users, reports, maps)</td></tr>
+</table>
+</div>
+</div>
+
+<!-- SYSTEM ARCHITECTURE -->
+<div class="section" id="arch">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>Recommended System Architecture</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="ibox">Recommended: <strong>Modular Monolith + Asynchronous Workers</strong>. 24 Django apps as modules. Celery for background tasks. Extract to microservices later if scale or team growth justifies it.</div>
+<div class="arch">
+                           ┌───────────────────────────┐
+                           │         O3L USERS         │
+                           │    Android | iOS | Web    │
+                           └─────────────┴─────────────┘
+                                      │
+                                      │
+                      ┌─────────────────────────────────┐
+                      │        API / APPLICATION        │
+                      │        Django 5.2 + DRF         │
+                      │     20 Modular Django Apps      │
+                      │    SimpleJWT Authentication     │
+                      └────────────────┴────────────────┘
+                                      │
+                                      │
+           ┌───────────────┐──┌───────────────┐──┌───────────────┐
+           │               │  │               │  │               │
+           │               │  │               │  │               │
+           │  PostgreSQL   │  │Object Storage │  │ Redis / Cache │
+           │   + PostGIS   │  │   (S3 / R2)   │  │               │
+           │               │  │               │  │               │
+           │    Users      │  │ Photos/Videos │  │ Cache/Queues  │
+           │Contributions  │  │  Audio/Docs   │  │   Sessions    │
+           │  Sightings    │  │               │  │  Rate Limits  │
+           │ Zones/Maps    │  │               │  │               │
+           └───────────────┘  └───────────────┘  └───────────────┘
+                            │
+                            │
+  ┌─────────────────────────────────────────────────────┐
+  │                   CELERY WORKERS                    │
+  │        Media Proc | Notifications | Scoring         │
+  │          Hotspot Calc | Search Index | AI           │
+  │          Annual Reports | Verify | Cleanup          │
+  └─────────────────────────────────────────────────────┘
+                            │
+                            │
+ ┌───────────────┐──┌───────────────┐──┌───────────────┐
+ │               │  │               │  │               │
+ │               │  │               │  │               │
+ │   PostGIS     │  │  AI Services  │  │ Notifications │
+ │  Map Tiles    │  │  Whisper/VLM  │  │   Push/SMS/   │
+ │  Boundaries   │  │  Translation  │  │   Email/WA    │
+ │   Hotspots    │  │    Search     │  │               │
+ │               │  │               │  │               │
+ └───────────────┘  └───────────────┘  └───────────────┘
+</div>
+<div style="margin:24px 0;text-align:center">
+<img src="03l-Technical-Arhitect-Digaram.png" alt="O3L Technical Architecture Diagram" style="max-width:100%;border:1px solid var(--border);border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1)">
+</div>
+</div>
+</div>
+
+<!-- SECTION 1: PROJECT OVERVIEW -->
+<div class="section" id="s1">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>1. Project Overview</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+
+<div class="q-card">
+<div class="qh"><span class="qn">1.1</span><span class="qt">What is the primary objective of O3L?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Why:</strong> Defines core product direction and all downstream decisions.</div>
+<div class="qmi"><strong>Type:</strong> Free text</div>
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge answered">Answered</span></div>
+</div>
+<div class="abox prefilled">Connect People. Understand the Ocean. Protect Marine Life. Build Coastal Livelihoods. — DETECT → LEARN → CONTRIBUTE → CONNECT → EARN → PROTECT → RECOGNIZE</div>
+</div>
+
+<div class="q-card">
+<div class="qh"><span class="qn">1.2</span><span class="qt">Who is the primary target audience?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Why:</strong> Determines UX language, accessibility, connectivity assumptions, device targets.</div>
+<div class="qmi"><strong>Type:</strong> Multiple select</div>
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<div class="abox dreq">[DECISION REQUIRED] README mentions all groups but does not prioritize. Confirm top 3 primary audiences for Phase 1 UX focus.</div>
+</div>
+
+<div class="q-card">
+<div class="qh"><span class="qn">1.3</span><span class="qt">Which users should be supported at launch?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Why:</strong> Determines which role-specific features are MVP.</div>
+<div class="qmi"><strong>Type:</strong> Role list</div>
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<div class="abox dreq">[DECISION REQUIRED] Code defines 14 roles. Confirm which are active at launch vs. later phases.</div>
+</div>
+
+<div class="q-card">
+<div class="qh"><span class="qn">1.4</span><span class="qt">Which users will be added in future phases?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Why:</strong> Ensures architecture can accommodate future roles.</div>
+<div class="qmi"><strong>Type:</strong> Role list with phase</div>
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+</div>
+
+<div class="q-card">
+<div class="qh"><span class="qn">1.5</span><span class="qt">Which geographical regions are included in Phase 1?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge answered">Answered</span></div>
+</div>
+<div class="abox prefilled">Tamil Nadu — 5+1 zones covering 14 coastal districts (5 named zones + Zone 6 dynamic hotspots). Zones defined in locations app with PostGIS boundaries. Seed data in fixtures/01_locations.json.</div>
+</div>
+
+<div class="q-card">
+<div class="qh"><span class="qn">1.6</span><span class="qt">Is the initial launch restricted to Tamil Nadu?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<div class="abox dreq">[DECISION REQUIRED] Architecture supports multi-state via Zone model but seed data is Tamil Nadu only. Confirm launch scope.</div>
+</div>
+
+<div class="q-card">
+<div class="qh"><span class="qn">1.7</span><span class="qt">Should the architecture support expansion to other Indian coastal states?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge answered">Answered</span></div>
+</div>
+<div class="abox prefilled">Yes — District model has `state` field. Architecture supports multi-state expansion.</div>
+</div>
+
+<div class="q-card">
+<div class="qh"><span class="qn">1.8</span><span class="qt">Should the system eventually support international users?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge medium">Medium</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge na">Not Answered</span></div>
+</div>
+</div>
+
+<div class="q-card">
+<div class="qh"><span class="qn">1.9</span><span class="qt">What are the primary success metrics (KPIs)?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge na">Not Answered</span></div>
+</div>
+</div>
+
+<div class="q-card">
+<div class="qh"><span class="qn">1.10</span><span class="qt">What does success look like after 1 year? After 3 years?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge na">Not Answered</span></div>
+</div>
+</div>
+
+<div class="q-card">
+<div class="qh"><span class="qn">1.11</span><span class="qt">Expected user counts: Year 1 / Year 3 / Year 5?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge na">Not Answered</span></div>
+</div>
+</div>
+
+<div class="q-card">
+<div class="qh"><span class="qn">1.12</span><span class="qt">Expected daily active users?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge na">Not Answered</span></div>
+</div>
+</div>
+
+<div class="q-card">
+<div class="qh"><span class="qn">1.13</span><span class="qt">Expected data submissions per day?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge na">Not Answered</span></div>
+</div>
+</div>
+
+<div class="q-card">
+<div class="qh"><span class="qn">1.14</span><span class="qt">Expected photos/videos/audio files per day?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge na">Not Answered</span></div>
+</div>
+</div>
+
+<div class="q-card">
+<div class="qh"><span class="qn">1.15</span><span class="qt">What are the project's primary social/environmental goals?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge medium">Medium</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge na">Not Answered</span></div>
+</div>
+</div>
+
+<div class="q-card">
+<div class="qh"><span class="qn">1.16</span><span class="qt">What are the project's commercial/revenue goals, if any?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge medium">Medium</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge na">Not Answered</span></div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- SECTION 2: USER TYPES & ROLES -->
+<div class="section" id="s2">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>2. User Types &amp; Roles</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="ibox">Codebase defines <strong>14 roles</strong> in the User model. This section validates completeness and defines granular permissions.</div>
+
+<div class="q-card">
+<div class="qh"><span class="qn">2.1</span><span class="qt">Current roles vs. proposed roles — are any missing?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<table>
+<tr><th>Proposed Role</th><th>In Code?</th><th>Decision</th></tr>
+<tr><td>Fisherman</td><td><span class="badge answered">FISHERMAN</span></td><td>Implemented</td></tr>
+<tr><td>Fisherman's Family Member</td><td><span class="badge na">No</span></td><td>[DECISION REQUIRED] — Separate role or profile link?</td></tr>
+<tr><td>Community Member</td><td><span class="badge answered">COMMUNITY_MEMBER</span></td><td>Implemented</td></tr>
+<tr><td>Researcher</td><td><span class="badge answered">RESEARCHER</span></td><td>Implemented</td></tr>
+<tr><td>Marine Biologist</td><td><span class="badge na">No</span></td><td>[DECISION REQUIRED] — Use RESEARCHER role?</td></tr>
+<tr><td>NGO</td><td><span class="badge answered">NGO</span></td><td>Implemented</td></tr>
+<tr><td>Community Organization</td><td><span class="badge answered">COMMUNITY_ORGANIZATION</span></td><td>Implemented</td></tr>
+<tr><td>Educational Institution</td><td><span class="badge na">No</span></td><td>[DECISION REQUIRED] — Use EDUCATOR role?</td></tr>
+<tr><td>Government Organization</td><td><span class="badge na">No</span></td><td>[DECISION REQUIRED] — Separate from NGO?</td></tr>
+<tr><td>Coast Guard</td><td><span class="badge na">No</span></td><td>[DECISION REQUIRED] — App access or emergency contact only?</td></tr>
+<tr><td>Tourism Operator</td><td><span class="badge answered">TOURISM_PROVIDER</span></td><td>Implemented</td></tr>
+<tr><td>Vendor</td><td><span class="badge answered">VENDOR</span></td><td>Implemented</td></tr>
+<tr><td>Environmental Organization</td><td><span class="badge na">No</span></td><td>[DECISION REQUIRED] — Use NGO role?</td></tr>
+<tr><td>Student</td><td><span class="badge na">No</span></td><td>[DECISION REQUIRED] — Separate or use VOLUNTEER?</td></tr>
+<tr><td>Volunteer</td><td><span class="badge answered">VOLUNTEER</span></td><td>Implemented</td></tr>
+<tr><td>Educator</td><td><span class="badge answered">EDUCATOR</span></td><td>Implemented</td></tr>
+<tr><td>Scientific Validator</td><td><span class="badge answered">SCIENTIFIC_VALIDATOR</span></td><td>Implemented</td></tr>
+<tr><td>Data Verifier</td><td><span class="badge na">No</span></td><td>[DECISION REQUIRED] — Use SCIENTIFIC_VALIDATOR?</td></tr>
+<tr><td>Regional Coordinator</td><td><span class="badge na">No</span></td><td>[DECISION REQUIRED] — Admin for specific zone?</td></tr>
+<tr><td>Guest</td><td><span class="badge answered">GUEST</span></td><td>Implemented</td></tr>
+</table>
+</div>
+
+<div class="q-card">
+<div class="qh"><span class="qn">2.2</span><span class="qt">Permission matrix per role — what can each role view/create/edit/delete/upload/verify/earn/sell?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge na">Not Answered</span></div>
+</div>
+<div class="abox dreq">[DECISION REQUIRED] No granular permission matrix exists. Code only checks `request.user.role`. Full RBAC matrix needed before implementing access control across all 20 apps.</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 3: AUTHENTICATION -->
+<div class="section" id="s3">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>3. Authentication</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+
+<div class="q-card">
+<div class="qh"><span class="qn">3.1</span><span class="qt">Which login methods are required?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<table>
+<tr><th>Method</th><th>In Code?</th><th>Decision</th></tr>
+<tr><td>Email + Password</td><td><span class="badge answered">Yes</span></td><td>Implemented via SimpleJWT</td></tr>
+<tr><td>Mobile Number + OTP</td><td><span class="badge answered">Yes</span></td><td>Implemented via Twilio SMS (<code>accounts/otp.py</code>)</td></tr>
+<tr><td>WhatsApp OTP</td><td><span class="badge na">No</span></td><td>[DECISION REQUIRED]</td></tr>
+<tr><td>Google Login</td><td><span class="badge answered">Yes</span></td><td>Implemented (<code>accounts/oauth.py</code>)</td></tr>
+<tr><td>Apple Login</td><td><span class="badge answered">Yes</span></td><td>Implemented (<code>accounts/oauth.py</code>)</td></tr>
+<tr><td>Aadhaar / Gov ID</td><td><span class="badge na">No</span></td><td>[DECISION REQUIRED] — For verified fishermen/researchers</td></tr>
+</table>
+</div>
+
+<div class="q-card">
+<div class="qh"><span class="qn">3.2</span><span class="qt">Verification requirements per user type</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<table>
+<tr><th>User Type</th><th>Verification Required?</th><th>Method</th></tr>
+<tr><td>Fisherman</td><td>[DECISION REQUIRED]</td><td>Fisherman ID / Aadhaar / Village Head?</td></tr>
+<tr><td>Researcher</td><td>[DECISION REQUIRED]</td><td>Institution email / published papers?</td></tr>
+<tr><td>NGO</td><td>[DECISION REQUIRED]</td><td>Registration certificate?</td></tr>
+<tr><td>Vendor</td><td>[DECISION REQUIRED]</td><td>Business license / GST?</td></tr>
+<tr><td>Community Member</td><td>[DECISION REQUIRED]</td><td>Phone OTP sufficient?</td></tr>
+</table>
+</div>
+
+<div class="q-card">
+<div class="qh"><span class="qn">3.3</span><span class="qt">Session management — multi-device, logout-all?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<div class="abox info">Current: JWT with 60-min access, 7-day refresh, token rotation, blacklist. Device tokens tracked in <code>DeviceToken</code> model for push notifications. Multi-device supported. <span class="badge answered">Implemented</span></div>
+</div>
+
+<div class="q-card">
+<div class="qh"><span class="qn">3.4</span><span class="qt">Should anonymous browsing be allowed?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<div class="abox dreq"><strong>Implemented:</strong> Guides, education, emergency contacts, ecotourism beaches are publicly viewable. Sightings, sounds, marketplace require authentication. <span class="badge answered">Implemented</span></div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 4: PROFILE SYSTEM -->
+<div class="section" id="s4">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>4. Profile System</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+
+<div class="q-card">
+<div class="qh"><span class="qn">4.1</span><span class="qt">Profile field visibility per role</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<table>
+<tr><th>Field</th><th>In Code?</th><th>Public?</th><th>Members?</th><th>Private?</th><th>Admin?</th></tr>
+<tr><td>Name</td><td><span class="badge answered">Yes</span></td><td>Yes</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>Profile Photo</td><td><span class="badge answered">Yes</span></td><td>[DECISION]</td><td>[DECISION]</td><td>[DECISION]</td><td>-</td></tr>
+<tr><td>Village</td><td><span class="badge answered">Yes</span></td><td>[DECISION]</td><td>[DECISION]</td><td>[DECISION]</td><td>-</td></tr>
+<tr><td>Occupation</td><td><span class="badge answered">Yes</span></td><td>[DECISION]</td><td>[DECISION]</td><td>[DECISION]</td><td>-</td></tr>
+<tr><td>Organization</td><td><span class="badge answered">Yes</span></td><td>[DECISION]</td><td>[DECISION]</td><td>[DECISION]</td><td>-</td></tr>
+<tr><td>Bio</td><td><span class="badge answered">Yes</span></td><td>[DECISION]</td><td>[DECISION]</td><td>[DECISION]</td><td>-</td></tr>
+<tr><td>GPS (lat/lng)</td><td><span class="badge answered">Yes</span></td><td><span class="badge na">Must hide</span></td><td>[DECISION]</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Location Precision</td><td><span class="badge answered">Yes</span></td><td colspan="4">6 levels: exact, approximate, village, district, private, research_only</td></tr>
+<tr><td>Contribution Score</td><td><span class="badge answered">Yes</span></td><td>[DECISION]</td><td>[DECISION]</td><td>-</td><td>-</td></tr>
+<tr><td>Last Active</td><td><span class="badge answered">Yes</span></td><td>[DECISION]</td><td>[DECISION]</td><td>-</td><td>-</td></tr>
+</table>
+<div class="abox dreq">[DECISION REQUIRED] — Fishermen's exact GPS must be protected. Define visibility for each field per role.</div>
+</div>
+
+<div class="q-card">
+<div class="qh"><span class="qn">4.2</span><span class="qt">Additional profile fields needed?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<div class="abox info">Missing: Gender, Age Range, Languages, Skills, Years of Experience, Areas of Expertise, Badges display, Verification status display. [DECISION REQUIRED] — Which to add?</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 5: LOCATION & GIS -->
+<div class="section" id="s5">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>5. Location &amp; GIS</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="wbox">Critical O3L requirement. Location data accuracy and privacy directly affect fisherman safety and research value.</div>
+
+<div class="q-card">
+<div class="qh"><span class="qn">5.1</span><span class="qt">GPS capture and location privacy</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<table>
+<tr><th>Question</th><th>Decision</th></tr>
+<tr><td>GPS captured automatically on submissions?</td><td><span class="badge answered">Yes</span> — Auto-captured from device</td></tr>
+<tr><td>Manual location selection allowed?</td><td><span class="badge answered">Yes</span> — Map tap or search</td></tr>
+<tr><td>GPS accuracy requirement (meters)?</td><td><span class="badge answered">6 levels</span> — Exact, High, Medium, Low, Village, District</td></tr>
+<tr><td>Exact coordinates hidden from public?</td><td><span class="badge answered">Yes</span> — Public sees rounded coords only</td></tr>
+<tr><td>Sensitive species locations protected?</td><td><span class="badge answered">Yes</span> — POACHER_PREVENTION precision for sensitive species</td></tr>
+<tr><td>Coordinates rounded for public display?</td><td><span class="badge answered">Yes</span> — Via <code>get_public_coords()</code></td></tr>
+<tr><td>Offshore observations use grids?</td><td><span class="badge answered">Yes</span> — Uses GRID precision level</td></tr>
+</table>
+<div class="abox info"><strong>Implemented:</strong> <code>accounts/privacy.py</code> with <code>filter_profile_for_viewer()</code>, <code>get_public_coords()</code>, <code>get_location_precision_display()</code>. 6 precision levels: EXACT, HIGH, MEDIUM, LOW, VILLAGE, DISTRICT. Profile fields filtered per viewer role (visitor sees only name/avatar; same-village sees phone; admin sees all).</div>
+</div>
+
+<div class="q-card">
+<div class="qh"><span class="qn">5.2</span><span class="qt">Map provider</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge answered">Partially Answered</span></div>
+</div>
+<div class="abox info">Web uses <strong>MapLibre GL</strong> (open-source). <span class="badge answered">Decision Made</span></div>
+</div>
+
+<div class="q-card">
+<div class="qh"><span class="qn">5.3</span><span class="qt">Map layers required</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<div class="abox dreq">[DECISION REQUIRED] — Confirm layers: Village boundaries, district boundaries, coastal zones, offshore zones, contribution hotspots, hex grids, heat maps, marine observation layers, fishing activity layers, ecotourism layers.</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 6: COASTAL ZONES -->
+<div class="section" id="s6">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>6. O3L Coastal Zones</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+
+<div class="q-card">
+<div class="qh"><span class="qn">6.1</span><span class="qt">Confirm five zones and zone management rules</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge answered">Partially Answered</span></div>
+</div>
+<table>
+<tr><th>Zone</th><th>Districts</th><th>In Seed Data?</th></tr>
+<tr><td>Zone 1 — North Coast</td><td>Tiruvallur, Chennai, Chengalpattu</td><td><span class="badge answered">Verify</span></td></tr>
+<tr><td>Zone 2 — North-Central Coast</td><td>Villupuram, Cuddalore, Mayiladuthurai</td><td><span class="badge answered">Verify</span></td></tr>
+<tr><td>Zone 3 — Cauvery Delta Coast</td><td>Nagapattinam, Tiruvarur, Thanjavur, Pudukkottai</td><td><span class="badge answered">Verify</span></td></tr>
+<tr><td>Zone 4 — Gulf of Mannar Coast</td><td>Ramanathapuram, Thoothukudi</td><td><span class="badge answered">Verify</span></td></tr>
+<tr><td>Zone 5 — Southern Cape Coast</td><td>Tirunelveli, Kanyakumari</td><td><span class="badge answered">Verify</span></td></tr>
+<tr><td>Zone 6 — Dynamic Hotspots</td><td>Cross-zone ocean areas</td><td><span class="badge na">TBD</span></td></tr>
+</table>
+<div class="abox dreq">
+[DECISION REQUIRED] — Zone boundaries admin-configurable at runtime?<br>
+[DECISION REQUIRED] — Who can modify zone boundaries?<br>
+[DECISION REQUIRED] — Historical zone definitions preserved?<br>
+[DECISION REQUIRED] — Offshore contribution assignment to zones?<br>
+[DECISION REQUIRED] — Zone 6: grid size, hex vs square, intensity calculation, time period?
+</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 7: GUIDE -->
+<div class="section" id="s7">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>7. Guide — "Learn the Ocean"</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">7.1</span><span class="qt">Guide content structure and categories</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge answered">Partially Answered</span></div>
+</div>
+<div class="abox info">GuideCategory + GuideSpecies models exist with PostGIS distribution. [DECISION REQUIRED] — Confirm categories: Fish, Marine Mammals, Birds, Coral, Mangroves, Seagrass, Plankton, Habitats, Conservation, Fishing Knowledge, Weather, Ocean Conditions, Marine Safety.</div>
+</div>
+<div class="q-card">
+<div class="qh"><span class="qn">7.2</span><span class="qt">Guide entry fields: Common name, Tamil name, Scientific name, Images, Videos, Habitat, ID characteristics, Size, Diet, Behavior, Facts, Conservation status, Seasonal info, Distribution?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+</div>
+<div class="q-card">
+<div class="qh"><span class="qn">7.3</span><span class="qt">Who can create and approve guide content?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<div class="abox dreq">[DECISION REQUIRED] — GuideSpecies has `verified` field. Who sets it? Admin only? SCIENTIFIC_VALIDATOR? Can researchers suggest new species?</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 8: EDUCATIONAL CONTENT -->
+<div class="section" id="s8">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>8. Educational Content — "Learn from People"</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">8.1</span><span class="qt">Content types and publishing workflow</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge answered">Partially Answered</span></div>
+</div>
+<div class="abox info">EducationCategory + EducationPost models exist. [DECISION REQUIRED] — Confirm types: Articles, Blogs, Stories, Local Knowledge, Fishing Experience, Interviews, Research Articles, Videos, Podcasts, Tutorials, Community Lessons.</div>
+</div>
+<div class="q-card">
+<div class="qh"><span class="qn">8.2</span><span class="qt">Who can publish? Moderation? Comments? Tamil + English bilingual from Day 1?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<div class="abox dreq">[DECISION REQUIRED] — Any member publish? MODERATOR review required? Comments allowed? Report/translate? Bilingual content from launch?</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 9: OCEAN SOUND -->
+<div class="section" id="s9">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>9. Ocean Sound</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="wbox">Core differentiating feature. Recording → Verification → Data Marketplace workflow must be precisely defined.</div>
+<div class="q-card">
+<div class="qh"><span class="qn">9.1</span><span class="qt">Ocean Sound submission workflow</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge answered">Partially Answered</span></div>
+</div>
+<div class="abox info">OceanSound model: audio_file, duration, instrument, manufacturer, model_number, depth_meters, measurement_method, voice_description (audio), written_description, environmental_conditions (JSON), frequency_range, recording_date/time. Linked to Contribution with GPS.</div>
+<table>
+<tr><th>Question</th><th>Decision</th></tr>
+<tr><td>Who can submit ocean sounds?</td><td>[DECISION REQUIRED] — All roles? Fisherman only?</td></tr>
+<tr><td>GPS mandatory?</td><td>[DECISION REQUIRED] — Contribution location is nullable</td></tr>
+<tr><td>Date/time auto-captured?</td><td>[DECISION REQUIRED]</td></tr>
+<tr><td>Manual date/time correction?</td><td>[DECISION REQUIRED]</td></tr>
+<tr><td>Supported instruments?</td><td>[DECISION REQUIRED] — Free text vs dropdown</td></tr>
+<tr><td>Instrument model mandatory?</td><td>[DECISION REQUIRED] — Currently optional</td></tr>
+<tr><td>Calibration info stored?</td><td>[DECISION REQUIRED]</td></tr>
+<tr><td>Audio formats allowed?</td><td>[DECISION REQUIRED]</td></tr>
+<tr><td>Max recording duration?</td><td>[DECISION REQUIRED]</td></tr>
+<tr><td>Max file size?</td><td>[DECISION REQUIRED]</td></tr>
+<tr><td>Multiple recordings per submission?</td><td>[DECISION REQUIRED]</td></tr>
+</table>
+</div>
+<div class="q-card">
+<div class="qh"><span class="qn">9.2</span><span class="qt">Verification and data marketplace</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge na">Not Answered</span></div>
+</div>
+<table>
+<tr><th>Question</th><th>Decision</th></tr>
+<tr><td>Who verifies ocean sounds?</td><td>[DECISION REQUIRED] — SCIENTIFIC_VALIDATOR? RESEARCHER?</td></tr>
+<tr><td>Verification levels?</td><td>[DECISION REQUIRED] — auto_validated → moderator → scientific → verified</td></tr>
+<tr><td>Min contributions before selling?</td><td>[DECISION REQUIRED] — 50? 25? Other?</td></tr>
+<tr><td>Contributor percentage?</td><td>[DECISION REQUIRED]</td></tr>
+<tr><td>Who sets the price?</td><td>[DECISION REQUIRED] — Contributor? Admin? Market?</td></tr>
+<tr><td>Buyer license type?</td><td>[DECISION REQUIRED] — Research-only? Commercial? Exclusive?</td></tr>
+<tr><td>Same recording sold multiple times?</td><td>[DECISION REQUIRED]</td></tr>
+<tr><td>Research institution dataset purchase?</td><td>[DECISION REQUIRED]</td></tr>
+<tr><td>Sensitive location hidden from buyers?</td><td>[DECISION REQUIRED]</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<!-- SECTION 10: MARINE SIGHTINGS -->
+<div class="section" id="s10">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>10. Marine Mammal Sightings</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">10.1</span><span class="qt">Sighting data model and species support</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge answered">Partially Answered</span></div>
+</div>
+<div class="abox info">MarineSighting: species FK, ai_species_suggestion, ai_confidence, photo, video, number_observed, behavior (6 choices), sea_condition, weather, notes, sighting_date/time. [DECISION REQUIRED] — Supported species list? Add depth_meters, distance_from_shore fields?</div>
+</div>
+<div class="q-card">
+<div class="qh"><span class="qn">10.2</span><span class="qt">AI species ID and marketplace rules</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<div class="abox dreq">[DECISION REQUIRED] — AI fields exist; species ID / voice / translate / search endpoints are live (model weights optional). Min contributions before selling? 25 or 50 verified? Pricing, licensing, buyer permissions, sensitive species protection?</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 11: CIRCULAR ECONOMY -->
+<div class="section" id="s11">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>11. Circular Economy</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">11.1</span><span class="qt">Business ideas and government scheme data</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge answered">Partially Answered</span></div>
+</div>
+<div class="abox info">BusinessIdea, GovernmentScheme, Workshop models exist. [DECISION REQUIRED] — Manually managed or API-integrated scheme data? Which categories to prioritize? Which schemes to include?</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 12: ECOTOURISM -->
+<div class="section" id="s12">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>12. Ecotourism</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">12.1</span><span class="qt">Ecotourism listings, verification, and safety standards</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge answered">Partially Answered</span></div>
+</div>
+<div class="abox info">BeachProfile, TourismOpportunity, BeachCleanupEvent, LocalBusiness models exist. <strong>Implemented:</strong> Beach listings with cleanliness/safety scores, tourism opportunities (whale watching, snorkeling, boat tours, cultural tours), cleanup events tracking, local business directory. Serializers expose description fields and numeric scores. <strong>Sample data seeded:</strong> 6 beaches (Marina, Elliot's, Mahabalipuram, Covelong, Kovalam, Pondicherry), 6 opportunities, 4 cleanup events, 6 local businesses across Tamil Nadu. <span class="badge answered">Partially Implemented</span></div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 13: COMMUNITY & DIARY -->
+<div class="section" id="s13">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>13. Community &amp; Diary</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">13.1</span><span class="qt">Post visibility, moderation, and messaging</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<div class="abox dreq">
+[DECISION REQUIRED] — Post visibility: Public / Village-only / Zone-level / Research?<br>
+[DECISION REQUIRED] — Moderation workflow?<br>
+[DECISION REQUIRED] — Direct messaging between members?<br>
+[DECISION REQUIRED] — Blocking and reporting?<br>
+[DECISION REQUIRED] — Photo/video diary entries? Max attachments?
+</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 14: EVENTS -->
+<div class="section" id="s14">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>14. Events</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">14.1</span><span class="qt">Event creation, registration, and calendar integration</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge answered">Partially Answered</span></div>
+</div>
+<div class="abox info">Event, EventParticipant, EventDiary, BeachCleanupEvent models exist. <strong>Implemented:</strong> Event creation with organizer_name and village_name fields. Event registration. Event listing with pre-resolved names (no UUIDs displayed). Event detail with location display. <span class="badge answered">Partially Implemented</span></div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 15: MARKETPLACE -->
+<div class="section" id="s15">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>15. Marketplace</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">15.1</span><span class="qt">Marketplace features and vendor workflow</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge answered">Partially Answered</span></div>
+</div>
+<div class="abox info">Full model chain: ProductCategory (6), Vendor, Product (with contribution_discount + slug), Order (6 statuses), OrderItem, PaymentTransaction (Razorpay, Stripe, UPI, bank). <strong>Implemented:</strong> Product listing with category filter, product detail page with image lightbox, vendor profiles with location, cart system (add/remove/quantity), checkout with profile pre-fill, order creation with stock management. Product slug routing (<code>/marketplace/{slug}</code>). <span class="badge answered">Partially Implemented</span></div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 16: EMERGENCY -->
+<div class="section" id="s16">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>16. Emergency System</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="wbox">High-priority safety feature. DO NOT assume emergency behavior without explicit approval.</div>
+<div class="q-card">
+<div class="qh"><span class="qn">16.1</span><span class="qt">Emergency contacts, offline behavior, and SOS workflow</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<div class="abox info">EmergencyProfile (blood_group, medical, emergency_contacts, boat_reg) and EmergencyContact (7 types with PostGIS) exist. Emergency contacts page publicly accessible.</div>
+<table>
+<tr><th>Question</th><th>Decision</th></tr>
+<tr><td>Emergency contacts work offline?</td><td><span class="badge answered">Public page</span></td></tr>
+<tr><td>Emergency calling without internet?</td><td><span class="badge answered">Phone intent</span></td></tr>
+<tr><td>GPS coordinates displayed offline?</td><td>[DECISION REQUIRED]</td></tr>
+<tr><td>Last-known location stored?</td><td>[DECISION REQUIRED]</td></tr>
+<tr><td>SOS SMS supported?</td><td>[DECISION REQUIRED]</td></tr>
+<tr><td>Auto-call emergency contacts?</td><td>[DECISION REQUIRED]</td></tr>
+<tr><td>Location shared on SOS?</td><td>[DECISION REQUIRED]</td></tr>
+<tr><td>Maritime boundary warnings?</td><td>[DECISION REQUIRED]</td></tr>
+<tr><td>No mobile network scenario?</td><td>[DECISION REQUIRED]</td></tr>
+<tr><td>No GPS scenario?</td><td>[DECISION REQUIRED]</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<!-- SECTION 17: OFFLINE-FIRST -->
+<div class="section" id="s17">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>17. Offline-First Functionality</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">17.1</span><span class="qt">Which features must work offline?</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<div class="abox info">Mobile app uses SQLite. [DECISION REQUIRED] — Confirm offline features: Emergency contacts, Guides, Saved educational content, Ocean observations, Marine sightings, Diary, GPS capture, Draft submissions.</div>
+</div>
+<div class="q-card">
+<div class="qh"><span class="qn">17.2</span><span class="qt">Sync strategy and conflict resolution</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge na">Not Answered</span></div>
+</div>
+<div class="abox dreq">
+[DECISION REQUIRED] — Upload-on-reconnect? Background sync? Manual sync?<br>
+[DECISION REQUIRED] — Conflict resolution: Last-write-wins? Server-wins? User-prompted?<br>
+[DECISION REQUIRED] — Encryption of offline data on device?<br>
+[DECISION REQUIRED] — Maximum offline storage before forced sync?<br>
+[DECISION REQUIRED] — Queue for offline submissions?
+</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 18: RECOGNITION -->
+<div class="section" id="s18">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>18. Recognition &amp; Scoreboard</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">18.1</span><span class="qt">Scoring system and recognition categories</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge answered">Partially Answered</span></div>
+</div>
+<div class="abox info">RecognitionAward (15 categories with score/rank) + ContributionScore (total_score, verified, total, quality_average). [DECISION REQUIRED] — Scoring weights: Data quantity + Quality + Verification + Community + Environmental + Knowledge + Events + Livelihood? Admin-modifiable weights? Auditable score changes?</div>
+</div>
+<div class="q-card">
+<div class="qh"><span class="qn">18.2</span><span class="qt">Scoreboard levels and annual evaluation</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<div class="abox dreq">[DECISION REQUIRED] — Levels: Individual, Fisherman, Family, Village, District, Zone, NGO, Vendor, Research Institution? Annual evaluation timing? Leaderboard visibility?</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 19: NON-CONTRIBUTING RECOGNITION -->
+<div class="section" id="s19">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>19. Non-Contributing Member Recognition</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">19.1</span><span class="qt">Recognition for members who don't submit data</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge medium">Medium</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge na">Not Answered</span></div>
+</div>
+<div class="abox dreq">[DECISION REQUIRED] — Categories: Community Supporter, Ocean Friend, Volunteer, Event Participant, Local Knowledge Keeper, Mentor, Eco Champion? Define criteria for each.</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 20: CONTRIBUTION SCORE -->
+<div class="section" id="s20">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>20. Contribution Score Engine</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">20.1</span><span class="qt">Scoring algorithm and weighting formula</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<div class="abox info">ContributionType has points_verified (10) + points_submitted (5). ContributionScore tracks quality_average. [DECISION REQUIRED] — Define exact scoring formula. Percentage per factor? Admin-modifiable? Auditable?</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 21: YEARLY REPORT -->
+<div class="section" id="s21">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>21. Yearly Report</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">21.1</span><span class="qt">Annual Coastal Community Contribution Report</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge medium">Medium</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<div class="abox info">AnnualReport + MonthlyTrend models exist. [DECISION REQUIRED] — Report sections: Village/District/Zone performance, hotspot activity, Individual/Family recognition, NGO contribution, Research usage, Economic/Ecotourism/Environmental impact, monthly trends, YoY comparison. PDF export?</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 22: RESEARCH DATA -->
+<div class="section" id="s22">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>22. Research Data Platform</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">22.1</span><span class="qt">Research data access, export, and licensing</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<div class="abox dreq">
+[DECISION REQUIRED] — Search/download datasets? Request access? Purchase data?<br>
+[DECISION REQUIRED] — Export formats: CSV, JSON, GeoJSON, Excel?<br>
+[DECISION REQUIRED] — Licensing: Open data? Restricted? Commercial? Research-only? Sensitive?<br>
+[DECISION REQUIRED] — Research API access?
+</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 23: DATA VERIFICATION -->
+<div class="section" id="s23">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>23. Data Verification</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">23.1</span><span class="qt">Verification workflow and states</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge answered">Partially Answered</span></div>
+</div>
+<div class="abox info">Contribution has 8 statuses: draft, submitted, auto_validated, moderator_review, scientific_review, verified, rejected, duplicate. [DECISION REQUIRED] — Who verifies at each level? Multiple reviewers? Confidence scores? Evidence requirements? Version history?</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 24: SEARCH -->
+<div class="section" id="s24">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>24. Search</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">24.1</span><span class="qt">Global search requirements</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<div class="abox info">Search app exists. [DECISION REQUIRED] — Search across: Guides, Education, People, Events, Sounds, Sightings, Products, Locations, Organizations, Research, Posts. Full-text? Faceted? Tamil? Voice? Location-based?</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 25: NOTIFICATIONS -->
+<div class="section" id="s25">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>25. Notifications</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">25.1</span><span class="qt">Notification channels and events</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<div class="abox dreq">
+[DECISION REQUIRED] — Channels: In-app, Push, Email, SMS, WhatsApp? Which for which events?<br>
+[DECISION REQUIRED] — Events: New event, Verification, Emergency, Recognition, Milestone, Marketplace, Research, Comment, Mention, System?<br>
+[DECISION REQUIRED] — User notification preferences per channel?
+</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 26: MULTILINGUAL -->
+<div class="section" id="s26">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>26. Multilingual Support</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">26.1</span><span class="qt">Language support scope</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge answered">Partially Answered</span></div>
+</div>
+<div class="abox info">Mobile i18n has English + Tamil. User model has preferred_language. [DECISION REQUIRED] — Tamil + English from Day 1? Other Indian languages? User-generated translation? Cross-language search? Voice input in Tamil? Text-to-speech?</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 27: MOBILE APP -->
+<div class="section" id="s27">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>27. Mobile Application</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">27.1</span><span class="qt">Platform and capability requirements</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge answered">Partially Answered</span></div>
+</div>
+<div class="abox info">React Native 0.86 + Expo SDK 57 + Expo Router + SQLite + Zustand + i18n. API configured at <code>localhost:8000/api/v1</code>. <span class="badge answered">Implemented</span></div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 28: WEB APP -->
+<div class="section" id="s28">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>28. Web Application</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">28.1</span><span class="qt">Web portal scope and responsive requirements</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge answered">Partially Answered</span></div>
+</div>
+<div class="abox info">Next.js 16.3 with 30+ pages, Radix UI, Tailwind CSS 4, MapLibre, Recharts. <strong>Implemented pages:</strong> Home, Marketplace (list, product detail with image lightbox, vendor profile, cart, checkout), Ecotourism, Events (list, detail with name resolution), Guides (list, detail), Education (list, detail), Sightings, Sounds, Community Members, Recognition, Emergency, Map, Profile (corporate styled with avatar), Dashboard (contributions, events, content, guides, settings, users, reports, maps), Login, Register, Privacy, Terms, Contact, About. <strong>Components:</strong> CartProvider, ProfileProvider, AuthProvider, LocationDisplay, SearchDialog, NotificationPanel, CartSidebar. <strong>Deployment:</strong> Hostinger VPS with Nginx, Gunicorn, PM2, systemd. <span class="badge answered">Implemented</span></div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 29: ADMIN PANEL -->
+<div class="section" id="s29">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>29. Admin Panel</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">29.1</span><span class="qt">Admin modules and role-based access</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<div class="abox info">Django admin at /admin/. Web dashboard with sub-pages. [DECISION REQUIRED] — Access per role (SUPER_ADMIN, ADMIN, MODERATOR, SCIENTIFIC_VALIDATOR)? Required modules: Dashboard, Users, Roles, Guides, Education, Sounds, Sightings, Verification, Community, Events, Marketplace, Circular Economy, Ecotourism, Emergency, Zones, Maps, Recognition, Reports, Notifications, Moderation, Settings, Audit Logs.</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 30: DATABASE -->
+<div class="section" id="s30">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>30. Database</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">30.1</span><span class="qt">Database technology and schema confirmation</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge answered">Answered</span></div>
+</div>
+<div class="abox prefilled">Confirmed: PostgreSQL 17 + PostGIS 3.6. UUID PKs via BaseModel. JSON fields for metadata. Spatial indexing. Audit logging via core.AuditLog. [DECISION REQUIRED] — Schema freeze date? Migration strategy for production?</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 31: MEDIA STORAGE -->
+<div class="section" id="s31">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>31. Media Storage</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">31.1</span><span class="qt">Storage provider, file limits, and processing</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<div class="abox dreq">
+[DECISION REQUIRED] — Provider: AWS S3 / Cloudflare R2 / Azure Blob / GCS / DigitalOcean?<br>
+[DECISION REQUIRED] — Max file sizes: Images? Videos? Audio?<br>
+[DECISION REQUIRED] — Thumbnail generation? Video transcoding? Audio compression?<br>
+[DECISION REQUIRED] — CDN for media delivery?<br>
+[DECISION REQUIRED] — Current: MEDIA_ROOT = local filesystem. Production strategy?
+</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 32: AI FEATURES -->
+<div class="section" id="s32">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>32. AI Features</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">32.1</span><span class="qt">AI feature requirements and constraints</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge medium">Medium</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<div class="abox info">ai_services endpoints are live: species identify, voice→observation, translate, semantic search, quality check/bulk. PyTorch weights, Whisper and sentence-transformers are optional layers with heuristic fallbacks. [DECISION REQUIRED] — Confirm: Fish ID, Mammal ID, Image validation, Duplicate detection, Sound classification, Content moderation, Translation, Search, Recommendation. AI must be optional — never auto-treat uncertain results as truth.</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 33: SECURITY -->
+<div class="section" id="s33">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>33. Security</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">33.1</span><span class="qt">Security architecture and requirements</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge answered">Partially Answered</span></div>
+</div>
+<div class="abox info">
+Implemented: JWT with rotation/blacklist, CORS, AuditLog middleware, rate limiting (100/hr anon, 1000/hr user), CSRF, clickjacking protection.<br>
+[DECISION REQUIRED] — Encryption at rest? API key management? Abuse detection? Data retention? Backup encryption? DR plan? Pen testing?
+</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 34: PRIVACY -->
+<div class="section" id="s34">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>34. Privacy</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">34.1</span><span class="qt">Privacy policy, data rights, and compliance</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge answered">Partially Answered</span></div>
+</div>
+<div class="abox info">
+Implemented: UserConsent, DataExportRequest, GDPR endpoints (delete, export, consent, audit), Location precision levels.<br>
+[DECISION REQUIRED] — Indian DPDP Act compliance? Privacy policy draft? Consent flow for GPS? Research data privacy? Account deletion flow? Data retention duration?
+</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 35: MINORS -->
+<div class="section" id="s35">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>35. Children / Minors</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">35.1</span><span class="qt">Age restrictions and protections</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge na">Not Answered</span></div>
+</div>
+<div class="abox dreq">[DECISION REQUIRED] — Can users under 18 access? If yes: Parental consent? Data restrictions? Messaging restrictions? Location restrictions? Content restrictions?</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 36: PAYMENTS -->
+<div class="section" id="s36">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>36. Payments</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">36.1</span><span class="qt">Payment integration scope and providers</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge answered">Partially Answered</span></div>
+</div>
+<div class="abox info">Order + PaymentTransaction models with Razorpay, Stripe, UPI (GPay, PhonePe, Paytm, BHIM, Amazon Pay), Bank Transfer. <strong>Implemented:</strong> Webhook handlers in <code>marketplace/webhooks.py</code> with Razorpay + Stripe signature verification. 20% total commission model. <span class="badge answered">Partially Implemented</span></div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 37: CONTRIBUTOR PAYOUT -->
+<div class="section" id="s37">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>37. Contributor Payout</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">37.1</span><span class="qt">Payout methods and requirements</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge na">Not Answered</span></div>
+</div>
+<div class="abox dreq">[DECISION REQUIRED] — Min payout threshold? Bank account vs UPI? Payment verification? KYC/Tax info? Transaction history? Refund/dispute handling?</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 38: API -->
+<div class="section" id="s38">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>38. API</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">38.1</span><span class="qt">API architecture and external access</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge answered">Partially Answered</span></div>
+</div>
+<div class="abox info">REST API via DRF at /api/v1/. JWT auth, pagination, filtering, search, ordering, rate limiting. <span class="badge answered">Implemented</span></div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 39: THIRD-PARTY -->
+<div class="section" id="s39">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>39. Third-Party Integrations</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">39.1</span><span class="qt">Required integrations</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge nd">Needs Discussion</span></div>
+</div>
+<div class="abox dreq">
+<strong>Implemented:</strong><br>
+Maps: MapLibre GL (confirmed)<br>
+Payment: Razorpay + Stripe (webhooks implemented)<br>
+Push: Firebase Cloud Messaging (implemented)<br>
+SMS: Twilio (OTP implemented)<br>
+OAuth: Google + Apple (implemented)<br>
+Cloud Storage: Cloudflare R2 (configured)<br>
+<strong>Pending:</strong><br>
+Weather/Ocean APIs: INCOIS, IMD, NOAA?<br>
+Gov APIs: Aadhaar, UDI, fisheries dept?<br>
+Analytics: TBD
+</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 40: WEATHER -->
+<div class="section" id="s40">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>40. Weather &amp; Ocean Data</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">40.1</span><span class="qt">Weather and ocean data integration</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge na">Not Answered</span></div>
+</div>
+<div class="abox dreq">[DECISION REQUIRED] — Integrate: Weather forecast, wind, waves, tides, sea temp, currents, storm/cyclone warnings? Providers: INCOIS? IMD? OpenWeatherMap?</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 41: MARITIME SAFETY -->
+<div class="section" id="s41">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>41. Border &amp; Maritime Safety</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">41.1</span><span class="qt">Geographic boundaries and data sources</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge na">Not Answered</span></div>
+</div>
+<div class="abox dreq">[DECISION REQUIRED] — Display: Indian maritime boundary, state/district boundaries, fishing zones, protected areas, marine sanctuaries? Data sources? Legal requirements?</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 42: PERFORMANCE -->
+<div class="section" id="s42">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>42. Performance</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">42.1</span><span class="qt">Performance targets</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge na">Not Answered</span></div>
+</div>
+<div class="abox dreq">[DECISION REQUIRED] — API response time? Mobile launch time? Web page load? Image/map loading? Search response? Concurrent users?</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 43: SCALABILITY -->
+<div class="section" id="s43">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>43. Scalability</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">43.1</span><span class="qt">Scalability and infrastructure sizing</span></div>
+<div class="qm">
+<div class="qmi"><strong>Priority:</strong> <span class="badge medium">Medium</span></div>
+<div class="qmi"><strong>Status:</strong> <span class="badge na">Not Answered</span></div>
+</div>
+<div class="abox dreq">[DECISION REQUIRED] — Year 1/3/5 projections? Media storage? DB size? Peak traffic? DR requirements? Horizontal scaling? Load balancing? CDN? Caching? Read replicas?</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 44-49: DEVOPS -->
+<div class="section" id="s44">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>44–49. Infrastructure &amp; DevOps</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">44</span><span class="qt">Notification Infrastructure — Queue-based processing?</span></div>
+<div class="qm"><div class="qmi"><strong>Priority:</strong> <span class="badge medium">Medium</span></div></div>
+<div class="abox dreq"><strong>Implemented:</strong> Celery pipeline: API → Queue → Worker → Push notification via Firebase Cloud Messaging. Push integration in <code>notifications/push.py</code>. Notification model with <code>is_read</code> field. <span class="badge answered">Partially Implemented</span></div>
+</div>
+<div class="q-card">
+<div class="qh"><span class="qn">45</span><span class="qt">Background Jobs — Scheduled tasks</span></div>
+<div class="qm"><div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div></div>
+<div class="abox dreq"><strong>Implemented:</strong> Celery tasks in <code>contributions/tasks.py</code> (scoring, verification), <code>notifications/tasks.py</code> (push notifications), <code>media/tasks.py</code> (thumbnail generation, video transcoding). Scoring engine in <code>contributions/scoring_engine.py</code> with 7-factor weighted algorithm. Verification pipeline in <code>contributions/verification.py</code> with 8-state flow. <span class="badge answered">Partially Implemented</span></div>
+</div>
+<div class="q-card">
+<div class="qh"><span class="qn">46</span><span class="qt">Observability — Logging and monitoring</span></div>
+<div class="qm"><div class="qmi"><strong>Priority:</strong> <span class="badge medium">Medium</span></div></div>
+<div class="abox dreq">[DECISION REQUIRED] — Current: Django console logging. Add: Sentry? OpenTelemetry? DB monitoring? Queue monitoring? Security monitoring?</div>
+</div>
+<div class="q-card">
+<div class="qh"><span class="qn">47</span><span class="qt">Backup &amp; Disaster Recovery</span></div>
+<div class="qm"><div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div></div>
+<div class="abox dreq">[DECISION REQUIRED] — Backup frequency? Media backup? Retention? Geographic redundancy? RPO? RTO? DR testing?</div>
+</div>
+<div class="q-card">
+<div class="qh"><span class="qn">48</span><span class="qt">Deployment — Environments, CI/CD</span></div>
+<div class="qm"><div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div></div>
+<div class="abox dreq"><strong>Implemented:</strong> Hostinger VPS deployment with Ubuntu + Nginx + Gunicorn + PM2 + systemd. Files: <code>setup.sh</code> (VPS setup), <code>deploy.sh</code> (production deploy), <code>deploy-local.sh</code> (local deploy), <code>docker-compose.prod.yml</code>, <code>nginx.prod.conf</code>, <code>.env.example</code>. CI/CD via GitHub Actions (<code>.github/workflows/ci.yml</code>). SSL via Certbot. <span class="badge answered">Implemented</span></div>
+</div>
+<div class="q-card">
+<div class="qh"><span class="qn">49</span><span class="qt">Domain Architecture</span></div>
+<div class="qm"><div class="qmi"><strong>Priority:</strong> <span class="badge medium">Medium</span></div></div>
+<div class="abox">Recommended: <strong>Modular Monolith + Async Workers</strong> (current). 24 Django apps as modules. Celery for background tasks. Extract microservices later if needed.</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 50-54: UI/UX -->
+<div class="section" id="s50">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>50–54. Frontend UI/UX &amp; Design</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">50</span><span class="qt">UI/UX Design System</span></div>
+<div class="qm"><div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div></div>
+<div class="abox info">Tailwind CSS 4 with ocean palette. Custom animations (wave, float, shimmer). 20+ Radix UI components. <span class="badge answered">Implemented</span></div>
+</div>
+<div class="q-card">
+<div class="qh"><span class="qn">51</span><span class="qt">Mobile Home Screen</span></div>
+<div class="qm"><div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div></div>
+<div class="abox dreq">[DECISION REQUIRED] — Priority: Greeting → Recognition → Insight → Quick Actions (Sighting, Sound, Diary, Event, Emergency) → Map → Progress → Community → Events → Recognition → Education.</div>
+</div>
+<div class="q-card">
+<div class="qh"><span class="qn">52</span><span class="qt">Navigation</span></div>
+<div class="qm"><div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div></div>
+<div class="abox dreq">[DECISION REQUIRED] — 5-tab: Home | Explore (search/command) | Contribute (action grid) | Community | Profile. Explore as universal search. Contribute as action grid.</div>
+</div>
+<div class="q-card">
+<div class="qh"><span class="qn">53</span><span class="qt">Design Tokens</span></div>
+<div class="qm"><div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div></div>
+<div class="abox dreq">[DECISION REQUIRED] — Confirm colors: Primary, Secondary, Ocean blue, Deep navy, Teal, Coral, Success, Warning, Danger. Typography, spacing, radius, shadows, cards, buttons, forms, tables, charts, maps, badges.</div>
+</div>
+<div class="q-card">
+<div class="qh"><span class="qn">54</span><span class="qt">Accessibility</span></div>
+<div class="qm"><div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div></div>
+<div class="abox dreq">[DECISION REQUIRED] — WCAG 2.2 AA? Screen reader? Keyboard nav? Contrast? Font scaling? Captions? Reduced motion? Touch targets (44x44px)?</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 55-59: BUSINESS -->
+<div class="section" id="s55">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>55–59. Analytics, Legal, Moderation, Data Ownership, Commercial</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">55</span><span class="qt">Analytics — Privacy-preserving tracking</span></div>
+<div class="qm"><div class="qmi"><strong>Priority:</strong> <span class="badge medium">Medium</span></div></div>
+<div class="abox dreq">[DECISION REQUIRED] — No hidden tracking. Privacy-preserving analytics only? Which events? Opt-in or opt-out?</div>
+</div>
+<div class="q-card">
+<div class="qh"><span class="qn">56</span><span class="qt">Legal &amp; Compliance</span></div>
+<div class="qm"><div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div></div>
+<div class="abox dreq">[DECISION REQUIRED] — ToS? Privacy policy? Data licensing? Research licensing? Content ownership? Copyright? UGC rights? Image/audio rights? Data resale rules? Contributor agreements? DPDP Act compliance?</div>
+</div>
+<div class="q-card">
+<div class="qh"><span class="qn">57</span><span class="qt">Moderation</span></div>
+<div class="qm"><div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div></div>
+<div class="abox dreq">[DECISION REQUIRED] — Report content/user? Spam/abuse detection? Image moderation? Comment moderation? Admin review? Auto-restrictions?</div>
+</div>
+<div class="q-card">
+<div class="qh"><span class="qn">58</span><span class="qt">Data Ownership</span></div>
+<div class="qm"><div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div></div>
+<div class="abox dreq">[DECISION REQUIRED] — Who owns: Ocean sounds? Sightings? Photos? Videos? Research datasets? Community knowledge? User profiles? Location data? Who can reuse?</div>
+</div>
+<div class="q-card">
+<div class="qh"><span class="qn">59</span><span class="qt">Commercial Model</span></div>
+<div class="qm"><div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div></div>
+<div class="abox dreq">[DECISION REQUIRED] — Free users? Premium? Research subscriptions? Data marketplace? Vendor subscription? Tourism commission? Sponsorship? NGO/Gov partnerships?</div>
+</div>
+</div>
+</div>
+
+<!-- SECTION 60-65: ROADMAP & TESTING -->
+<div class="section" id="s60">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>60–65. Roadmap, MVP, Testing &amp; Architecture</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<div class="q-card">
+<div class="qh"><span class="qn">60</span><span class="qt">Project Phases</span></div>
+<div class="qm"><div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div></div>
+<table>
+<tr><th>Phase</th><th>Name</th><th>Key Features</th><th>Status</th></tr>
+<tr><td>1</td><td>Foundation</td><td>Auth, Profiles, Villages, Guides, Education, Community, Search, Map, Contributions, Admin</td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>2</td><td>Citizen Science</td><td>Ocean Sounds, Sightings, GPS, Offline, Verification</td><td><span class="badge answered">Backend Done</span></td></tr>
+<tr><td>3</td><td>Community</td><td>Events, Diary, Notifications, Recognition, Leaderboards</td><td><span class="badge answered">Partial</span></td></tr>
+<tr><td>4</td><td>Livelihood</td><td>Circular Economy, Gov Schemes, Marketplace</td><td><span class="badge answered">Partial</span></td></tr>
+<tr><td>5</td><td>Ecotourism</td><td>Beaches, Tourism, Cleanup, Local Business</td><td><span class="badge answered">Partial</span></td></tr>
+<tr><td>6</td><td>Research</td><td>Research Portal, GIS, Data Export</td><td><span class="badge na">Not Started</span></td></tr>
+<tr><td>7</td><td>Commercial</td><td>Sound/Sighting Licensing, Payment, Payouts</td><td><span class="badge na">Not Started</span></td></tr>
+</table>
+</div>
+<div class="q-card">
+<div class="qh"><span class="qn">61</span><span class="qt">MVP Definition — Which features are mandatory for MVP?</span></div>
+<div class="qm"><div class="qmi"><strong>Priority:</strong> <span class="badge critical">Critical</span></div></div>
+<div class="abox dreq"><strong>MVP (Phase 1-2):</strong> Auth, profiles, contributions, sightings, sounds, guides, education, community, events, map, marketplace (cart + checkout), ecotourism (beaches + opportunities), admin, emergency contacts. <strong>Phase 3+:</strong> Offline sync, research portal, data licensing, sound/sighting marketplace, AI processing.</div>
+</div>
+<div class="q-card">
+<div class="qh"><span class="qn">62</span><span class="qt">Testing Strategy</span></div>
+<div class="qm"><div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div></div>
+<div class="abox dreq">[DECISION REQUIRED] — Unit, Integration, API, UI, Mobile, Offline, GPS, Security, Performance, Load, Accessibility, Payment, Media, Map, Data sync tests. Framework? Coverage targets?</div>
+</div>
+<div class="q-card">
+<div class="qh"><span class="qn">63</span><span class="qt">Acceptance Criteria</span></div>
+<div class="qm"><div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div></div>
+<div class="abox dreq">[DECISION REQUIRED] — For every major module define Given/When/Then acceptance criteria.</div>
+</div>
+<div class="q-card">
+<div class="qh"><span class="qn">64</span><span class="qt">Technical Architecture (post-requirements)</span></div>
+<div class="qm"><div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div></div>
+<div class="abox info">After all requirements confirmed, generate: System, Mobile, Web, Backend, Database, GIS, Media, Auth, Notification, Offline Sync, Research Data, Payment, AI, Monitoring, Security, Deployment architecture diagrams.</div>
+</div>
+<div class="q-card">
+<div class="qh"><span class="qn">65</span><span class="qt">Final Document Output</span></div>
+<div class="qm"><div class="qmi"><strong>Priority:</strong> <span class="badge high">High</span></div></div>
+<div class="abox info">Generate SRS, System Architecture Doc, API Specification, Database Design Doc, Security Spec, Deployment Doc, Testing Plan from this questionnaire after all decisions are made.</div>
+</div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- DECISION TRACKER -->
+<!-- ============================================================ -->
+<div class="section" id="decisions">
+<div class="section-header open" onclick="toggleSection(this)">
+<h2>Decision Tracker</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content open">
+
+<div id="dec-critical">
+<h3 style="margin:20px 0 12px;color:#dc2626">A. Critical Decisions Required</h3>
+<table>
+<tr><th>#</th><th>Decision</th><th>Impact</th><th>Status</th></tr>
+<tr><td>1</td><td>MVP feature scope — classify every feature</td><td>Everything downstream</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>2</td><td>Primary target audience prioritization</td><td>UX design, accessibility</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>3</td><td>Launch user roles (which of 14 are active)</td><td>Auth, permissions, UI</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>4</td><td>Mobile+OTP authentication</td><td>Onboarding, accessibility</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>5</td><td>GPS privacy rules per role</td><td>Fisherman safety, research value</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>6</td><td>Ocean Sound verification workflow</td><td>Data quality, marketplace</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>7</td><td>Marine Sighting verification workflow</td><td>Data quality, marketplace</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>8</td><td>Data ownership model</td><td>Legal, commercial, research</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>9</td><td>Data marketplace pricing and licensing</td><td>Revenue, contributor motivation</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>10</td><td>Contribution scoring algorithm</td><td>Recognition, motivation</td><td><span class="badge answered">7-factor weighted</span></td></tr>
+<tr><td>11</td><td>Emergency SOS offline behavior</td><td>User safety</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>12</td><td>Offline sync strategy</td><td>Data integrity, UX</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>13</td><td>Tamil + English bilingual from Day 1</td><td>Content, search, UX</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>14</td><td>Government/research data integrations</td><td>Partnerships, scope</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>15</td><td>Privacy/legal model (DPDP, GPS, payments)</td><td>Compliance, launch</td><td><span class="badge answered">GPS privacy done</span></td></tr>
+</table>
+</div>
+
+<div id="dec-high">
+<h3 style="margin:20px 0 12px;color:#d97706">B. High Priority Decisions</h3>
+<table>
+<tr><th>#</th><th>Decision</th><th>Status</th></tr>
+<tr><td>16</td><td>RBAC permission matrix for all roles Ã— modules</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>17</td><td>Profile field visibility per role</td><td><span class="badge answered">Implemented</span></td></tr>
+<tr><td>18</td><td>Map provider for mobile (MapLibre vs Google Maps)</td><td><span class="badge answered">MapLibre</span></td></tr>
+<tr><td>19</td><td>Map layers required for Phase 1</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>20</td><td>Anonymous browsing scope</td><td><span class="badge answered">Guides/education/emergency public</span></td></tr>
+<tr><td>21</td><td>Community post visibility levels</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>22</td><td>Notification channels per event type</td><td><span class="badge answered">Push (FCM) implemented</span></td></tr>
+<tr><td>23</td><td>Search scope and features</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>24</td><td>Media storage provider and limits</td><td><span class="badge answered">Cloudflare R2</span></td></tr>
+<tr><td>25</td><td>Payment webhook handlers</td><td><span class="badge answered">Razorpay + Stripe</span></td></tr>
+<tr><td>26</td><td>Contributor payout methods</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>27</td><td>Admin module access per role</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>28</td><td>Performance targets (API, mobile, web)</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>29</td><td>Backup and disaster recovery plan</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>30</td><td>CI/CD pipeline and deployment strategy</td><td><span class="badge answered">GitHub Actions</span></td></tr>
+</table>
+</div>
+
+<div id="dec-tech">
+<h3 style="margin:20px 0 12px;color:#2563eb">C. Technical Decisions</h3>
+<table>
+<tr><th>#</th><th>Decision</th><th>Status</th></tr>
+<tr><td>31</td><td>Mobile technology: React Native + Expo (confirmed in code)</td><td><span class="badge answered">Answered</span></td></tr>
+<tr><td>32</td><td>Backend: Django 5.2 + DRF (confirmed in code)</td><td><span class="badge answered">Answered</span></td></tr>
+<tr><td>33</td><td>Database: PostgreSQL 17 + PostGIS 3.6 (confirmed)</td><td><span class="badge answered">Answered</span></td></tr>
+<tr><td>34</td><td>Map: MapLibre GL for web (confirmed in code)</td><td><span class="badge answered">Answered</span></td></tr>
+<tr><td>35</td><td>Architecture: Modular Monolith (recommended)</td><td><span class="badge answered">Recommended</span></td></tr>
+<tr><td>36</td><td>Web Dockerfile — currently missing, must create</td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>37</td><td>Celery task files — implemented with beat schedule</td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>38</td><td>Offline sync strategy — sync queue + emergency cache live; full bidirectional sync open</td><td><span class="badge medium">Partial</span></td></tr>
+<tr><td>39</td><td>Push notification integration (FCM/APNs)</td><td><span class="badge answered">Done</span></td></tr>
+<tr><td>40</td><td>AI services implementation</td><td><span class="badge answered">APIs Implemented</span></td></tr>
+</table>
+</div>
+
+<div id="dec-biz">
+<h3 style="margin:20px 0 12px;color:#059669">D. Business Decisions</h3>
+<table>
+<tr><th>#</th><th>Decision</th><th>Status</th></tr>
+<tr><td>41</td><td>Revenue model and funding source</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>42</td><td>Marketplace commission percentage</td><td><span class="badge answered">20% total</span></td></tr>
+<tr><td>43</td><td>Data marketplace pricing tiers</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>44</td><td>Government partnership scope</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>45</td><td>Research institution partnerships</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>46</td><td>Sustainability plan beyond initial funding</td><td><span class="badge na">Not Answered</span></td></tr>
+</table>
+</div>
+
+<div id="dec-legal">
+<h3 style="margin:20px 0 12px;color:#7c3aed">E. Legal Decisions</h3>
+<table>
+<tr><th>#</th><th>Decision</th><th>Status</th></tr>
+<tr><td>47</td><td>Indian DPDP Act compliance requirements</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>48</td><td>Terms of Service draft</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>49</td><td>Privacy Policy draft</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>50</td><td>Data licensing model (open, restricted, commercial)</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>51</td><td>User-generated content rights</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>52</td><td>Contributor data resale rules</td><td><span class="badge na">Not Answered</span></td></tr>
+</table>
+</div>
+
+<div id="dec-sec">
+<h3 style="margin:20px 0 12px;color:#dc2626">F. Security Decisions</h3>
+<table>
+<tr><th>#</th><th>Decision</th><th>Status</th></tr>
+<tr><td>53</td><td>Encryption at rest strategy</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>54</td><td>API abuse detection and blocking</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>55</td><td>Data retention policy</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>56</td><td>Penetration testing schedule</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>57</td><td>Backup encryption</td><td><span class="badge na">Not Answered</span></td></tr>
+</table>
+</div>
+
+<div id="dec-ux">
+<h3 style="margin:20px 0 12px;color:#0070f3">G. UX Decisions</h3>
+<table>
+<tr><th>#</th><th>Decision</th><th>Status</th></tr>
+<tr><td>58</td><td>Mobile home screen module priority order</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>59</td><td>Navigation structure (5-tab confirmed?)</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>60</td><td>Design system tokens finalized?</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>61</td><td>WCAG 2.2 AA compliance target</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>62</td><td>Dark mode requirement</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>63</td><td>PWA support for web</td><td><span class="badge na">Not Answered</span></td></tr>
+</table>
+</div>
+
+<div id="dec-open">
+<h3 style="margin:20px 0 12px;color:#64748b">H. Open Questions</h3>
+<table>
+<tr><th>#</th><th>Question</th><th>Status</th></tr>
+<tr><td>64</td><td>Expected user counts Year 1/3/5?</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>65</td><td>Daily active users target?</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>66</td><td>Daily data submission volume?</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>67</td><td>Daily media file volume?</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>68</td><td>Can minors use the platform?</td><td><span class="badge na">Not Answered</span></td></tr>
+<tr><td>69</td><td>Which weather/ocean data providers approved?</td><td><span class="badge answered">MapLibre maps (no tile key)</span></td></tr>
+<tr><td>70</td><td>Which third-party integrations for MVP?</td><td><span class="badge na">Not Answered</span></td></tr>
+</table>
+</div>
+
+<div id="dec-default">
+<h3 style="margin:20px 0 12px;color:#16a34a">I. Recommended Defaults</h3>
+<div class="ibox">These are informed recommendations based on the codebase analysis. Each must be confirmed by stakeholders.</div>
+<table>
+<tr><th>#</th><th>Item</th><th>Recommendation</th><th>Rationale</th></tr>
+<tr><td>1</td><td>Architecture</td><td>Modular Monolith + Celery</td><td>Current approach. Appropriate for team size and scale.</td></tr>
+<tr><td>2</td><td>Database</td><td>PostgreSQL 17 + PostGIS 3.6</td><td>Already implemented. GIS-native. Proven at scale.</td></tr>
+<tr><td>3</td><td>Mobile</td><td>React Native 0.86 + Expo SDK 57</td><td>Already implemented. Cross-platform. Offline SQLite.</td></tr>
+<tr><td>4</td><td>Web</td><td>Next.js 16.3 + Tailwind CSS 4</td><td>Already implemented. Server-side rendering. Fast.</td></tr>
+<tr><td>5</td><td>Auth</td><td>SimpleJWT + Mobile OTP + Google/Apple OAuth</td><td>Implemented. OTP via Twilio. OAuth via accounts/oauth.py.</td></tr>
+<tr><td>6</td><td>Maps</td><td>MapLibre GL (both platforms)</td><td>Confirmed. Open-source. No licensing costs.</td></tr>
+<tr><td>7</td><td>Storage</td><td>Cloudflare R2</td><td>S3-compatible. No egress fees. Cost-effective.</td></tr>
+<tr><td>8</td><td>Push</td><td>Firebase Cloud Messaging</td><td>Free tier. env vars already configured.</td></tr>
+<tr><td>9</td><td>Payment</td><td>Razorpay (India) + Stripe (international)</td><td>Dependencies added. UPI support built-in.</td></tr>
+<tr><td>10</td><td>Languages</td><td>Tamil + English from Day 1</td><td>i18n infrastructure exists in mobile app.</td></tr>
+<tr><td>11</td><td>MVP Scope</td><td>Phase 1 + Phase 2 + Phase 3-5 partial</td><td>Foundation + Citizen Science + Community + Marketplace + Ecotourism. All web pages built.</td></tr>
+<tr><td>12</td><td>Offline</td><td>Emergency + Guides + Draft submissions</td><td>Critical features for fishermen with poor connectivity.</td></tr>
+<tr><td>13</td><td>Emergency SOS</td><td>Offline contacts + GPS display + call intent</td><td>Safety-critical. Must work without internet.</td></tr>
+<tr><td>14</td><td>GPS Privacy</td><td>6 precision levels (EXACT → DISTRICT)</td><td>Implemented in accounts/privacy.py. Profile filtering per viewer role.</td></tr>
+<tr><td>15</td><td>Contribution threshold</td><td>25 verified before data marketplace access</td><td>Ensures data quality before commercialization.</td></tr>
+</table>
+</div>
+
+</div>
+</div>
+
+<!-- GLOSSARY -->
+<div class="section" id="glossary">
+<div class="section-header" onclick="toggleSection(this)">
+<h2>Glossary</h2><span class="toggle">&#9660;</span>
+</div>
+<div class="section-content">
+<table>
+<tr><th>Term</th><th>Definition</th></tr>
+<tr><td>O3L</td><td>One Ocean One Life — the project name</td></tr>
+<tr><td>PostGIS</td><td>Geographic extension for PostgreSQL enabling spatial queries</td></tr>
+<tr><td>GIS</td><td>Geographic Information System</td></tr>
+<tr><td>DRF</td><td>Django REST Framework</td></tr>
+<tr><td>JWT</td><td>JSON Web Token — stateless authentication</td></tr>
+<tr><td>SimpleJWT</td><td>JWT implementation for Django REST Framework</td></tr>
+<tr><td>Celery</td><td>Distributed task queue for background job processing</td></tr>
+<tr><td>Redis</td><td>In-memory store used for caching, queues, and session management</td></tr>
+<tr><td>MapLibre GL</td><td>Open-source map rendering library</td></tr>
+<tr><td>Expo</td><td>React Native development platform and toolchain</td></tr>
+<tr><td>Zustand</td><td>Lightweight state management for React/React Native</td></tr>
+<tr><td>TanStack Query</td><td>Data fetching and caching library for React</td></tr>
+<tr><td>Radix UI</td><td>Unstyled, accessible UI component primitives</td></tr>
+<tr><td>Tailwind CSS</td><td>Utility-first CSS framework</td></tr>
+<tr><td>PostGIS</td><td>Spatial database extender for PostgreSQL</td></tr>
+<tr><td>SRID 4326</td><td>WGS 84 coordinate reference system (GPS coordinates)</td></tr>
+<tr><td>FCM</td><td>Firebase Cloud Messaging — push notifications for Android</td></tr>
+<tr><td>APNs</td><td>Apple Push Notification service — push notifications for iOS</td></tr>
+<tr><td>RBAC</td><td>Role-Based Access Control</td></tr>
+<tr><td>MVP</td><td>Minimum Viable Product</td></tr>
+<tr><td>DPDP Act</td><td>Digital Personal Data Protection Act (India, 2023)</td></tr>
+<tr><td>WCAG</td><td>Web Content Accessibility Guidelines</td></tr>
+<tr><td>GeoJSON</td><td>JSON format for encoding geographic data structures</td></tr>
+<tr><td>RPO</td><td>Recovery Point Objective — maximum acceptable data loss</td></tr>
+<tr><td>RTO</td><td>Recovery Time Objective — maximum acceptable downtime</td></tr>
+<tr><td>CDN</td><td>Content Delivery Network</td></tr>
+<tr><td>KYC</td><td>Know Your Customer — identity verification process</td></tr>
+<tr><td>UPI</td><td>Unified Payments Interface — Indian mobile payment system</td></tr>
+<tr><td>O3L Coastal Zones</td><td>5 geographic zones along Tamil Nadu's coastline + Zone 6 dynamic hotspots</td></tr>
+<tr><td>Ocean Hotspot</td><td>A geographic cell with high density of ocean contributions</td></tr>
+<tr><td>Contribution Score</td><td>Algorithmic score measuring a member's total verified contributions</td></tr>
+<tr><td>Scientific Validator</td><td>A role with expertise to verify ocean sound and sighting data</td></tr>
+</table>
+</div>
+</div>
+
+<!-- FOOTER -->
+<div style="margin:48px 0 32px;padding:24px;background:var(--primary);color:#fff;border-radius:12px;text-align:center">
+<p style="font-size:14px;margin-bottom:8px"><strong>O3L — One Ocean One Life</strong></p>
+<p style="font-size:12px;opacity:.7">Technical Requirements Document v1.1 — October 2026 (v1.0 August 2026)</p>
+<p style="font-size:12px;opacity:.7;margin-top:4px">This document must be reviewed and all <span style="background:rgba(255,255,255,.2);padding:2px 8px;border-radius:8px">[DECISION REQUIRED]</span> items resolved before architecture finalization and development proceeds.</p>
+<p style="font-size:11px;opacity:.5;margin-top:12px">Generated from codebase analysis of 24 Django apps, 88 database models, 653 API URL patterns, React Native mobile app, and Next.js web application. Setup guides: environment-setup.html · local-environment-setup.html</p>
+</div>
+
+</div><!-- end .main -->
+
+<script>
+function toggleSection(el){
+var content=el.nextElementSibling;
+var isOpen=content.classList.contains('open');
+el.classList.toggle('open');
+content.classList.toggle('open');
+}
+document.addEventListener('DOMContentLoaded',function(){
+var sections=document.querySelectorAll('.section');
+var observer=new IntersectionObserver(function(entries){
+entries.forEach(function(entry){
+if(entry.isIntersecting){
+var id=entry.target.id;
+var links=document.querySelectorAll('.sidebar a');
+links.forEach(function(l){
+l.classList.remove('active');
+if(l.getAttribute('href')==='#'+id)l.classList.add('active');
+});
+}
+});
+},{rootMargin:'-100px 0px -80% 0px'});
+sections.forEach(function(s){if(s.id)observer.observe(s);});
+
+var menuBtn=document.getElementById('menuBtn');
+var sidebar=document.getElementById('sidebar');
+var overlay=document.getElementById('overlay');
+function closeMenu(){sidebar.classList.remove('open');overlay.classList.remove('show');menuBtn.setAttribute('aria-expanded','false');}
+menuBtn.addEventListener('click',function(){
+var open=sidebar.classList.toggle('open');
+overlay.classList.toggle('show',open);
+menuBtn.setAttribute('aria-expanded',open?'true':'false');
+});
+overlay.addEventListener('click',closeMenu);
+sidebar.addEventListener('click',function(e){if(e.target.tagName==='A'&&window.innerWidth<=900)closeMenu();});
+window.addEventListener('resize',function(){if(window.innerWidth>900)closeMenu();});
+
+var headerEl=document.querySelector('.header');
+var lastScrollY=window.scrollY;
+window.addEventListener('scroll',function(){
+var y=window.scrollY;
+if(sidebar.classList.contains('open')){headerEl.classList.remove('hide');lastScrollY=y;return;}
+if(y>lastScrollY+2&&y>160){headerEl.classList.add('hide');}
+else if(y<lastScrollY-2||y<80){headerEl.classList.remove('hide');}
+lastScrollY=y<=0?0:y;
+},{passive:true});
+
+var filter=document.getElementById('sideFilter');
+if(filter){
+filter.addEventListener('input',function(){
+var q=this.value.trim().toLowerCase();
+var links=sidebar.querySelectorAll('a');
+links.forEach(function(a){
+a.style.display=(!q||a.textContent.toLowerCase().indexOf(q)>-1)?'':'none';
+});
+sidebar.querySelectorAll('h3').forEach(function(h){
+var el=h.nextElementSibling,visible=false;
+while(el&&el.tagName==='A'){if(el.style.display!=='none')visible=true;el=el.nextElementSibling;}
+h.style.display=visible?'':'none';
+});
+});
+}
+});
+</script>
+</body>
+</html>
+
+

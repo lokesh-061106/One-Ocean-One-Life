@@ -1,0 +1,157 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block title %}Dashboard | O3L Admin{% endblock %}
+
+{% block content_title %}{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div id="content-main" class="o3l-dashboard">
+  <div class="o3l-dash-header">
+    <h2>One Ocean, One Life &mdash; Admin Dashboard</h2>
+    <p class="o3l-dash-subtitle">Manage your marine conservation platform</p>
+  </div>
+
+  <div class="o3l-stats-grid">
+    {% for app in app_list %}
+      {% if app.name == 'Accounts' %}
+        <a href="{{ app.app_url }}" class="o3l-stat-card o3l-stat-blue">
+          <div class="o3l-stat-icon">&#x1F464;</div>
+          <div class="o3l-stat-info">
+            <div class="o3l-stat-label">Users &amp; Profiles</div>
+            <div class="o3l-stat-desc">{{ app.models|length }} model{{ app.models|length|pluralize }}</div>
+          </div>
+        </a>
+      {% elif app.name == 'Locations' %}
+        <a href="{{ app.app_url }}" class="o3l-stat-card o3l-stat-green">
+          <div class="o3l-stat-icon">&#x1F5FA;</div>
+          <div class="o3l-stat-info">
+            <div class="o3l-stat-label">Locations</div>
+            <div class="o3l-stat-desc">{{ app.models|length }} model{{ app.models|length|pluralize }}</div>
+          </div>
+        </a>
+      {% elif app.name == 'Guides' %}
+        <a href="{{ app.app_url }}" class="o3l-stat-card o3l-stat-teal">
+          <div class="o3l-stat-icon">&#x1F41E;</div>
+          <div class="o3l-stat-info">
+            <div class="o3l-stat-label">Species Guide</div>
+            <div class="o3l-stat-desc">{{ app.models|length }} model{{ app.models|length|pluralize }}</div>
+          </div>
+        </a>
+      {% elif app.name == 'Education' %}
+        <a href="{{ app.app_url }}" class="o3l-stat-card o3l-stat-purple">
+          <div class="o3l-stat-icon">&#x1F4DA;</div>
+          <div class="o3l-stat-info">
+            <div class="o3l-stat-label">Education</div>
+            <div class="o3l-stat-desc">{{ app.models|length }} model{{ app.models|length|pluralize }}</div>
+          </div>
+        </a>
+      {% elif app.name == 'Contributions' %}
+        <a href="{{ app.app_url }}" class="o3l-stat-card o3l-stat-orange">
+          <div class="o3l-stat-icon">&#x1F4AC;</div>
+          <div class="o3l-stat-info">
+            <div class="o3l-stat-label">Contributions</div>
+            <div class="o3l-stat-desc">{{ app.models|length }} model{{ app.models|length|pluralize }}</div>
+          </div>
+        </a>
+      {% elif app.name == 'Community' %}
+        <a href="{{ app.app_url }}" class="o3l-stat-card o3l-stat-pink">
+          <div class="o3l-stat-icon">&#x1F3D6;</div>
+          <div class="o3l-stat-info">
+            <div class="o3l-stat-label">Community</div>
+            <div class="o3l-stat-desc">{{ app.models|length }} model{{ app.models|length|pluralize }}</div>
+          </div>
+        </a>
+      {% elif app.name == 'Ocean sounds' %}
+        <a href="{{ app.app_url }}" class="o3l-stat-card o3l-stat-cyan">
+          <div class="o3l-stat-icon">&#x1F3B5;</div>
+          <div class="o3l-stat-info">
+            <div class="o3l-stat-label">Ocean Sounds</div>
+            <div class="o3l-stat-desc">{{ app.models|length }} model{{ app.models|length|pluralize }}</div>
+          </div>
+        </a>
+      {% elif app.name == 'Sightings' %}
+        <a href="{{ app.app_url }}" class="o3l-stat-card o3l-stat-indigo">
+          <div class="o3l-stat-icon">&#x1F433;</div>
+          <div class="o3l-stat-info">
+            <div class="o3l-stat-label">Sightings</div>
+            <div class="o3l-stat-desc">{{ app.models|length }} model{{ app.models|length|pluralize }}</div>
+          </div>
+        </a>
+      {% elif app.name == 'Maps' %}
+        <a href="{{ app.app_url }}" class="o3l-stat-card o3l-stat-red">
+          <div class="o3l-stat-icon">&#x1F5FA;</div>
+          <div class="o3l-stat-info">
+            <div class="o3l-stat-label">Maps &amp; Safety</div>
+            <div class="o3l-stat-desc">{{ app.models|length }} model{{ app.models|length|pluralize }}</div>
+          </div>
+        </a>
+      {% elif app.name == 'Recognition' %}
+        <a href="{{ app.app_url }}" class="o3l-stat-card o3l-stat-gold">
+          <div class="o3l-stat-icon">&#x1F3C6;</div>
+          <div class="o3l-stat-info">
+            <div class="o3l-stat-label">Recognition</div>
+            <div class="o3l-stat-desc">{{ app.models|length }} model{{ app.models|length|pluralize }}</div>
+          </div>
+        </a>
+      {% elif app.name == 'Emergency' %}
+        <a href="{{ app.app_url }}" class="o3l-stat-card o3l-stat-red">
+          <div class="o3l-stat-icon">&#x1F6A8;</div>
+          <div class="o3l-stat-info">
+            <div class="o3l-stat-label">Emergency</div>
+            <div class="o3l-stat-desc">{{ app.models|length }} model{{ app.models|length|pluralize }}</div>
+          </div>
+        </a>
+      {% elif app.name == 'Notifications' %}
+        <a href="{{ app.app_url }}" class="o3l-stat-card o3l-stat-amber">
+          <div class="o3l-stat-icon">&#x1F514;</div>
+          <div class="o3l-stat-info">
+            <div class="o3l-stat-label">Notifications</div>
+            <div class="o3l-stat-desc">{{ app.models|length }} model{{ app.models|length|pluralize }}</div>
+          </div>
+        </a>
+      {% else %}
+        <a href="{{ app.app_url }}" class="o3l-stat-card">
+          <div class="o3l-stat-icon">&#x2699;</div>
+          <div class="o3l-stat-info">
+            <div class="o3l-stat-label">{{ app.name }}</div>
+            <div class="o3l-stat-desc">{{ app.models|length }} model{{ app.models|length|pluralize }}</div>
+          </div>
+        </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="o3l-app-list">
+    <h3>Quick Access</h3>
+    <div class="o3l-app-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Module</th>
+            <th>Models</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for app in app_list %}
+          <tr>
+            <td class="o3l-app-name">{{ app.name }}</td>
+            <td>
+              {% for model in app.models %}
+                <span class="o3l-model-chip">{{ model.name }}</span>
+              {% endfor %}
+            </td>
+            <td class="o3l-app-actions">
+              <a href="{{ app.app_url }}" class="o3l-btn-view">View</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

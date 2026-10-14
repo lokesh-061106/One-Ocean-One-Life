@@ -1,0 +1,28 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | O3L Admin{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<link rel="icon" href="{% static 'o3l/img/favicon.ico' %}" sizes="any">
+<link rel="apple-touch-icon" href="{% static 'o3l/img/o3l-logo.png' %}">
+{% endblock %}
+
+{% block branding %}
+<div id="branding">
+  <h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+      <img class="o3l-logo" src="{% static 'o3l/img/o3l-logo.png' %}" alt="" width="34" height="34">
+      <span class="o3l-brand">One Ocean One Life</span>
+    </a>
+  </h1>
+</div>
+{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'o3l/css/o3l_theme.css' %}">
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O3L - One Ocean One Life | Explore Our Platform</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --deep-ocean: #063B4C;
+            --ocean-blue: #087EA4;
+            --sea-green: #16A085;
+            --coral: #FF7660;
+            --sand: #F5E9D5;
+            --foam: #F8FCFC;
+            --deep-navy: #082A38;
+            --light-blue: #E8F4F8;
+            --light-green: #ECFDF5;
+            --text-primary: #1E293B;
+            --text-secondary: #64748B;
+            --border: #E2E8F0;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            color: var(--text-primary);
+            background: var(--foam);
+            overflow-x: hidden;
+        }
+
+        /* ─── NAVBAR ─── */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(6, 59, 76, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .navbar.hide { transform: translateY(-100%); }
+        .navbar.scrolled {
+            background: rgba(6, 59, 76, 0.98);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.15);
+        }
+        .navbar-inner {
+            max-width: 1280px; margin: 0 auto;
+            padding: 0 24px; height: 150px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .navbar-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .navbar-brand img { height: 150px; width: auto; filter: brightness(1.1); }
+        .navbar-brand-text { display: flex; flex-direction: column; }
+        .navbar-brand-name {
+            font-size: 20px; font-weight: 800; color: #fff;
+            letter-spacing: -0.3px; line-height: 1.1;
+        }
+        .navbar-brand-tagline {
+            font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.55);
+            text-transform: uppercase; letter-spacing: 1.5px;
+        }
+        .navbar-links { display: flex; align-items: center; gap: 4px; }
+        .navbar-links a {
+            color: rgba(255,255,255,0.75); text-decoration: none;
+            font-size: 13.5px; font-weight: 500; padding: 8px 14px;
+            border-radius: 8px; transition: all 0.2s ease;
+        }
+        .navbar-links a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+        .navbar-cta {
+            background: linear-gradient(135deg, var(--sea-green), #2DD4BF) !important;
+            color: #fff !important; font-weight: 600 !important;
+            padding: 10px 20px !important;
+        }
+        .navbar-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(22, 160, 133, 0.4) !important; }
+        .mobile-toggle {
+            display: none; background: none; border: none; cursor: pointer; padding: 8px;
+        }
+        .mobile-toggle span {
+            display: block; width: 22px; height: 2px; background: #fff;
+            margin: 5px 0; transition: 0.3s; border-radius: 2px;
+        }
+
+        /* ─── HERO ─── */
+        .hero {
+            position: relative; min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(160deg, #021a24 0%, var(--deep-ocean) 25%, var(--deep-navy) 50%, #0a4f63 75%, var(--ocean-blue) 100%);
+            overflow: hidden; padding: 120px 24px 100px;
+        }
+        .hero::before {
+            content: ''; position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse 900px 700px at 15% 45%, rgba(8,126,164,0.3) 0%, transparent 70%),
+                radial-gradient(ellipse 700px 600px at 85% 25%, rgba(22,160,133,0.25) 0%, transparent 70%),
+                radial-gradient(ellipse 500px 500px at 50% 90%, rgba(255,118,96,0.12) 0%, transparent 70%),
+                radial-gradient(ellipse 300px 300px at 70% 70%, rgba(245,233,213,0.08) 0%, transparent 70%);
+        }
+        .hero-grid {
+            position: absolute; inset: 0; opacity: 0.04;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+        .hero-particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+        .particle {
+            position: absolute; border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            animation: float-particle linear infinite;
+        }
+        @keyframes float-particle {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+        .hero-glow {
+            position: absolute; width: 600px; height: 600px;
+            border-radius: 50%; filter: blur(120px); opacity: 0.15;
+            animation: glow-drift 20s ease-in-out infinite alternate;
+        }
+        .hero-glow.g1 { background: var(--ocean-blue); top: -10%; left: 10%; }
+        .hero-glow.g2 { background: var(--sea-green); bottom: -15%; right: 5%; animation-delay: -10s; }
+        .hero-glow.g3 { background: var(--coral); top: 50%; left: 60%; width: 400px; height: 400px; animation-delay: -5s; }
+        @keyframes glow-drift {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(40px, -30px) scale(1.1); }
+            100% { transform: translate(-20px, 20px) scale(0.95); }
+        }
+        .hero-content { position: relative; z-index: 2; text-align: center; max-width: 920px; }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+            padding: 8px 22px; border-radius: 100px;
+            font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.75);
+            text-transform: uppercase; letter-spacing: 1.5px;
+            margin-bottom: 32px;
+            animation: fadeInDown 0.8s ease both;
+        }
+        .hero-badge-dot {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: var(--sea-green);
+            animation: pulse-dot 2s ease infinite;
+        }
+        @keyframes pulse-dot { 0%,100% { opacity: 1; box-shadow: 0 0 0 0 rgba(22,160,133,0.5); } 50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(22,160,133,0); } }
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(40px, 6.5vw, 76px); font-weight: 700;
+            color: #fff; line-height: 1.05; margin-bottom: 24px;
+            letter-spacing: -2px;
+            animation: fadeInUp 0.8s ease 0.15s both;
+        }
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, #2DD4BF, var(--sea-green), var(--ocean-blue));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-desc {
+            font-size: 18px; line-height: 1.75; color: rgba(255,255,255,0.6);
+            max-width: 640px; margin: 0 auto 44px;
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
+        .hero-actions {
+            display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.45s both;
+        }
+        .btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 15px 32px; border-radius: 14px; font-size: 15px;
+            font-weight: 600; text-decoration: none; border: none; cursor: pointer;
+            transition: all 0.25s ease; font-family: inherit; position: relative; overflow: hidden;
+        }
+        .btn::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(rgba(255,255,255,0.15), transparent);
+            opacity: 0; transition: opacity 0.25s;
+        }
+        .btn:hover::after { opacity: 1; }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--sea-green), #2DD4BF);
+            color: #fff; box-shadow: 0 4px 24px rgba(22,160,133,0.35);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(22,160,133,0.5); }
+        .btn-outline {
+            background: rgba(255,255,255,0.05); color: #fff;
+            border: 1px solid rgba(255,255,255,0.18);
+        }
+        .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); }
+        .btn-coral {
+            background: linear-gradient(135deg, var(--coral), #FF9A8B);
+            color: #fff; box-shadow: 0 4px 24px rgba(255,118,96,0.3);
+        }
+        .btn-coral:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(255,118,96,0.45); }
+        .hero-stats {
+            display: flex; justify-content: center; gap: 56px; margin-top: 72px;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+        .hero-stat { text-align: center; }
+        .hero-stat-value { font-size: 34px; font-weight: 800; color: #fff; line-height: 1; }
+        .hero-stat-label {
+            font-size: 11.5px; font-weight: 500; color: rgba(255,255,255,0.4);
+            text-transform: uppercase; letter-spacing: 1.2px; margin-top: 6px;
+        }
+        .hero-wave {
+            position: absolute; bottom: -2px; left: 0; right: 0; z-index: 3;
+        }
+        .hero-wave svg { display: block; width: 100%; height: auto; }
+
+        /* ─── SECTIONS ─── */
+        .section { padding: 110px 24px; }
+        .section-container { max-width: 1200px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 72px; }
+        .section-label {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-size: 11.5px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 2px; color: var(--ocean-blue);
+            margin-bottom: 16px;
+        }
+        .section-label::before, .section-label::after {
+            content: ''; width: 24px; height: 1.5px;
+            background: var(--ocean-blue); opacity: 0.3;
+        }
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(30px, 4.5vw, 46px); font-weight: 700;
+            color: var(--deep-ocean); letter-spacing: -1px;
+            margin-bottom: 18px; line-height: 1.15;
+        }
+        .section-desc {
+            font-size: 16.5px; line-height: 1.75; color: var(--text-secondary);
+            max-width: 580px; margin: 0 auto;
+        }
+
+        /* ─── PLATFORM SHOWCASE ─── */
+        .platform-bg { background: linear-gradient(180deg, var(--deep-ocean), var(--deep-navy)); color: #fff; overflow: hidden; }
+        .platform-bg .section-label { color: var(--sea-green); }
+        .platform-bg .section-label::before, .platform-bg .section-label::after { background: var(--sea-green); }
+        .platform-bg .section-title { color: #fff; }
+        .platform-bg .section-desc { color: rgba(255,255,255,0.5); }
+        .platform-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+        }
+        .platform-card {
+            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px; padding: 40px 32px; text-align: center;
+            transition: all 0.4s ease; position: relative; overflow: hidden;
+        }
+        .platform-card::before {
+            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 100px; height: 3px; border-radius: 0 0 4px 4px;
+            opacity: 0; transition: opacity 0.4s ease;
+        }
+        .platform-card:nth-child(1)::before { background: linear-gradient(90deg, var(--ocean-blue), var(--sea-green)); }
+        .platform-card:nth-child(2)::before { background: linear-gradient(90deg, var(--sea-green), #2DD4BF); }
+        .platform-card:nth-child(3)::before { background: linear-gradient(90deg, var(--coral), #FF9A8B); }
+        .platform-card:hover {
+            transform: translateY(-6px);
+            background: rgba(255,255,255,0.07);
+            border-color: rgba(255,255,255,0.15);
+        }
+        .platform-card:hover::before { opacity: 1; }
+        .platform-icon {
+            width: 80px; height: 80px; border-radius: 24px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 36px; margin: 0 auto 24px;
+            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);
+        }
+        .platform-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+        .platform-card p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.65; }
+        .platform-tag {
+            display: inline-block; margin-top: 18px; padding: 5px 14px;
+            border-radius: 100px; font-size: 11px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .tag-active { background: rgba(22,160,133,0.15); color: var(--sea-green); border: 1px solid rgba(22,160,133,0.25); }
+        .tag-beta { background: rgba(8,126,164,0.15); color: var(--ocean-blue); border: 1px solid rgba(8,126,164,0.25); }
+        .tag-soon { background: rgba(255,118,96,0.15); color: var(--coral); border: 1px solid rgba(255,118,96,0.25); }
+
+        /* ─── FEATURES ─── */
+        .features-bg { background: #fff; }
+        .features-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+        }
+        .feature-card {
+            background: var(--foam); border: 1px solid var(--border);
+            border-radius: 18px; padding: 40px 30px;
+            transition: all 0.35s ease; position: relative; overflow: hidden;
+        }
+        .feature-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0;
+            height: 3px; background: linear-gradient(90deg, var(--ocean-blue), var(--sea-green));
+            opacity: 0; transition: opacity 0.35s ease;
+        }
+        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(6,59,76,0.12); border-color: transparent; }
+        .feature-card:hover::before { opacity: 1; }
+        .feature-icon {
+            width: 56px; height: 56px; border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 26px; margin-bottom: 22px;
+        }
+        .feature-icon.blue { background: rgba(8,126,164,0.1); }
+        .feature-icon.green { background: rgba(22,160,133,0.1); }
+        .feature-icon.coral { background: rgba(255,118,96,0.1); }
+        .feature-icon.navy { background: rgba(8,42,56,0.08); }
+        .feature-icon.sand { background: rgba(245,233,213,0.6); }
+        .feature-icon.teal { background: rgba(0,137,123,0.1); }
+        .feature-card h3 {
+            font-size: 18px; font-weight: 700; color: var(--deep-ocean);
+            margin-bottom: 10px;
+        }
+        .feature-card p { font-size: 14px; line-height: 1.7; color: var(--text-secondary); }
+
+        /* ─── EXPLORE MODULES ─── */
+        .modules-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .module-card {
+            display: flex; align-items: center; gap: 22px;
+            background: #fff; border: 1px solid var(--border);
+            border-radius: 18px; padding: 30px;
+            text-decoration: none; transition: all 0.35s ease;
+        }
+        .module-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(6,59,76,0.1); border-color: var(--ocean-blue); }
+        .module-icon {
+            width: 64px; height: 64px; min-width: 64px; border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 30px;
+        }
+        .module-icon.map { background: linear-gradient(135deg, rgba(8,126,164,0.12), rgba(22,160,133,0.08)); }
+        .module-icon.guide { background: linear-gradient(135deg, rgba(22,160,133,0.12), rgba(45,212,191,0.08)); }
+        .module-icon.market { background: linear-gradient(135deg, rgba(255,118,96,0.12), rgba(255,154,139,0.08)); }
+        .module-icon.community { background: linear-gradient(135deg, rgba(8,42,56,0.1), rgba(8,126,164,0.08)); }
+        .module-icon.eco { background: linear-gradient(135deg, rgba(245,233,213,0.5), rgba(22,160,133,0.08)); }
+        .module-icon.emergency { background: linear-gradient(135deg, rgba(239,68,68,0.1), rgba(255,118,96,0.08)); }
+        .module-icon.sound { background: linear-gradient(135deg, rgba(8,126,164,0.15), rgba(6,59,76,0.08)); }
+        .module-icon.edu { background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(8,126,164,0.08)); }
+        .module-icon.doc { background: linear-gradient(135deg, rgba(139,92,246,0.1), rgba(59,130,246,0.08)); }
+        .module-icon.demo { background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(255,118,96,0.08)); }
+        .module-info h3 { font-size: 16.5px; font-weight: 700; color: var(--deep-ocean); margin-bottom: 5px; }
+        .module-info p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.55; }
+        .module-arrow {
+            margin-left: auto; color: var(--ocean-blue); font-size: 18px;
+            opacity: 0; transform: translateX(-8px); transition: all 0.3s ease;
+        }
+        .module-card:hover .module-arrow { opacity: 1; transform: translateX(0); }
+
+        /* ─── HOW IT WORKS ─── */
+        .how-bg { background: var(--light-blue); }
+        .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; position: relative; }
+        .steps-grid::before {
+            content: ''; position: absolute; top: 36px; left: 12.5%; right: 12.5%;
+            height: 2px; background: linear-gradient(90deg, var(--ocean-blue), var(--sea-green), var(--coral));
+            opacity: 0.2;
+        }
+        .step-card { text-align: center; position: relative; z-index: 1; }
+        .step-number {
+            width: 72px; height: 72px; border-radius: 22px; margin: 0 auto 24px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 26px; font-weight: 800;
+            background: #fff; border: 2px solid var(--border);
+            color: var(--ocean-blue); transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(6,59,76,0.06);
+        }
+        .step-card:hover .step-number {
+            background: linear-gradient(135deg, var(--ocean-blue), var(--sea-green));
+            color: #fff; border-color: transparent;
+            transform: scale(1.1); box-shadow: 0 8px 32px rgba(8,126,164,0.3);
+        }
+        .step-card h3 { font-size: 17px; font-weight: 700; color: var(--deep-ocean); margin-bottom: 8px; }
+        .step-card p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.65; }
+
+        /* ─── IMPACT / NUMBERS ─── */
+        .impact-bg { background: linear-gradient(180deg, var(--deep-navy), var(--deep-ocean)); }
+        .impact-bg .section-label { color: var(--sea-green); }
+        .impact-bg .section-label::before, .impact-bg .section-label::after { background: var(--sea-green); }
+        .impact-bg .section-title { color: #fff; }
+        .impact-bg .section-desc { color: rgba(255,255,255,0.5); }
+        .impact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+        .impact-card {
+            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 18px; padding: 40px 24px; text-align: center;
+            transition: all 0.35s ease;
+        }
+        .impact-card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.15); }
+        .impact-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 42px; font-weight: 700;
+            background: linear-gradient(135deg, #2DD4BF, var(--sea-green));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .impact-label {
+            font-size: 12.5px; font-weight: 600; color: rgba(255,255,255,0.45);
+            text-transform: uppercase; letter-spacing: 1px; margin-top: 8px;
+        }
+
+        /* ─── ABOUT / MISSION ─── */
+        .about-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+        }
+        .about-visual {
+            background: linear-gradient(135deg, var(--deep-ocean), var(--ocean-blue));
+            border-radius: 24px; padding: 48px; position: relative; overflow: hidden;
+            min-height: 420px; display: flex; align-items: center; justify-content: center;
+        }
+        .about-visual::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 30% 40%, rgba(22,160,133,0.3), transparent 70%);
+        }
+        .about-visual-content {
+            position: relative; z-index: 2; text-align: center; color: #fff;
+        }
+        .about-visual-content .big-emoji { font-size: 72px; margin-bottom: 16px; display: block; }
+        .about-visual-content h3 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+        .about-visual-content p { font-size: 14px; color: rgba(255,255,255,0.6); max-width: 280px; margin: 0 auto; }
+        .about-info h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 36px; font-weight: 700; color: var(--deep-ocean);
+            margin-bottom: 18px; letter-spacing: -0.8px; line-height: 1.2;
+        }
+        .about-info > p {
+            font-size: 16px; line-height: 1.75; color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+        .about-points { display: flex; flex-direction: column; gap: 18px; }
+        .about-point {
+            display: flex; align-items: flex-start; gap: 14px;
+        }
+        .about-point-icon {
+            width: 40px; height: 40px; min-width: 40px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px; background: rgba(22,160,133,0.1);
+        }
+        .about-point h4 { font-size: 15px; font-weight: 700; color: var(--deep-ocean); margin-bottom: 2px; }
+        .about-point p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.6; }
+
+        /* ─── TECH STACK ─── */
+        .tech-bg { background: var(--light-blue); }
+        .tech-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+        }
+        .tech-card {
+            background: #fff; border: 1px solid var(--border);
+            border-radius: 16px; padding: 28px 20px; text-align: center;
+            transition: all 0.3s ease;
+        }
+        .tech-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(6,59,76,0.08); }
+        .tech-card-icon { font-size: 32px; margin-bottom: 12px; }
+        .tech-card h4 { font-size: 14px; font-weight: 700; color: var(--deep-ocean); margin-bottom: 4px; }
+        .tech-card p { font-size: 12px; color: var(--text-secondary); }
+
+        /* ─── TESTIMONIALS ─── */
+        .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .testimonial-card {
+            background: #fff; border-radius: 18px; padding: 36px;
+            box-shadow: 0 2px 12px rgba(6,59,76,0.04);
+            transition: all 0.35s ease; border: 1px solid var(--border);
+        }
+        .testimonial-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(6,59,76,0.1); border-color: transparent; }
+        .testimonial-stars { color: #F59E0B; font-size: 15px; margin-bottom: 16px; letter-spacing: 3px; }
+        .testimonial-text {
+            font-size: 14.5px; line-height: 1.75; color: var(--text-primary);
+            margin-bottom: 22px; font-style: italic;
+        }
+        .testimonial-author { display: flex; align-items: center; gap: 12px; }
+        .testimonial-avatar {
+            width: 44px; height: 44px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--ocean-blue), var(--sea-green));
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 17px; font-weight: 700;
+        }
+        .testimonial-name { font-size: 14px; font-weight: 700; color: var(--deep-ocean); }
+        .testimonial-role { font-size: 12px; color: var(--text-secondary); }
+
+        /* ─── CTA ─── */
+        .cta-section {
+            background: linear-gradient(160deg, #021a24, var(--deep-ocean) 30%, var(--deep-navy) 60%, var(--ocean-blue));
+            text-align: center; position: relative; overflow: hidden;
+        }
+        .cta-section::before {
+            content: ''; position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse 700px 500px at 25% 55%, rgba(22,160,133,0.2), transparent 70%),
+                radial-gradient(ellipse 600px 400px at 75% 45%, rgba(8,126,164,0.2), transparent 70%);
+        }
+        .cta-content { position: relative; z-index: 2; max-width: 680px; margin: 0 auto; }
+        .cta-content h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(30px, 4.5vw, 44px); font-weight: 700;
+            color: #fff; margin-bottom: 18px; letter-spacing: -1px;
+        }
+        .cta-content p {
+            font-size: 17px; color: rgba(255,255,255,0.55); line-height: 1.75;
+            margin-bottom: 40px;
+        }
+        .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+        .btn-white {
+            background: #fff; color: var(--deep-ocean);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+        }
+        .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 36px rgba(0,0,0,0.2); }
+
+        /* ─── FOOTER ─── */
+        .footer {
+            background: var(--deep-navy); color: rgba(255,255,255,0.5);
+            padding: 72px 24px 32px;
+        }
+        .footer-grid {
+            max-width: 1200px; margin: 0 auto;
+            display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr 1fr; gap: 40px;
+            margin-bottom: 52px;
+        }
+        .footer-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+        .footer-brand img { height: 36px; filter: brightness(1.1); }
+        .footer-brand-name { font-size: 18px; font-weight: 800; color: #fff; }
+        .footer-about { font-size: 13.5px; line-height: 1.75; max-width: 280px; }
+        .footer h4 {
+            font-size: 12px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1.5px; color: rgba(255,255,255,0.75); margin-bottom: 20px;
+        }
+        .footer ul { list-style: none; }
+        .footer ul li { margin-bottom: 11px; }
+        .footer ul a {
+            color: rgba(255,255,255,0.4); text-decoration: none;
+            font-size: 13.5px; transition: color 0.2s ease;
+        }
+        .footer ul a:hover { color: var(--sea-green); }
+        .footer-bottom {
+            max-width: 1200px; margin: 0 auto;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding-top: 28px; display: flex;
+            justify-content: space-between; align-items: center;
+            font-size: 12.5px;
+        }
+        .footer-social { display: flex; gap: 12px; }
+        .footer-social a {
+            width: 38px; height: 38px; border-radius: 10px;
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+            display: flex; align-items: center; justify-content: center;
+            color: rgba(255,255,255,0.45); text-decoration: none;
+            font-size: 15px; transition: all 0.25s ease;
+        }
+        .footer-social a:hover { background: rgba(22,160,133,0.2); border-color: var(--sea-green); color: var(--sea-green); }
+
+        /* ─── SCROLL TO TOP ─── */
+        .scroll-top {
+            position: fixed; bottom: 32px; right: 32px; z-index: 999;
+            width: 48px; height: 48px; border-radius: 14px; border: none; cursor: pointer;
+            background: linear-gradient(135deg, var(--ocean-blue), var(--sea-green));
+            color: #fff; font-size: 20px; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 20px rgba(8,126,164,0.35);
+            opacity: 0; visibility: hidden; transform: translateY(16px);
+            transition: all 0.35s ease;
+        }
+        .scroll-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
+        .scroll-top:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(8,126,164,0.5); }
+
+        /* ─── ANIMATIONS ─── */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(28px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.92); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .reveal {
+            opacity: 0; transform: translateY(32px);
+            transition: all 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 1024px) {
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .steps-grid { grid-template-columns: repeat(2, 1fr); }
+            .steps-grid::before { display: none; }
+            .impact-grid { grid-template-columns: repeat(2, 1fr); }
+            .platform-grid { grid-template-columns: repeat(2, 1fr); }
+            .about-grid { grid-template-columns: 1fr; }
+            .tech-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .navbar-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 2px; background: rgba(6, 59, 76, 0.98); backdrop-filter: blur(20px); padding: 12px 16px 16px; border-bottom: 1px solid rgba(255,255,255,0.08); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+            .navbar-links.open { display: flex; }
+            .navbar-links a { padding: 12px 14px; font-size: 15px; }
+            .navbar-cta { text-align: center; margin-top: 6px; }
+            .mobile-toggle { display: block; }
+            .hero { padding: 100px 20px 70px; }
+            .hero-stats { gap: 28px; flex-wrap: wrap; }
+            .hero h1 { letter-spacing: -1px; }
+            .features-grid { grid-template-columns: 1fr; }
+            .modules-grid { grid-template-columns: 1fr; }
+            .steps-grid { grid-template-columns: 1fr; }
+            .impact-grid { grid-template-columns: 1fr; }
+            .platform-grid { grid-template-columns: 1fr; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .tech-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+            .section { padding: 72px 20px; }
+            .about-grid { gap: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a href="index.html" class="navbar-brand">
+                <img src="O3L-logo.png" alt="O3L Logo">
+                <!-- <div class="navbar-brand-text">
+                    <span class="navbar-brand-name">O3L</span>
+                    <span class="navbar-brand-tagline">One Ocean One Life</span>
+                </div> -->
+            </a>
+            <div class="navbar-links">
+                <a href="#platforms">Platforms</a>
+                <a href="#features">Features</a>
+                <a href="#explore">Explore</a>
+                <a href="#how">How It Works</a>
+                <a href="#impact">Impact</a>
+                <a href="#community">Community</a>
+                <a href="customer-demo-document.html" class="navbar-cta">Customer Demo</a>
+                <a href="technical-document.html" class="navbar-cta">Technical Docs</a>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-grid"></div>
+        <div class="hero-glow g1"></div>
+        <div class="hero-glow g2"></div>
+        <div class="hero-glow g3"></div>
+        <div class="hero-particles" id="particles"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="hero-badge-dot"></span>
+                Cross-Platform Digital Ecosystem
+            </div>
+            <h1>
+                One Ocean<br>
+                <span class="gradient-text">One Life</span>
+            </h1>
+            <p class="hero-desc">
+                O3L is a comprehensive digital platform uniting fishermen, coastal communities, researchers, NGOs, vendors, and government bodies across Tamil Nadu's 1,076 km coastline. Built for Web, Android, and iOS.
+            </p>
+            <div class="hero-actions">
+                <a href="#explore" class="btn btn-primary">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3"/></svg>
+                    Explore Platform
+                </a>
+                <a href="customer-demo-document.html" class="btn btn-outline">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16"/></svg>
+                    View Demo
+                </a>
+                <a href="technical-document.html" class="btn btn-coral">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+                    Documentation
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value" data-count="1076">0</div>
+                    <div class="hero-stat-label">KM Coastline</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value" data-count="14">0</div>
+                    <div class="hero-stat-label">Districts</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value" data-count="500">0</div>
+                    <div class="hero-stat-label">Species Tracked</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value" data-count="50000" data-suffix="+">0</div>
+                    <div class="hero-stat-label">Community Members</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-wave">
+            <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <path d="M0 60C240 20 480 100 720 60C960 20 1200 100 1440 60V120H0V60Z" fill="#F8FCFC"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- PLATFORMS -->
+    <section class="section platform-bg" id="platforms">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <div class="section-label">Available Everywhere</div>
+                <h2 class="section-title">3 Platforms, 1 Ecosystem</h2>
+                <p class="section-desc">Access O3L from any device. Our cross-platform architecture ensures seamless experience across web, Android, and iOS.</p>
+            </div>
+            <div class="platform-grid">
+                <div class="platform-card reveal">
+                    <div class="platform-icon">&#x1F5A5;</div>
+                    <h3>Web Application</h3>
+                    <p>Full-featured Next.js 16 progressive web app with interactive maps, real-time data, and complete platform access.</p>
+                    <span class="platform-tag tag-active">Live Now</span>
+                </div>
+                <div class="platform-card reveal">
+                    <div class="platform-icon">&#x1F4F1;</div>
+                    <h3>Android App</h3>
+                    <p>Native React Native + Expo experience with camera, GPS, offline capture, offline database, and push notifications.</p>
+                    <span class="platform-tag tag-active">Live</span>
+                </div>
+                <div class="platform-card reveal">
+                    <div class="platform-icon">&#x1F4D1;</div>
+                    <h3>iOS App</h3>
+                    <p>Cross-compiled from React Native with platform-specific optimizations for iPhone and iPad.</p>
+                    <span class="platform-tag tag-soon">Coming Soon</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section features-bg" id="features">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <div class="section-label">Why O3L</div>
+                <h2 class="section-title">Built for the Coastal Ecosystem</h2>
+                <p class="section-desc">A comprehensive suite of tools designed specifically for the needs of Tamil Nadu's ocean and coastal communities.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card reveal">
+                    <div class="feature-icon blue">&#x1F30A;</div>
+                    <h3>Interactive Ocean Mapping</h3>
+                    <p>GIS-powered MapLibre maps with real-time coastal data, fishing zones, weather overlays, and marine sanctuary boundaries across 14 districts.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon green">&#x1F41F;</div>
+                    <h3>Marine Species Guide</h3>
+                    <p>Comprehensive database of 500+ Tamil Nadu marine species with high-resolution images, habitats, migration patterns, and conservation status.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon coral">&#x1F3EA;</div>
+                    <h3>Seafood Marketplace</h3>
+                    <p>Direct-to-consumer marketplace connecting local fishermen with buyers. Cart, vendor storefronts, and live Razorpay/Stripe checkout.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon navy">&#x1F91D;</div>
+                    <h3>Community Network</h3>
+                    <p>Connect with fishermen, researchers, NGOs, vendors, and government bodies. Events, forums, leaderboards, and public contributor profiles.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon sand">&#x26F0;</div>
+                    <h3>Ecotourism Portal</h3>
+                    <p>Discover beaches, book tour packages, and support sustainable coastal tourism. Provider dashboard with Razorpay pay-ins and split payouts.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon teal">&#x1F6A8;</div>
+                    <h3>Emergency & SOS System</h3>
+                    <p>Real-time SOS alerts, coast guard contacts, and emergency coordination. Location-based alerts for coastal safety and disaster response.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon blue">&#x1F3B5;</div>
+                    <h3>Ocean Sound Library</h3>
+                    <p>Authentic ocean soundscapes recorded from Tamil Nadu coasts. Surf ambience, whale calls, and coastal soundscapes for relaxation and education.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon green">&#x1F4DA;</div>
+                    <h3>Education & Research Hub</h3>
+                    <p>Marine biology courses, research papers, educational resources, and certification programs for coastal community empowerment.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon coral">&#x1F4CA;</div>
+                    <h3>Analytics & Research</h3>
+                    <p>Annual and monthly trend reports, year comparison, variance analysis, and research-grade data export for agencies and scientists.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon blue">&#x1F4DD;</div>
+                    <h3>Unified Contributions</h3>
+                    <p>One wizard for sightings, sounds, catches, observations, events, and cleanups — reviewed by moderators and scientists, then published across the platform.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon green">&#x1F331;</div>
+                    <h3>SHG &amp; Circular Economy</h3>
+                    <p>Self-help group microsite with livelihood strategies, revenue trackers, loan schemes, recipes, fresh-fish flows, and circular-economy ideas.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon teal">&#x1F9F4;</div>
+                    <h3>Beach Cleanups</h3>
+                    <p>Public cleanup campaigns with signup, photo galleries, and impact tracking — open on web and mobile for volunteers and NGOs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPLORE MODULES -->
+    <section class="section" id="explore">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <div class="section-label">Explore Everything</div>
+                <h2 class="section-title">One Platform, Unlimited Possibilities</h2>
+                <p class="section-desc">Dive deep into every module designed to empower the coastal community.</p>
+            </div>
+            <div class="modules-grid">
+                <a href="customer-demo-document.html#ocean-map" class="module-card reveal">
+                    <div class="module-icon map">&#x1F5FA;</div>
+                    <div class="module-info">
+                        <h3>Interactive Ocean Map</h3>
+                        <p>Real-time coastal mapping with fishing zones, weather, and marine data.</p>
+                    </div>
+                    <span class="module-arrow">&rarr;</span>
+                </a>
+                <a href="customer-demo-document.html#guides" class="module-card reveal">
+                    <div class="module-icon guide">&#x1F42E;</div>
+                    <div class="module-info">
+                        <h3>Marine Species Guide</h3>
+                        <p>Identify and learn about 500+ marine species across Tamil Nadu waters.</p>
+                    </div>
+                    <span class="module-arrow">&rarr;</span>
+                </a>
+                <a href="customer-demo-document.html#marketplace" class="module-card reveal">
+                    <div class="module-icon market">&#x1F6D2;</div>
+                    <div class="module-info">
+                        <h3>Seafood Marketplace</h3>
+                        <p>Fresh catch directly from fishermen to your doorstep.</p>
+                    </div>
+                    <span class="module-arrow">&rarr;</span>
+                </a>
+                <a href="customer-demo-document.html#community" class="module-card reveal">
+                    <div class="module-icon community">&#x1F465;</div>
+                    <div class="module-info">
+                        <h3>Community Hub</h3>
+                        <p>Join events, forums, and connect with coastal community members.</p>
+                    </div>
+                    <span class="module-arrow">&rarr;</span>
+                </a>
+                <a href="customer-demo-document.html#ecotourism" class="module-card reveal">
+                    <div class="module-icon eco">&#x26F5;</div>
+                    <div class="module-info">
+                        <h3>Ecotourism Portal</h3>
+                        <p>Explore beaches, book tours, and support sustainable coastal tourism.</p>
+                    </div>
+                    <span class="module-arrow">&rarr;</span>
+                </a>
+                <a href="customer-demo-document.html#emergency" class="module-card reveal">
+                    <div class="module-icon emergency">&#x1F6A8;</div>
+                    <div class="module-info">
+                        <h3>Emergency & SOS</h3>
+                        <p>Instant alerts and emergency contacts for coastal safety.</p>
+                    </div>
+                    <span class="module-arrow">&rarr;</span>
+                </a>
+                <a href="customer-demo-document.html#ocean-sound" class="module-card reveal">
+                    <div class="module-icon sound">&#x1F3B5;</div>
+                    <div class="module-info">
+                        <h3>Ocean Sounds</h3>
+                        <p>Immerse in authentic ocean soundscapes from Tamil Nadu coasts.</p>
+                    </div>
+                    <span class="module-arrow">&rarr;</span>
+                </a>
+                <a href="customer-demo-document.html#education" class="module-card reveal">
+                    <div class="module-icon edu">&#x1F4DA;</div>
+                    <div class="module-info">
+                        <h3>Education & Research</h3>
+                        <p>Marine biology courses, research papers, and educational resources.</p>
+                    </div>
+                    <span class="module-arrow">&rarr;</span>
+                </a>
+                <a href="technical-document.html" class="module-card reveal">
+                    <div class="module-icon doc">&#x1F4CB;</div>
+                    <div class="module-info">
+                        <h3>Technical Documentation</h3>
+                        <p>Architecture diagrams, API references, and technical specifications.</p>
+                    </div>
+                    <span class="module-arrow">&rarr;</span>
+                </a>
+                <a href="customer-demo-document.html" class="module-card reveal">
+                    <div class="module-icon demo">&#x1F4CA;</div>
+                    <div class="module-info">
+                        <h3>Customer Demo Walkthrough</h3>
+                        <p>Interactive walkthrough of features, UX flows, and platform capabilities.</p>
+                    </div>
+                    <span class="module-arrow">&rarr;</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section how-bg" id="how">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <div class="section-label">How It Works</div>
+                <h2 class="section-title">Get Started in Minutes</h2>
+                <p class="section-desc">Join the ocean community in four simple steps and start making an impact today.</p>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card reveal">
+                    <div class="step-number">01</div>
+                    <h3>Create Account</h3>
+                    <p>Sign up as a fisherman, researcher, vendor, NGO, or community member. Choose your role and profile.</p>
+                </div>
+                <div class="step-card reveal">
+                    <div class="step-number">02</div>
+                    <h3>Set Your Location</h3>
+                    <p>Pin your coastal location on the map. Connect with nearby community members and local groups.</p>
+                </div>
+                <div class="step-card reveal">
+                    <div class="step-number">03</div>
+                    <h3>Explore & Connect</h3>
+                    <p>Browse maps, species, marketplace, events, educational content, and join active discussions.</p>
+                </div>
+                <div class="step-card reveal">
+                    <div class="step-number">04</div>
+                    <h3>Make Impact</h3>
+                    <p>Contribute marine sightings, sell products, organize events, earn recognition, and protect oceans.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IMPACT NUMBERS -->
+    <section class="section impact-bg" id="impact">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <div class="section-label">Our Impact</div>
+                <h2 class="section-title">Numbers That Matter</h2>
+                <p class="section-desc">Measurable change across Tamil Nadu's coastal ecosystem.</p>
+            </div>
+            <div class="impact-grid">
+                <div class="impact-card reveal">
+                    <div class="impact-value" data-count="14">0</div>
+                    <div class="impact-label">Districts Covered</div>
+                </div>
+                <div class="impact-card reveal">
+                    <div class="impact-value" data-count="500" data-suffix="+">0</div>
+                    <div class="impact-label">Marine Species</div>
+                </div>
+                <div class="impact-card reveal">
+                    <div class="impact-value">24/7</div>
+                    <div class="impact-label">Emergency Response</div>
+                </div>
+                <div class="impact-card reveal">
+                    <div class="impact-value">3-in-1</div>
+                    <div class="impact-label">Cross-Platform</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT / MISSION -->
+    <section class="section" id="about">
+        <div class="section-container">
+            <div class="about-grid">
+                <div class="about-visual reveal">
+                    <div class="about-visual-content">
+                        <span class="big-emoji">&#x1F30A;</span>
+                        <h3>Protecting 1,076 km of Coastline</h3>
+                        <p>From Rameswaram to Chennai, Tuticorin to Pondicherry</p>
+                    </div>
+                </div>
+                <div class="about-info reveal">
+                    <h2>Our Mission is to Empower Every Coastal Community</h2>
+                    <p>O3L bridges the digital divide for Tamil Nadu's fishing communities. We combine technology with local knowledge to create a sustainable, connected ocean ecosystem.</p>
+                    <div class="about-points">
+                        <div class="about-point">
+                            <div class="about-point-icon">&#x1F4AA;</div>
+                            <div>
+                                <h4>Community First</h4>
+                                <p>Built with fishermen, for fishermen. Every feature designed around real coastal needs.</p>
+                            </div>
+                        </div>
+                        <div class="about-point">
+                            <div class="about-point-icon">&#x1F310;</div>
+                            <div>
+                                <h4>Digital Inclusion</h4>
+                                <p>Multilingual support in Tamil and English. Offline-first architecture for low-connectivity areas.</p>
+                            </div>
+                        </div>
+                        <div class="about-point">
+                            <div class="about-point-icon">&#x1F33F;</div>
+                            <div>
+                                <h4>Ocean Conservation</h4>
+                                <p>Marine sighting tracking, species monitoring, and environmental awareness programs.</p>
+                            </div>
+                        </div>
+                        <div class="about-point">
+                            <div class="about-point-icon">&#x1F4B0;</div>
+                            <div>
+                                <h4>Economic Empowerment</h4>
+                                <p>Direct marketplace access, fair pricing, and zero middlemen for fishing communities.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECH STACK -->
+    <section class="section tech-bg" id="tech">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <div class="section-label">Technology</div>
+                <h2 class="section-title">Modern Tech Stack</h2>
+                <p class="section-desc">Built with cutting-edge technologies for performance, scalability, and reliability.</p>
+            </div>
+            <div class="tech-grid">
+                <div class="tech-card reveal">
+                    <div class="tech-card-icon">&#x269B;</div>
+                    <h4>Next.js 16</h4>
+                    <p>React 19 + App Router</p>
+                </div>
+                <div class="tech-card reveal">
+                    <div class="tech-card-icon">&#x1F4E1;</div>
+                    <h4>Django 5.2</h4>
+                    <p>Python 3.12 + DRF</p>
+                </div>
+                <div class="tech-card reveal">
+                    <div class="tech-card-icon">&#x1F4F1;</div>
+                    <h4>React Native</h4>
+                    <p>Expo SDK 57</p>
+                </div>
+                <div class="tech-card reveal">
+                    <div class="tech-card-icon">&#x1F5C4;</div>
+                    <h4>PostgreSQL 17</h4>
+                    <p>PostGIS 3.6 Spatial</p>
+                </div>
+                <div class="tech-card reveal">
+                    <div class="tech-card-icon">&#x26A1;</div>
+                    <h4>Redis 7 + Celery</h4>
+                    <p>Cache, queues &amp; beat jobs</p>
+                </div>
+                <div class="tech-card reveal">
+                    <div class="tech-card-icon">&#x1F4CA;</div>
+                    <h4>MapLibre GL</h4>
+                    <p>Interactive Maps</p>
+                </div>
+                <div class="tech-card reveal">
+                    <div class="tech-card-icon">&#x1F9E9;</div>
+                    <h4>Tailwind CSS 4</h4>
+                    <p>Radix UI Components</p>
+                </div>
+                <div class="tech-card reveal">
+                    <div class="tech-card-icon">&#x1F6E4;</div>
+                    <h4>Docker</h4>
+                    <p>Containerized Deploy</p>
+                </div>
+                <div class="tech-card reveal">
+                    <div class="tech-card-icon">&#x1F4B3;</div>
+                    <h4>Razorpay + Stripe</h4>
+                    <p>Live checkout &amp; webhooks</p>
+                </div>
+                <div class="tech-card reveal">
+                    <div class="tech-card-icon">&#x1F916;</div>
+                    <h4>AI Services</h4>
+                    <p>Species ID, voice &amp; search</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section" id="community">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <div class="section-label">Community Voices</div>
+                <h2 class="section-title">Trusted by the Coast</h2>
+                <p class="section-desc">Hear from the people building a better ocean future.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"O3L has transformed how we connect with buyers. No more middlemen. Our catch reaches customers fresh and we earn fair prices. The marketplace changed everything for us."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">R</div>
+                        <div>
+                            <div class="testimonial-name">Ramanathan K.</div>
+                            <div class="testimonial-role">Fisherman, Rameswaram</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"The species guide and ocean map have become indispensable tools for our marine research. Data collection has never been easier. The GIS integration is brilliant."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">D</div>
+                        <div>
+                            <div class="testimonial-name">Dr. Priya S.</div>
+                            <div class="testimonial-role">Marine Biologist, Chennai</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"The emergency SOS feature gives our fishing community peace of mind. Quick response coordination has saved lives during the last cyclone season."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">M</div>
+                        <div>
+                            <div class="testimonial-name">Muthu Selvan</div>
+                            <div class="testimonial-role">Community Leader, Tuticorin</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section cta-section">
+        <div class="section-container">
+            <div class="cta-content reveal">
+                <h2>Ready to Join the Ocean Movement?</h2>
+                <p>Be part of a growing community protecting and empowering Tamil Nadu's coastline. Available on Web, Android, and iOS. Start making a difference today.</p>
+                <div class="cta-actions">
+                    <a href="customer-demo-document.html" class="btn btn-primary">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3"/></svg>
+                        View Live Demo
+                    </a>
+                    <a href="#platforms" class="btn btn-white">Get the Mobile App</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">
+                    <img src="O3L-logo.png" alt="O3L">
+                    <span class="footer-brand-name">O3L</span>
+                </div>
+                <p class="footer-about">One Ocean One Life is a cross-platform digital ecosystem connecting Tamil Nadu's coastal communities through technology, knowledge, and shared purpose.</p>
+            </div>
+            <div>
+                <h4>Platform</h4>
+                <ul>
+                    <li><a href="customer-demo-document.html#ocean-map">Ocean Map</a></li>
+                    <li><a href="customer-demo-document.html#guides">Species Guide</a></li>
+                    <li><a href="customer-demo-document.html#marketplace">Marketplace</a></li>
+                    <li><a href="customer-demo-document.html#ecotourism">Ecotourism</a></li>
+                    <li><a href="customer-demo-document.html#ocean-sound">Ocean Sounds</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Community</h4>
+                <ul>
+                    <li><a href="customer-demo-document.html#events">Events</a></li>
+                    <li><a href="customer-demo-document.html#community">Community</a></li>
+                    <li><a href="customer-demo-document.html#education">Education</a></li>
+                    <li><a href="customer-demo-document.html#recognition">Recognition</a></li>
+                    <li><a href="customer-demo-document.html#emergency">Emergency</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Documentation</h4>
+                <ul>
+                    <li><a href="technical-document.html">Technical Document</a></li>
+                    <li><a href="customer-demo-document.html">Customer Demo</a></li>
+                    <li><a href="environment-setup.html">Environment Setup</a></li>
+                    <li><a href="local-environment-setup.html">Local Setup (Quick)</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="customer-demo-document.html#overview">About Us</a></li>
+                    <li><a href="customer-demo-document.html#cta">Contact</a></li>
+                    <li><a href="customer-demo-document.html#privacy">Privacy Policy</a></li>
+                    <li><a href="customer-demo-document.html#privacy">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 O3L - One Ocean One Life. All rights reserved.</span>
+            <div class="footer-social">
+                <a href="#" aria-label="Twitter">&#x1D54F;</a>
+                <a href="#" aria-label="GitHub">&#x1D56E;</a>
+                <a href="#" aria-label="Instagram">&#x1D55E;</a>
+                <a href="#" aria-label="YouTube">&#x1D5AF;</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCROLL TO TOP -->
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        const scrollTop = document.getElementById('scrollTop');
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navbarLinks = document.querySelector('.navbar-links');
+        let lastScrollY = window.scrollY;
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 40);
+            scrollTop.classList.toggle('show', window.scrollY > 500);
+            const y = window.scrollY;
+            if (navbarLinks.classList.contains('open')) { navbar.classList.remove('hide'); lastScrollY = y; return; }
+            if (y > lastScrollY + 2 && y > 160) { navbar.classList.add('hide'); }
+            else if (y < lastScrollY - 2 || y < 80) { navbar.classList.remove('hide'); }
+            lastScrollY = y <= 0 ? 0 : y;
+        }, { passive: true });
+        mobileToggle.addEventListener('click', () => {
+            navbarLinks.classList.toggle('open');
+            navbar.classList.remove('hide');
+        });
+        navbarLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navbarLinks.classList.remove('open')));
+        scrollTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Particles
+        const particlesEl = document.getElementById('particles');
+        for (let i = 0; i < 35; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            const size = Math.random() * 5 + 2;
+            p.style.width = size + 'px';
+            p.style.height = size + 'px';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.animationDuration = (Math.random() * 18 + 8) + 's';
+            p.style.animationDelay = (Math.random() * 12) + 's';
+            particlesEl.appendChild(p);
+        }
+
+        // Scroll reveal
+        const reveals = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('visible'), i * 60);
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        reveals.forEach(el => revealObserver.observe(el));
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                const id = a.getAttribute('href');
+                if (id.length > 1) {
+                    e.preventDefault();
+                    document.querySelector(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Counter animation
+        function animateCounters() {
+            document.querySelectorAll('[data-count]').forEach(el => {
+                const target = parseInt(el.dataset.count);
+                const suffix = el.dataset.suffix || '';
+                const duration = 2000;
+                const start = performance.now();
+
+                function update(now) {
+                    const elapsed = now - start;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const current = Math.floor(target * eased);
+                    el.textContent = current.toLocaleString() + suffix;
+                    if (progress < 1) requestAnimationFrame(update);
+                }
+                requestAnimationFrame(update);
+            });
+        }
+
+        const heroObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                animateCounters();
+                heroObserver.disconnect();
+            }
+        }, { threshold: 0.3 });
+        heroObserver.observe(document.querySelector('.hero-stats'));
+
+        // Impact section counters
+        const impactObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                document.querySelectorAll('.impact-value[data-count]').forEach(el => {
+                    const target = parseInt(el.dataset.count);
+                    const suffix = el.dataset.suffix || '';
+                    const duration = 2000;
+                    const start = performance.now();
+                    function update(now) {
+                        const elapsed = now - start;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        const current = Math.floor(target * eased);
+                        el.textContent = current.toLocaleString() + suffix;
+                        if (progress < 1) requestAnimationFrame(update);
+                    }
+                    requestAnimationFrame(update);
+                });
+                impactObserver.disconnect();
+            }
+        }, { threshold: 0.3 });
+        impactObserver.observe(document.querySelector('.impact-grid'));
+    </script>
+</body>
+</html>

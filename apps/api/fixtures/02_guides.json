@@ -1,0 +1,242 @@
+[
+  {
+    "model": "guides.guidecategory",
+    "pk": "44444444-4444-4444-4444-444444444401",
+    "fields": {
+      "name": "Marine Mammals",
+      "name_tamil": "கடல் பாலூட்டிகள்",
+      "slug": "marine-mammals",
+      "icon": "🐋",
+      "parent": null,
+      "sort_order": 1,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "guides.guidecategory",
+    "pk": "44444444-4444-4444-4444-444444444402",
+    "fields": {
+      "name": "Fish",
+      "name_tamil": "மீன்கள்",
+      "slug": "fish",
+      "icon": "🐟",
+      "parent": null,
+      "sort_order": 2,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "guides.guidecategory",
+    "pk": "44444444-4444-4444-4444-444444444403",
+    "fields": {
+      "name": "Sharks & Rays",
+      "name_tamil": "சுறா மற்றும் ஒளிவு",
+      "slug": "sharks-rays",
+      "icon": "🦈",
+      "parent": null,
+      "sort_order": 3,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "guides.guidecategory",
+    "pk": "44444444-4444-4444-4444-444444444404",
+    "fields": {
+      "name": "Sea Turtles",
+      "name_tamil": "கடல் ஆமைகள்",
+      "slug": "sea-turtles",
+      "icon": "🐢",
+      "parent": null,
+      "sort_order": 4,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "guides.guidecategory",
+    "pk": "44444444-4444-4444-4444-444444444405",
+    "fields": {
+      "name": "Seabirds",
+      "name_tamil": "கடல் பறவைகள்",
+      "slug": "seabirds",
+      "icon": "🐦",
+      "parent": null,
+      "sort_order": 5,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "guides.guidecategory",
+    "pk": "44444444-4444-4444-4444-444444444406",
+    "fields": {
+      "name": "Coral",
+      "name_tamil": "பவழம்",
+      "slug": "coral",
+      "icon": "🪸",
+      "parent": null,
+      "sort_order": 6,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "guides.guidecategory",
+    "pk": "44444444-4444-4444-4444-444444444407",
+    "fields": {
+      "name": "Mangroves",
+      "name_tamil": "சதுப்பு நிலம்",
+      "slug": "mangroves",
+      "icon": "🌿",
+      "parent": null,
+      "sort_order": 7,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "guides.guidecategory",
+    "pk": "44444444-4444-4444-4444-444444444408",
+    "fields": {
+      "name": "Seagrass",
+      "name_tamil": "கடல் புற்கள்",
+      "slug": "seagrass",
+      "icon": "🌊",
+      "parent": null,
+      "sort_order": 8,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "guides.guidecategory",
+    "pk": "44444444-4444-4444-4444-444444444409",
+    "fields": {
+      "name": "Habitats",
+      "name_tamil": "வாழிடங்கள்",
+      "slug": "habitats",
+      "icon": "🏔",
+      "parent": null,
+      "sort_order": 9,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "guides.guide species",
+    "pk": "55555555-5555-5555-5555-555555555501",
+    "fields": {
+      "category": "44444444-4444-4444-4444-444444444401",
+      "common_name": "Spinner Dolphin",
+      "tamil_name": "சுழல் டால்பின்",
+      "scientific_name": "Stenella longirostris",
+      "description": "Known for their acrobatic spinning jumps above the water surface. These dolphins are commonly spotted in the waters off Nagapattinam and along the Tamil Nadu coast.",
+      "habitat": "Tropical and subtropical deep waters, typically found in pods of 100-500 individuals.",
+      "diet": "Small fish, squid, and crustaceans",
+      "behavior": "Highly social, often seen bow-riding with boats and performing aerial acrobatics.",
+      "identification": "Slender body with a long beak, distinctive three-colored pattern (dark gray back, lighter gray sides, white belly).",
+      "conservation_status": "Least Concern",
+      "is_verified": true,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "guides.guide_species",
+    "pk": "55555555-5555-5555-5555-555555555502",
+    "fields": {
+      "category": "44444444-4444-4444-4444-444444444401",
+      "common_name": "Humpback Whale",
+      "tamil_name": "கூம்பு திமிங்கிலம்",
+      "scientific_name": "Megaptera novaeangliae",
+      "description": "Large baleen whales known for their complex songs and spectacular breaching behavior. Migrates through Tamil Nadu waters during winter months.",
+      "habitat": "Temperate and tropical waters, typically near coastlines during migration.",
+      "diet": "Krill, small fish, and plankton",
+      "behavior": "Known for spectacular breaches, complex songs, and cooperative bubble-net feeding.",
+      "identification": "Large body (14-17m), distinctive long pectoral fins, knobby head, and unique tail patterns.",
+      "conservation_status": "Least Concern",
+      "is_verified": true,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "guides.guide_species",
+    "pk": "55555555-5555-5555-5555-555555555503",
+    "fields": {
+      "category": "44444444-4444-4444-4444-444444444404",
+      "common_name": "Green Sea Turtle",
+      "tamil_name": "பச்சை கடல் ஆமை",
+      "scientific_name": "Chelonia mydas",
+      "description": "One of the largest sea turtles, found in tropical and subtropical waters. Nests on beaches along the Tamil Nadu coast, particularly in Ramanathapuram district.",
+      "habitat": "Shallow coastal waters, seagrass beds, and coral reefs.",
+      "diet": "Seagrass and algae (herbivorous as adults)",
+      "behavior": "Migrates long distances between feeding and nesting grounds, returns to natal beaches to nest.",
+      "identification": "Smooth, heart-shaped carapace, large front flippers, and distinctive scute pattern.",
+      "conservation_status": "Endangered",
+      "is_verified": true,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "guides.guide_species",
+    "pk": "55555555-5555-5555-5555-555555555504",
+    "fields": {
+      "category": "44444444-4444-4444-4444-444444444403",
+      "common_name": "Whale Shark",
+      "tamil_name": "திமிங்கில சுறா",
+      "scientific_name": "Rhincodon typus",
+      "description": "The largest known living fish species, reaching lengths of up to 12 meters. Found in warm waters off the Tamil Nadu coast, particularly in the Gulf of Mannar.",
+      "habitat": "Open ocean and coastal waters, typically in warm tropical waters.",
+      "diet": "Plankton, fish eggs, and small fish (filter feeder)",
+      "behavior": "Gentle and slow-moving, often found near the surface feeding on plankton blooms.",
+      "identification": "Large body with distinctive white spots and stripes on dark gray background, wide flat head.",
+      "conservation_status": "Endangered",
+      "is_verified": true,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "guides.guide_species",
+    "pk": "55555555-5555-5555-5555-555555555505",
+    "fields": {
+      "category": "44444444-4444-4444-4444-444444444402",
+      "common_name": "Clownfish",
+      "tamil_name": "சுண்டி மீன்",
+      "scientific_name": "Amphiprion ocellaris",
+      "description": "Famous for their symbiotic relationship with sea anemones. Commonly found in coral reef ecosystems along the Tamil Nadu coast.",
+      "habitat": "Coral reefs and sea anemone hosts in shallow tropical waters.",
+      "diet": "Algae, zooplankton, and small crustaceans",
+      "behavior": "Lives in symbiosis with sea anemones, which provide protection from predators.",
+      "identification": "Bright orange body with three white vertical stripes outlined in black.",
+      "conservation_status": "Least Concern",
+      "is_verified": true,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "guides.guide_species",
+    "pk": "55555555-5555-5555-5555-555555555506",
+    "fields": {
+      "category": "44444444-4444-4444-4444-444444444405",
+      "common_name": "Brahminy Kite",
+      "tamil_name": "கழுத்துப்புள்ளி",
+      "scientific_name": "Haliastur indus",
+      "description": "A medium-sized bird of prey commonly found near coastal areas. Important scavenger in marine ecosystems.",
+      "habitat": "Coastal areas, estuaries, and inland waterways.",
+      "diet": "Fish, crabs, and carrion",
+      "behavior": "Soars on thermals, often seen near fishing harbors scavenging for food.",
+      "identification": "Chestnut-brown body with white head and breast, yellow bill and feet.",
+      "conservation_status": "Least Concern",
+      "is_verified": true,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  }
+]

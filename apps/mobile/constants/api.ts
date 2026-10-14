@@ -1,0 +1,137 @@
+const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL || 'http://192.168.1.4:8000/api/v1';
+
+export const API_URL = API_BASE_URL;
+
+export const ENDPOINTS = {
+  AUTH: {
+    REGISTER: '/auth/register/',
+    LOGIN: '/auth/login/',
+    REFRESH: '/auth/token/refresh/',
+    ME: '/auth/me/',
+  },
+  GUIDES: {
+    CATEGORIES: '/guides/categories/',
+    SPECIES: '/guides/species/',
+  },
+  EDUCATION: {
+    POSTS: '/education/posts/',
+  },
+  CONTRIBUTIONS: {
+    CREATE: '/contributions/',
+    MY: '/contributions/my/',
+    MY_STATS: '/contributions/my/stats/',
+    PUBLIC: '/contributions/public/',
+    PUBLIC_DETAIL: (id: string) => `/contributions/public/${id}/`,
+    REVIEW: (id: string) => `/contributions/${id}/review/`,
+    WIZARD_CONFIG: '/contributions/wizard-config/',
+  },
+  LOCATIONS: {
+    STATES: '/states/',
+    DISTRICTS: '/districts/',
+    VILLAGES: '/villages/',
+  },
+  SOUNDS: {
+    LIST: '/sounds/',
+    CREATE: '/sounds/create/',
+    LIBRARY_CATEGORIES: '/sounds/library/categories/',
+    LIBRARY_ITEMS: '/sounds/library/items/',
+  },
+  SIGHTINGS: {
+    LIST: '/sightings/',
+    CREATE: '/sightings/create/',
+  },
+  CATCHES: {
+    LIST: '/catches/',
+  },
+  OBSERVATIONS: {
+    LIST: '/observations/',
+  },
+  COMMUNITY: {
+    MEMBERS: '/auth/members/',
+    EVENTS: '/community/events/',
+    EVENT_CREATE: '/community/events/create/',
+    POSTS: '/community/posts/',
+  },
+  MAPS: {
+    ZONES: '/zones/',
+    HOTSPOTS: '/maps/hotspots/',
+    HOTSPOTS_GEOJSON: '/maps/hotspots/geojson/',
+    OBSERVATIONS: '/maps/observations/',
+    EMERGENCY: '/maps/emergency/contacts/',
+    EMERGENCY_NEARBY: '/maps/emergency/nearby/',
+    STATE_PROFILES: '/state-profiles/',
+  },
+  RECOGNITION: {
+    AWARDS: '/recognition/awards/',
+    AWARDS_ME: '/recognition/awards/me/',
+    LEADERBOARD: '/recognition/leaderboard/',
+    SCORES_ME: '/recognition/scores/me/',
+    RANK_ME: '/recognition/scores/me/rank/',
+    SUMMARY: '/recognition/summary/',
+    TIERS: '/recognition/tiers/',
+    BADGES: '/recognition/badges/',
+    REGIONS: '/recognition/regions/',
+    CATALOGUE: '/recognition/catalogue/',
+    NEARBY: '/recognition/nearby/',
+    ZONES: '/recognition/awareness-zones/',
+  },
+  SEARCH: '/search/',
+  NOTIFICATIONS: '/notifications/',
+  EMERGENCY: {
+    OFFLINE: '/emergency/offline-data/',
+    NEAREST: '/emergency/nearest/',
+  },
+  SECURITY: {
+    DELETE_ACCOUNT: '/security/delete-account/',
+    EXPORT_DATA: '/security/export-data/',
+    CONSENT: '/security/consent/',
+  },
+  MARKETPLACE: {
+    CATEGORIES: '/marketplace/categories/',
+    VENDORS: '/marketplace/vendors/',
+    PRODUCTS: '/marketplace/products/',
+    ORDERS: '/marketplace/orders/',
+  },
+  ECOTOURISM: {
+    BEACHES: '/ecotourism/beaches/',
+    OPPORTUNITIES: '/ecotourism/opportunities/',
+    CLEANUPS: '/ecotourism/cleanups/',
+    BUSINESSES: '/ecotourism/businesses/',
+    MODELS: '/ecotourism/models/',
+    EXPERIENCES: '/ecotourism/experiences/',
+    PACKAGES: '/ecotourism/packages/',
+    FAMILIES: '/ecotourism/families/',
+    BOOKINGS: '/ecotourism/bookings/',
+    MY_BOOKINGS: '/ecotourism/my-bookings/',
+    SPLIT_RULES: '/ecotourism/split-rules/',
+    SPLIT_PREVIEW: '/ecotourism/split-preview/',
+    REVIEWS: '/ecotourism/reviews/',
+    LEAN_SEASON: '/ecotourism/lean-season/',
+    MAP_POINTS: '/ecotourism/map-points/',
+    PROVIDER_DASHBOARD: '/ecotourism/provider/dashboard/',
+  },
+  LIVELIHOOD: {
+    BUSINESS_IDEAS: '/livelihood/business-ideas/',
+    SCHEMES: '/livelihood/schemes/',
+    WORKSHOPS: '/livelihood/workshops/',
+  },
+  AI: {
+    SPECIES_IDENTIFY: '/ai/species/identify/',
+    SPECIES_HISTORY: '/ai/species/history/',
+    VOICE_TRANSCRIBE: '/ai/voice/transcribe/',
+    VOICE_HISTORY: '/ai/voice/history/',
+    TRANSLATE: '/ai/translate/',
+    SEMANTIC_SEARCH: '/ai/search/',
+    QUALITY_CHECK: '/ai/quality/check/',
+  },
+  ANALYTICS: {
+    ANNUAL_REPORTS: '/analytics/annual-reports/',
+    MONTHLY_TRENDS: '/analytics/monthly-trends/',
+    YEAR_COMPARISON: '/analytics/year-comparison/',
+    VARIANCE: '/analytics/variance/',
+  },
+  RESEARCH: {
+    OBSERVATIONS: '/research/observations/',
+    EXPORT: '/research/export/',
+  },
+} as const;

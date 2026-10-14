@@ -1,0 +1,13 @@
+﻿
+
+    Directory: I:\xampp8212\htdocs\oneoceanonelife\apps\web\.next
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----        10-10-2026  04:43 PM                dev                                                                  
+-a----        10-10-2026  04:51 PM            214 _events_26000.json                                                   
+-a----        10-10-2026  03:04 PM            214 _events_36140.json                                                   
+-a----        10-10-2026  04:50 PM            214 _events_8860.json                                                    
+
+
