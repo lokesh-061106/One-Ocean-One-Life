@@ -1,0 +1,26 @@
+# CI lint baseline. Pin the rule set explicitly: ruff 0.17+ enables a much
+# broader default, which would flag ~1500 pre-existing issues. We keep the
+# classic conservative set (syntax errors, undefined names, real bugs) and
+# ignore legacy noise so the gate stays green without a whole-repo cleanup.
+line-length = 120
+
+[lint]
+select = [
+    "E4",   # import errors
+    "E7",   # statement errors
+    "E9",   # runtime errors (syntax etc.)
+    "F",    # pyflakes (undefined names, unused, etc.)
+]
+extend-ignore = [
+    "F401",   # unused-import (legacy modules)
+    "F405",   # undefined-local-with-import-star-usage (settings star-imports)
+    "F541",   # f-string-without-placeholders
+    "F811",   # redefined-while-unused (conditional/re-export patterns)
+    "F841",   # unused-variable
+]
+
+[lint.per-file-ignores]
+# Seed/diag scripts bootstrap sys.path + Django settings before importing.
+"_diag.py" = ["E402"]
+"cms/seed_cms.py" = ["E402"]
+"ecotourism/seed.py" = ["E402"]

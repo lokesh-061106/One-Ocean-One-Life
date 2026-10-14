@@ -17,7 +17,7 @@ User = get_user_model()
 class SplitComputationTests(TestCase):
     def test_default_split_matches_transparency_spec(self):
         lines = services.compute_split(3000, 'fisher_coastal')
-        amounts = {l['recipient_type']: l['amount'] for l in lines}
+        amounts = {ln['recipient_type']: ln['amount'] for ln in lines}
         self.assertEqual(amounts['provider'], Decimal('2400.00'))
         self.assertEqual(amounts['village'], Decimal('300.00'))
         self.assertEqual(amounts['platform'], Decimal('150.00'))
@@ -26,7 +26,7 @@ class SplitComputationTests(TestCase):
     def test_lines_always_sum_to_total(self):
         for total in (4999, 300, 99.5, 12345.67, 7):
             lines = services.compute_split(total, 'default')
-            s = sum(l['amount'] for l in lines)
+            s = sum(ln['amount'] for ln in lines)
             self.assertEqual(s, Decimal(str(total)).quantize(Decimal('0.01')))
 
     def test_configurable_rule_is_used(self):
@@ -35,7 +35,7 @@ class SplitComputationTests(TestCase):
             provider_pct=70, village_pct=15, platform_pct=10, conservation_pct=5,
         )
         lines = services.compute_split(1000, 'ocean_learning')
-        amounts = {l['recipient_type']: l['amount'] for l in lines}
+        amounts = {ln['recipient_type']: ln['amount'] for ln in lines}
         self.assertEqual(amounts['provider'], Decimal('700.00'))
         self.assertEqual(amounts['village'], Decimal('150.00'))
 
@@ -105,7 +105,7 @@ class BookingFlowTests(TestCase):
         self.assertEqual(resp.status_code, 201, resp.data)
         self.assertEqual(Decimal(str(resp.data['total_amount'])), Decimal('4000.00'))
         self.assertIn('split_preview', resp.data)
-        preview = {l['recipient_type']: Decimal(str(l['amount'])) for l in resp.data['split_preview']}
+        preview = {ln['recipient_type']: Decimal(str(ln['amount'])) for ln in resp.data['split_preview']}
         self.assertEqual(preview['provider'], Decimal('3200.00'))
 
     def test_demo_payment_creates_payout_ledger(self):
@@ -231,7 +231,7 @@ class PublicEndpointTests(TestCase):
     def test_split_preview_calculator(self):
         resp = self.client.post('/api/v1/ecotourism/split-preview/', {'amount': 3000})
         self.assertEqual(resp.status_code, 200)
-        amounts = {l['recipient_type']: Decimal(str(l['amount'])) for l in resp.data['lines']}
+        amounts = {ln['recipient_type']: Decimal(str(ln['amount'])) for ln in resp.data['lines']}
         self.assertEqual(amounts['provider'], Decimal('2400.00'))
 
     def test_map_points(self):

@@ -147,7 +147,7 @@ def _f(key, label, type='string', required=False, choices=None, section='details
         'section': section, 'help': help,
     }
     if choices:
-        field['choices'] = [{'value': v, 'label': l} for v, l in choices]
+        field['choices'] = [{'value': v, 'label': lbl} for v, lbl in choices]
     field.update(extra)
     return field
 
@@ -437,9 +437,9 @@ def build_wizard_config():
         })
     return {
         'contributor_types': [
-            {'value': v, 'label': l} for v, l in CONTRIBUTOR_TYPE_CHOICES
+            {'value': v, 'label': lbl} for v, lbl in CONTRIBUTOR_TYPE_CHOICES
         ],
-        'species_groups': [{'value': v, 'label': l} for v, l in SPECIES_GROUP_CHOICES],
+        'species_groups': [{'value': v, 'label': lbl} for v, lbl in SPECIES_GROUP_CHOICES],
         'types': types,
     }
 

@@ -25,8 +25,12 @@ DATABASES = {
     }
 }
 
-GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH', r'I:\PostgreSQL\18\bin\libgdal-35.dll')
-GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH', r'I:\PostgreSQL\18\bin\libgeos_c.dll')
+if os.name == 'nt':
+    GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH', r'I:\PostgreSQL\18\bin\libgdal-35.dll')
+    GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH', r'I:\PostgreSQL\18\bin\libgeos_c.dll')
+else:
+    GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH') or None
+    GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH') or None
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.1.4', '*']
 

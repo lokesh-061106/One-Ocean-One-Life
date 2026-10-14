@@ -208,7 +208,7 @@ def verify_razorpay_payment(payment_id, order_id, signature):
             'razorpay_signature': signature,
         })
         return True
-    except:
+    except Exception:
         return False
 
 
