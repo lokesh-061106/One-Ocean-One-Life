@@ -87,4 +87,4 @@ logs/
 log.txt
 
 # Database dumps (contain real user data — keep out of git)
-docs/database-backup.sql
+docs/database-backup*.sql
