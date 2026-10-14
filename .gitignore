@@ -35,8 +35,15 @@ Thumbs.db
 *.log
 db.sqlite3
 db.sqlite3-journal
-media/
 staticfiles/
+
+# Django media uploads — apps/api/media is a Django app (code IS tracked);
+# only user-uploaded content under it stays out of git.
+apps/api/media/*
+!apps/api/media/*.py
+!apps/api/media/migrations
+apps/api/media/migrations/*
+!apps/api/media/migrations/*.py
 
 # Mobile
 apps/mobile/.expo/
