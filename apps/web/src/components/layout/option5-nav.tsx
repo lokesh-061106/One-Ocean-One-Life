@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useNavFilter } from "@/components/layout/nav-data";
 
 /* ============================================================ */
 /*  Option 5: Document Header (brand panel + action row +       */
@@ -104,6 +105,14 @@ export function Option5BrandZone() {
 
 export function Option5NavRow() {
   const pathname = usePathname();
+  const filter = useNavFilter();
+
+  /* Admin-disabled links are dropped; the rest follow the admin's order. */
+  const visibleLinks = docLinks
+    .map((link, index) => ({ link, index }))
+    .filter(({ link }) => filter.isVisible(link.href))
+    .sort((a, b) => filter.orderOf(a.link.href) - filter.orderOf(b.link.href) || a.index - b.index)
+    .map(({ link }) => link);
 
   return (
     <nav
@@ -112,7 +121,7 @@ export function Option5NavRow() {
         "hidden w-full flex-wrap items-center gap-x-2 gap-y-1 px-4 pb-3 pt-1 lg:flex lg:px-6"
       )}
     >
-      {docLinks.map((link) => {
+      {visibleLinks.map((link) => {
         const active = isLinkActive(link, pathname);
         return (
           <Link

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Page, PageSection, PageFAQ, ContactInfo, SiteHeaderConfig
+from .models import Page, PageSection, PageFAQ, ContactInfo, SiteHeaderConfig, MenuItem
 
 
 class PageSectionSerializer(serializers.ModelSerializer):
@@ -61,3 +61,18 @@ class HeaderMenuSerializer(serializers.ModelSerializer):
         model = SiteHeaderConfig
         fields = ["selected_menu_option", "show_option1", "show_option2", "show_option3", "show_option4", "show_option5", "updated_at"]
         read_only_fields = ["updated_at"]
+
+
+class MenuItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MenuItem
+        fields = ["id", "key", "label", "href", "group", "description", "icon", "sort_order", "is_visible", "is_accent", "updated_at"]
+        read_only_fields = ["updated_at"]
+
+
+class MenuItemBulkSerializer(serializers.Serializer):
+    """Partial update payload for the admin save action."""
+
+    id = serializers.IntegerField()
+    is_visible = serializers.BooleanField(required=False)
+    sort_order = serializers.IntegerField(required=False)

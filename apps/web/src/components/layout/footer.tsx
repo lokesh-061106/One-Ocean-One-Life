@@ -4,6 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Heart, ExternalLink } from "lucide-react";
+import { useNavFilter } from "@/components/layout/nav-data";
 
 const footerLinks = {
   explore: [
@@ -41,8 +42,7 @@ function FooterColumn({
 }: {
   title: string;
   links: { href: string; label: string }[];
-}) {
-  return (
+}) {  return (
     <div>
       <h3 className="font-semibold mb-4 text-white">{title}</h3>
       <ul className="space-y-2">
@@ -62,6 +62,23 @@ function FooterColumn({
 }
 
 export function Footer() {
+  const filter = useNavFilter();
+
+  /* Drop admin-disabled links and follow the admin's ordering. */
+  const visible = (links: { href: string; label: string }[]) =>
+    links
+      .map((link, index) => ({ link, index }))
+      .filter(({ link }) => filter.isVisible(link.href))
+      .sort((a, b) => filter.orderOf(a.link.href) - filter.orderOf(b.link.href) || a.index - b.index)
+      .map(({ link }) => link);
+
+  const columns = [
+    { title: "Explore", links: visible(footerLinks.explore) },
+    { title: "Get Involved", links: visible(footerLinks.getInvolved) },
+    { title: "Community", links: visible(footerLinks.community) },
+    { title: "About", links: visible(footerLinks.about) },
+  ].filter((column) => column.links.length > 0);
+
   return (
     <footer className="bg-ocean-navy text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -113,10 +130,9 @@ export function Footer() {
             </div>
           </div>
 
-          <FooterColumn title="Explore" links={footerLinks.explore} />
-          <FooterColumn title="Get Involved" links={footerLinks.getInvolved} />
-          <FooterColumn title="Community" links={footerLinks.community} />
-          <FooterColumn title="About" links={footerLinks.about} />
+          {columns.map((column) => (
+            <FooterColumn key={column.title} title={column.title} links={column.links} />
+          ))}
         </div>
 
         <div className="border-t border-white/10 mt-8 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">

@@ -89,3 +89,32 @@ class SiteHeaderConfig(models.Model):
     def get_singleton(cls):
         obj, _ = cls.objects.get_or_create(pk=1)
         return obj
+
+
+class MenuItem(models.Model):
+    """A single storefront navigation link an admin can show/hide and reorder."""
+
+    GROUP_CHOICES = [
+        ("explore", "Explore"),
+        ("community", "Community"),
+        ("marketplace", "Marketplace"),
+        ("general", "General"),
+    ]
+
+    key = models.SlugField(unique=True, help_text="Stable identifier (e.g. 'ocean-map')")
+    label = models.CharField(max_length=100, help_text="Text shown in the navigation")
+    href = models.CharField(max_length=200, help_text="Link target (e.g. '/map')")
+    group = models.CharField(max_length=20, choices=GROUP_CHOICES, default="general")
+    description = models.CharField(max_length=200, blank=True, help_text="Optional subtitle for dropdown menus")
+    icon = models.CharField(max_length=50, blank=True, help_text="Lucide icon name (e.g. 'MapPin')")
+    sort_order = models.IntegerField(default=0)
+    is_visible = models.BooleanField(default=True, help_text="Hidden items are removed from the storefront navigation")
+    is_accent = models.BooleanField(default=False, help_text="Render with the danger/accent style (e.g. Emergency)")
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["sort_order", "key"]
+        verbose_name = "Menu item"
+
+    def __str__(self):
+        return f"{self.label} ({self.href})"

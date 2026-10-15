@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.shortcuts import redirect
-from .models import Page, PageSection, PageFAQ, ContactInfo, SiteHeaderConfig
+from .models import Page, PageSection, PageFAQ, ContactInfo, SiteHeaderConfig, MenuItem
 
 
 class PageSectionInline(admin.StackedInline):
@@ -87,3 +87,16 @@ class SiteHeaderConfigAdmin(admin.ModelAdmin):
 
     def changelist_view(self, request, extra_context=None):
         return redirect("admin:cms_siteheaderconfig_change", SiteHeaderConfig.get_singleton().pk)
+
+
+@admin.register(MenuItem)
+class MenuItemAdmin(admin.ModelAdmin):
+    """Storefront navigation links shown/hidden from the /dashboard/frontend-menu module."""
+
+    list_display = ["sort_order", "label", "href", "group", "is_visible", "is_accent", "updated_at"]
+    list_display_links = ["label"]
+    list_editable = ["sort_order", "is_visible"]
+    list_filter = ["group", "is_visible"]
+    search_fields = ["label", "href", "key"]
+    readonly_fields = ["updated_at"]
+    ordering = ["sort_order", "key"]

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useNavFilter } from "@/components/layout/nav-data";
 
 /* ============================================================ */
 /*  Option 3: Tabbed Navigation                                 */
@@ -42,13 +43,21 @@ function isTabActive(tab: Tab, pathname: string): boolean {
 
 export function Option3Nav() {
   const pathname = usePathname();
+  const filter = useNavFilter();
+
+  /* Admin-disabled tabs are dropped; the rest keep the admin's order. */
+  const visibleTabs = tabs
+    .map((tab, index) => ({ tab, index }))
+    .filter(({ tab }) => filter.isVisible(tab.href))
+    .sort((a, b) => filter.orderOf(a.tab.href) - filter.orderOf(b.tab.href) || a.index - b.index)
+    .map(({ tab }) => tab);
 
   return (
     <div className="border-t border-border/50 bg-white/95 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Desktop tab bar */}
         <nav className="hidden lg:flex items-center gap-1" aria-label="Section tabs">
-          {tabs.map((tab) => {
+          {visibleTabs.map((tab) => {
             const active = isTabActive(tab, pathname);
             const Icon = tab.accent ? AlertTriangle : null;
             return (
@@ -85,7 +94,7 @@ export function Option3Nav() {
 
         {/* Mobile tab strip */}
         <div className="lg:hidden flex flex-wrap items-center gap-1 py-2">
-          {tabs.map((tab) => {
+          {visibleTabs.map((tab) => {
             const active = isTabActive(tab, pathname);
             return (
               <Link

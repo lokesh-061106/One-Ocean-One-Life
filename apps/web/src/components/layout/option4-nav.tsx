@@ -6,7 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { AlertTriangle, LogOut, Settings, User, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { navGroups, emergencyNavItem } from "@/components/layout/nav-data";
+import { useNavData } from "@/components/layout/nav-data";
 import { useAuth } from "@/components/auth-context";
 import { useHydrated } from "@/hooks/use-hydrated";
 
@@ -20,8 +20,8 @@ export function Option4Sidebar() {
   const pathname = usePathname();
   const mounted = useHydrated();
   const { user, logout } = useAuth();
-
-  const EmergencyIcon = emergencyNavItem.icon;
+  const { navGroups, emergencyNavItem } = useNavData();
+  const EmergencyIcon = emergencyNavItem?.icon;
 
   return (
     <aside
@@ -80,20 +80,22 @@ export function Option4Sidebar() {
           );
         })}
 
-        <div className="border-t border-border/50 pt-3">
-          <Link
-            href={emergencyNavItem.href}
-            className={cn(
-              "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-150",
-              pathname === emergencyNavItem.href || pathname.startsWith(`${emergencyNavItem.href}/`)
-                ? "bg-ocean-danger/10 text-ocean-danger"
-                : "text-ocean-danger hover:bg-ocean-danger/10"
-            )}
-          >
-            <EmergencyIcon className="h-4 w-4 shrink-0" />
-            {emergencyNavItem.label}
-          </Link>
-        </div>
+        {emergencyNavItem && EmergencyIcon && (
+          <div className="border-t border-border/50 pt-3">
+            <Link
+              href={emergencyNavItem.href}
+              className={cn(
+                "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-150",
+                pathname === emergencyNavItem.href || pathname.startsWith(`${emergencyNavItem.href}/`)
+                  ? "bg-ocean-danger/10 text-ocean-danger"
+                  : "text-ocean-danger hover:bg-ocean-danger/10"
+              )}
+            >
+              <EmergencyIcon className="h-4 w-4 shrink-0" />
+              {emergencyNavItem.label}
+            </Link>
+          </div>
+        )}
       </nav>
 
       {/* Account */}

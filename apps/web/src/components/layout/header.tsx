@@ -22,7 +22,7 @@ import {
   Award,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { navGroups } from "@/components/layout/nav-data";
+import { useNavData, useNavFilter } from "@/components/layout/nav-data";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/components/auth-context";
 import { useHydrated } from "@/hooks/use-hydrated";
@@ -53,6 +53,8 @@ export function Header() {
   const pathname = usePathname();
   const headerMenu = useHeaderMenuConfig();
   const activeMenu: MenuOption = resolveActiveMenu(headerMenu);
+  const { navGroups } = useNavData();
+  const menuFilter = useNavFilter();
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [searchOpen, setSearchOpen] = React.useState(false);
   const [notificationOpen, setNotificationOpen] = React.useState(false);
@@ -411,10 +413,11 @@ export function Header() {
         />
         <nav className="relative h-full bg-white overflow-y-auto animate-slide-in-right">
           <div className="max-w-7xl mx-auto px-4 py-6 space-y-8">
+            {navGroups.find((g) => g.label === "Explore") && (
             <div>
               <h3 className="text-xs font-semibold uppercase tracking-wider text-ocean-muted px-1 mb-3">Explore</h3>
               <div className="space-y-0.5">
-                {navGroups[0].items.map((item) => {
+                {navGroups.find((g) => g.label === "Explore")?.items.map((item) => {
                   const ItemIcon = item.icon;
                   const active = pathname === item.href || pathname.startsWith(item.href + "/");
                   return (
@@ -427,10 +430,12 @@ export function Header() {
                 })}
               </div>
             </div>
+            )}
+            {navGroups.find((g) => g.label === "Community") && (
             <div>
               <h3 className="text-xs font-semibold uppercase tracking-wider text-ocean-muted px-1 mb-3">Community</h3>
               <div className="space-y-0.5">
-                {navGroups[1].items.map((item) => {
+                {navGroups.find((g) => g.label === "Community")?.items.map((item) => {
                   const ItemIcon = item.icon;
                   const active = pathname === item.href || pathname.startsWith(item.href + "/");
                   return (
@@ -443,29 +448,36 @@ export function Header() {
                 })}
               </div>
             </div>
+            )}
             <div>
               <h3 className="text-xs font-semibold uppercase tracking-wider text-ocean-muted px-1 mb-3">Other</h3>
               <div className="space-y-0.5">
-                <Link href="/marketplace" onClick={() => setMobileMenuOpen(false)}
-                  className={cn("flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150",
-                    (pathname === "/marketplace" || pathname.startsWith("/marketplace/")) ? "bg-ocean-light text-ocean-blue" : "text-ocean-text-secondary hover:bg-ocean-light hover:text-ocean-blue")}>
-                  <Package className="h-4 w-4 shrink-0" />Marketplace
-                </Link>
-                <Link href="/ecotourism" onClick={() => setMobileMenuOpen(false)}
-                  className={cn("flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150",
-                    (pathname === "/ecotourism" || pathname.startsWith("/ecotourism/")) ? "bg-ocean-light text-ocean-blue" : "text-ocean-text-secondary hover:bg-ocean-light hover:text-ocean-blue")}>
-                  <Waves className="h-4 w-4 shrink-0" />Ecotourism
-                </Link>
+                {menuFilter.isVisible("/marketplace") && (
+                  <Link href="/marketplace" onClick={() => setMobileMenuOpen(false)}
+                    className={cn("flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150",
+                      (pathname === "/marketplace" || pathname.startsWith("/marketplace/")) ? "bg-ocean-light text-ocean-blue" : "text-ocean-text-secondary hover:bg-ocean-light hover:text-ocean-blue")}>
+                    <Package className="h-4 w-4 shrink-0" />Marketplace
+                  </Link>
+                )}
+                {menuFilter.isVisible("/ecotourism") && (
+                  <Link href="/ecotourism" onClick={() => setMobileMenuOpen(false)}
+                    className={cn("flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150",
+                      (pathname === "/ecotourism" || pathname.startsWith("/ecotourism/")) ? "bg-ocean-light text-ocean-blue" : "text-ocean-text-secondary hover:bg-ocean-light hover:text-ocean-blue")}>
+                    <Waves className="h-4 w-4 shrink-0" />Ecotourism
+                  </Link>
+                )}
                 <Link href="/economy/shg" onClick={() => setMobileMenuOpen(false)}
                   className={cn("flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150",
                     pathname.startsWith("/economy/shg") ? "bg-ocean-light text-ocean-blue" : "text-ocean-text-secondary hover:bg-ocean-light hover:text-ocean-blue")}>
                   <Recycle className="h-4 w-4 shrink-0" />Fisherwomen SHGs
                 </Link>
-                <Link href="/emergency" onClick={() => setMobileMenuOpen(false)}
-                  className={cn("flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150",
-                    (pathname === "/emergency" || pathname.startsWith("/emergency/")) ? "bg-ocean-danger/10 text-ocean-danger" : "text-ocean-danger hover:bg-ocean-danger/10")}>
-                  <AlertTriangle className="h-4 w-4 shrink-0" />Emergency
-                </Link>
+                {menuFilter.isVisible("/emergency") && (
+                  <Link href="/emergency" onClick={() => setMobileMenuOpen(false)}
+                    className={cn("flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150",
+                      (pathname === "/emergency" || pathname.startsWith("/emergency/")) ? "bg-ocean-danger/10 text-ocean-danger" : "text-ocean-danger hover:bg-ocean-danger/10")}>
+                    <AlertTriangle className="h-4 w-4 shrink-0" />Emergency
+                  </Link>
+                )}
               </div>
             </div>
             <div className="border-t border-border/50" />

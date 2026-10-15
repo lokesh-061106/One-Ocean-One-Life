@@ -87,6 +87,8 @@ export const ENDPOINTS = {
   },
   CMS: {
     HEADER_MENU: '/cms/header-menu/',
+    MENU_ITEMS: '/cms/menu-items/',
+    MENU_ITEMS_BULK: '/cms/menu-items/bulk/',
   },
   SEARCH: '/search/',
   MEDIA: '/media/',

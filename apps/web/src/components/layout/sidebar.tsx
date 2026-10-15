@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  LayoutDashboard, Users, FileText, Award, Map, BarChart3, Settings, Bell, ChevronLeft, ChevronRight, LogOut, Waves, Fish, Eye, Mic, Ticket, Compass, Menu, ShieldCheck,
+  LayoutDashboard, Users, FileText, Award, Map, BarChart3, Settings, Bell, ChevronLeft, ChevronRight, LogOut, Waves, Fish, Eye, Mic, Ticket, Compass, Menu, ShieldCheck, ListOrdered,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -75,6 +75,7 @@ export function Sidebar({ collapsed = false, onToggle }: SidebarProps) {
     { title: "Analytics", items: analystItems },
     { title: "System", items: [
       ...(canConfigureHeader ? [{ href: "/dashboard/header-menu", label: "Header Menu", icon: Menu }] : []),
+      ...(canConfigureHeader ? [{ href: "/dashboard/frontend-menu", label: "Frontend Menu", icon: ListOrdered }] : []),
       { href: "/dashboard/settings", label: "Settings", icon: Settings },
     ] },
   ];

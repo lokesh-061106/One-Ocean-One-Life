@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronDown, Compass, Users, Package, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { navGroups } from "@/components/layout/nav-data";
+import { useNavData } from "@/components/layout/nav-data";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -26,6 +26,7 @@ const groupTriggers = [
 
 export function Option2Nav() {
   const pathname = usePathname();
+  const { navGroups, emergencyNavItem } = useNavData();
 
   return (
     <nav
@@ -33,8 +34,10 @@ export function Option2Nav() {
       aria-label="Main navigation"
     >
       <div className="flex items-center gap-1">
-        {groupTriggers.map((group, index) => {
+        {groupTriggers.map((group) => {
           const TriggerIcon = group.icon;
+          const navGroup = navGroups.find((g) => g.label.toLowerCase() === group.key);
+          if (!navGroup) return null;
           return (
             <DropdownMenu key={group.key}>
               <DropdownMenuTrigger asChild>
@@ -54,7 +57,7 @@ export function Option2Nav() {
                 <DropdownMenuLabel className="text-xs font-semibold uppercase tracking-wider text-ocean-muted text-xs pb-1">
                   {group.label}
                 </DropdownMenuLabel>
-                {navGroups[index].items.map((item) => {
+                {navGroup.items.map((item) => {
                   const ItemIcon = item.icon;
                   const itemActive = pathname === item.href || pathname.startsWith(item.href + "/");
                   return (
@@ -84,18 +87,20 @@ export function Option2Nav() {
       </div>
 
       {/* Standalone emergency link at xl+ */}
-      <Link
-        href="/emergency"
-        className={cn(
-          "hidden xl:flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium transition-colors duration-200",
-          "text-ocean-danger hover:bg-ocean-danger/10 focus-visible:ring-2 focus-visible:ring-ocean-blue focus-visible:ring-offset-2 outline-none",
-          (pathname === "/emergency" || pathname.startsWith("/emergency/")) &&
-            "bg-ocean-danger/10 text-ocean-danger"
-        )}
-      >
-        <AlertTriangle className="h-4 w-4" />
-        Emergency
-      </Link>
+      {emergencyNavItem && (
+        <Link
+          href={emergencyNavItem.href}
+          className={cn(
+            "hidden xl:flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium transition-colors duration-200",
+            "text-ocean-danger hover:bg-ocean-danger/10 focus-visible:ring-2 focus-visible:ring-ocean-blue focus-visible:ring-offset-2 outline-none",
+            (pathname === emergencyNavItem.href || pathname.startsWith(emergencyNavItem.href + "/")) &&
+              "bg-ocean-danger/10 text-ocean-danger"
+          )}
+        >
+          <AlertTriangle className="h-4 w-4" />
+          {emergencyNavItem.label}
+        </Link>
+      )}
     </nav>
   );
 }
