@@ -26,8 +26,18 @@ DATABASES = {
 }
 
 if os.name == 'nt':
-    GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH', r'I:\PostgreSQL\18\bin\libgdal-35.dll')
-    GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH', r'I:\PostgreSQL\18\bin\libgeos_c.dll')
+    bin_dir = Path(__file__).resolve().parents[4] / 'pgsql' / 'pgsql' / 'bin'
+    if not bin_dir.exists():
+        bin_dir = Path(r'D:\oneoceanonelife\pgsql\pgsql\bin')
+    if bin_dir.exists():
+        try:
+            os.add_dll_directory(str(bin_dir))
+        except (AttributeError, OSError):
+            pass
+        os.environ['PATH'] = str(bin_dir) + os.pathsep + os.environ.get('PATH', '')
+
+    GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH', str(bin_dir / 'libgdal-35.dll'))
+    GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH', str(bin_dir / 'libgeos_c.dll'))
 else:
     GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH') or None
     GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH') or None

@@ -82,42 +82,6 @@ class Command(BaseCommand):
     def _create_locations(self):
         from locations.models import Zone, District, Village
 
-        if Zone.objects.exists():
-            self.stdout.write("Locations already exist, skipping.")
-            return
-
-        zones_data = [
-            {"name": "North Coast", "slug": "north-coast", "zone_number": 1, "description": "Northern coastal region of Tamil Nadu including Chennai and surrounding areas."},
-            {"name": "North-Central Coast", "slug": "north-central-coast", "zone_number": 2, "description": "North-central coast spanning Cuddalore to Mayiladuthurai."},
-            {"name": "Cauvery Delta", "slug": "cauvery-delta", "zone_number": 3, "description": "The fertile Cauvery river delta region including Nagapattinam and Thanjavur."},
-            {"name": "Gulf of Mannar", "slug": "gulf-of-mannar", "zone_number": 4, "description": "Biodiverse Gulf of Mannar region between India and Sri Lanka."},
-            {"name": "Southern Cape", "slug": "southern-cape", "zone_number": 5, "description": "Southernmost tip of India around Kanyakumari."},
-        ]
-        for z in zones_data:
-            Zone.objects.create(**z)
-        self.stdout.write("  Created 5 zones")
-
-        districts_data = [
-            {"name": "Chennai", "slug": "chennai", "zone": "north-coast", "state": "Tamil Nadu", "population": 7088000, "area_sq_km": 426},
-            {"name": "Tiruvallur", "slug": "tiruvallur", "zone": "north-coast", "state": "Tamil Nadu", "population": 3728100, "area_sq_km": 3422},
-            {"name": "Cuddalore", "slug": "cuddalore", "zone": "north-central-coast", "state": "Tamil Nadu", "population": 2600880, "area_sq_km": 3144},
-            {"name": "Mayiladuthurai", "slug": "mayiladuthurai", "zone": "north-central-coast", "state": "Tamil Nadu", "population": 918356, "area_sq_km": 1172},
-            {"name": "Nagapattinam", "slug": "nagapattinam", "zone": "cauvery-delta", "state": "Tamil Nadu", "population": 697069, "area_sq_km": 1282},
-            {"name": "Thanjavur", "slug": "thanjavur", "zone": "cauvery-delta", "state": "Tamil Nadu", "population": 2405890, "area_sq_km": 3476},
-            {"name": "Tiruvarur", "slug": "tiruvarur", "zone": "cauvery-delta", "state": "Tamil Nadu", "population": 1093190, "area_sq_km": 2167},
-            {"name": "Pudukkottai", "slug": "pudukkottai", "zone": "gulf-of-mannar", "state": "Tamil Nadu", "population": 1618345, "area_sq_km": 4663},
-            {"name": "Ramanathapuram", "slug": "ramanathapuram", "zone": "gulf-of-mannar", "state": "Tamil Nadu", "population": 1337560, "area_sq_km": 4123},
-            {"name": "Thoothukudi", "slug": "thoothukudi", "zone": "gulf-of-mannar", "state": "Tamil Nadu", "population": 1942288, "area_sq_km": 4621},
-            {"name": "Tenkasi", "slug": "tenkasi", "zone": "southern-cape", "state": "Tamil Nadu", "population": 1337560, "area_sq_km": 2916},
-            {"name": "Tirunelveli", "slug": "tirunelveli", "zone": "southern-cape", "state": "Tamil Nadu", "population": 1658713, "area_sq_km": 3286},
-            {"name": "Kanyakumari", "slug": "kanyakumari", "zone": "southern-cape", "state": "Tamil Nadu", "population": 1873742, "area_sq_km": 1684},
-            {"name": "Chengalpattu", "slug": "chengalpattu", "zone": "north-coast", "state": "Tamil Nadu", "population": 2540378, "area_sq_km": 3123},
-        ]
-        for d in districts_data:
-            zone = Zone.objects.get(slug=d.pop("zone"))
-            District.objects.create(zone=zone, **d)
-        self.stdout.write("  Created 14 districts")
-
         villages_data = [
             {"name": "Nagapattinam", "slug": "nagapattinam", "district": "nagapattinam", "is_coastal": True, "population": 102833, "latitude": 10.7656, "longitude": 79.8420},
             {"name": "Poompuhar", "slug": "poompuhar", "district": "nagapattinam", "is_coastal": True, "population": 25000, "latitude": 11.1497, "longitude": 79.8508},
@@ -131,9 +95,12 @@ class Command(BaseCommand):
             {"name": "Kapaleeshwarar", "slug": "kapaleeshwarar-temple", "district": "chennai", "is_coastal": False, "population": 10000, "latitude": 13.0339, "longitude": 80.2700},
         ]
         for v in villages_data:
-            district = District.objects.get(slug=v.pop("district"))
-            Village.objects.create(district=district, **v)
-        self.stdout.write("  Created 10 villages")
+            dist_slug = v.pop("district")
+            district = District.objects.filter(slug=dist_slug).first()
+            if not district:
+                district = District.objects.first()
+            Village.objects.get_or_create(slug=v["slug"], defaults={"district": district, **v})
+        self.stdout.write("  Created/verified 10 villages")
 
     def _create_guides(self):
         from guides.models import GuideCategory, GuideSpecies
@@ -598,14 +565,17 @@ class Command(BaseCommand):
             {"name": "Marine Equipment", "slug": "marine-equipment", "icon": "anchor", "description": "Boat parts, anchors, and marine hardware."},
         ]
         for c in cats_data:
-            ProductCategory.objects.create(**c)
-        self.stdout.write("  Created 6 marketplace categories")
+            ProductCategory.objects.get_or_create(slug=c["slug"], defaults=c)
+        self.stdout.write("  Created/verified 6 marketplace categories")
 
         villages = list(Village.objects.all())
+        v0 = villages[0] if villages else None
+        v1 = villages[1] if len(villages) > 1 else v0
+        v3 = villages[3] if len(villages) > 3 else v0
         vendors_data = [
-            {"username": "arumugam", "shop_name": "Arumugam Fishing Store", "description": "Traditional fishing gear and modern equipment for coastal fishermen.", "village": villages[0] if villages else None, "phone": "+919876543210", "is_verified": True, "rating": 4.5, "total_sales": 340, "latitude": 10.7656, "longitude": 79.8420},
-            {"username": "kumar", "shop_name": "Kumar Marine Supplies", "description": "Quality marine equipment and safety gear.", "village": villages[3] if len(villages) > 3 else villages[0], "phone": "+919876543212", "is_verified": True, "rating": 4.2, "total_sales": 210, "latitude": 9.3763, "longitude": 78.8253},
-            {"username": "lakshmi", "shop_name": "Lakshmi Eco Crafts", "description": "Handmade recycled products from ocean plastic.", "village": villages[1] if len(villages) > 1 else villages[0], "phone": "+919876543211", "is_verified": True, "rating": 4.8, "total_sales": 180, "latitude": 11.1497, "longitude": 79.8508},
+            {"username": "arumugam", "shop_name": "Arumugam Fishing Store", "description": "Traditional fishing gear and modern equipment for coastal fishermen.", "village": v0, "phone": "+919876543210", "is_verified": True, "rating": 4.5, "total_sales": 340, "latitude": 10.7656, "longitude": 79.8420},
+            {"username": "kumar", "shop_name": "Kumar Marine Supplies", "description": "Quality marine equipment and safety gear.", "village": v3, "phone": "+919876543212", "is_verified": True, "rating": 4.2, "total_sales": 210, "latitude": 9.3763, "longitude": 78.8253},
+            {"username": "lakshmi", "shop_name": "Lakshmi Eco Crafts", "description": "Handmade recycled products from ocean plastic.", "village": v1, "phone": "+919876543211", "is_verified": True, "rating": 4.8, "total_sales": 180, "latitude": 11.1497, "longitude": 79.8508},
         ]
         vendor_objs = []
         for v in vendors_data:
